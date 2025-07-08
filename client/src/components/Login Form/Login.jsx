@@ -47,9 +47,14 @@ function Login() {
                                 placeholder="Enter your password"
                             />
                         </div>
+                        <div className="flex justify-end">
+                            <a href="/forgot-password" className="text-sm text-red-400 hover:underline">
+                                Forgot your password?
+                            </a>
+                        </div>
                         <button 
                             type="submit"
-                            className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 font-medium"
+                            className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-md transition-all duration-200 font-medium"
                         >
                             Login
                         </button>
