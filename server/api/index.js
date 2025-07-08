@@ -123,6 +123,28 @@ app.get('/api/card', async (req, res) => {
     }
 });
 
+// Endpoint Top 3 cartas mais utilizadas (mock)
+app.get('/api/cards/top3', (req, res) => {
+  const topCards = [
+    {
+      name: 'Black Lotus',
+      image: 'https://cards.scryfall.io/large/front/6/d/6da045f8-6278-4c84-9d39-025adf0789c1.jpg?1562404626',
+      usage: 120
+    },
+    {
+      name: 'Lightning Bolt',
+      image: 'https://cards.scryfall.io/large/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968',
+      usage: 110
+    },
+    {
+      name: 'Counterspell',
+      image: 'https://cards.scryfall.io/normal/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1751282477',
+      usage: 100
+    }
+  ];
+  res.json(topCards);
+});
+
 app.listen(3030, () => {
     console.log('Server is running on http://localhost:3030');
 })
