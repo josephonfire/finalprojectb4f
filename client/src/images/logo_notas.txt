@@ -1,0 +1,10 @@
+codigo para colocar o logotipo noutras paginas com o tamanho GRANDE (1st page e login page)
+
+<div className="mb-10 text-center "> <-- centraliza na pagina
+          <img src={mtg_logo_duocolor} alt="MtG Deck Builder Logo" className="inline-block w-60 h-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"  />
+          imagem com dimensoa alterada para caber porpocionalmente na pagina, com red shadow/glow
+
+
+
+
+codigo para o logo, no header/navebar
