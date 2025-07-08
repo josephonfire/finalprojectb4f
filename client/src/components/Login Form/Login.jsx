@@ -20,7 +20,7 @@ function Login() {
                     </h2>
                     <form onSubmit={handleLogin} className="space-y-4">
                         <div>
-                            <label htmlFor="username" className="block text-sm font-medium text-gray-200 mb-2">
+                            <label htmlFor="username" className="block text-left text-sm font-medium text-gray-200 mb-2">
                                 Username:
                             </label>
                             <input
@@ -29,12 +29,12 @@ function Login() {
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white/20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                                 placeholder="Enter your username"
                             />
                         </div>
                         <div>
-                            <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                            <label htmlFor="password" className="block text-left text-sm font-medium text-gray-200 mb-2">
                                 Password:
                             </label>
                             <input
@@ -43,7 +43,7 @@ function Login() {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
-                                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white/20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                                 placeholder="Enter your password"
                             />
                         </div>
@@ -54,6 +54,10 @@ function Login() {
                             Login
                         </button>
                     </form>
+                    <div className="text-center mt-4">
+                        <span className="text-gray-200">Not a member?</span>
+                        <a href="/signup" className="text-red-400 hover:underline ml-2">Sign up</a>
+                    </div>
                 </div>
             </div>
         </div>

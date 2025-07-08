@@ -3,12 +3,15 @@ import Signup from "../components/Signup";
 
 function LoginPage() {
   return (
-    <div className="App">
-      <Login/> <br />
-     Not a member?  <button> Register now!</button>
-
-     <Signup></Signup>
-    </div>
+    <>
+      <div className="App">
+        <Login/> <br />
+       
+      </div>
+      <footer className="mt-4 text-gray-500 text-sm text-center">
+        © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
+      </footer>
+    </>
   );
 }
 

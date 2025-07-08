@@ -1,7 +1,10 @@
 import CardSearch from "../components/Search Bar/CardSearch";
-// import { FaPlay, FaSignInAlt, FaUserPlus } from "react-icons/fa"; // Se usar react-icons
+import { useNavigate } from "react-router-dom";
+
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8">
       {/* Banner */}
@@ -36,7 +39,7 @@ function Home() {
 
         {/* Login + Sign up */}
         <div className="flex flex-row justify-center items-center gap-4">
-          <button className="px-6 py-3 bg-white text-red-600 rounded-lg hover:bg-gray-100 hover:scale-105 transition duration-300 font-medium shadow-lg">
+          <button onClick={() => navigate('/login')} className="px-6 py-3 bg-white text-red-600 rounded-lg hover:bg-gray-100 hover:scale-105 transition duration-300 font-medium shadow-lg">
             Login
           </button>
           <button className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 hover:scale-105 transition duration-300 font-medium shadow-lg">
