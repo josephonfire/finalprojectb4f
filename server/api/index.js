@@ -6,6 +6,77 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
+
+const { newUser, findUsers, findOneUser } = require("./services/user");
+
+// Criação de array de tokens
+const tokensArr = []
+
+// Aceitar formato JSON
+app.use(express.json());
+
+
+const errors = {
+    message: "Os dados introduzidos não são válidos",
+    errors: {
+        email: "O endereço introduzido já está registado.",
+        passwordConfirmation: "As passwords não coincidem.",
+        empty: "É obrigatório o preenchimento de todos os campos."
+    }
+}
+
+// POST do registo com condições de verificação
+app.post('/api/signup', async (req, res) => {
+    const { email, password, passwordConfirmation } = req.body; // O que receber do body será a informação POST
+     
+    // confirmação se email já existe
+    const takenEmail = await findOneUser({email})
+    if (takenEmail && email === takenEmail.email) {
+       return res.status(400).json({"message": errors.message, "error": errors.errors.email})
+    }
+
+    // confirmação se não há campos vazios
+    if (email === "" || password === "" || passwordConfirmation === "") {
+        return res.status(400).json({"message": errors.message, "error": errors.errors.empty})
+    }
+
+    // confirmação se passwords estão iguais
+    if (password !== passwordConfirmation) {
+        return res.status(400).json({"message": errors.message, "error": errors.errors.passwordConfirmation})
+    }
+
+    // se passar todas as confirmações, executa a função
+    const id = await newUser(req.body);
+    
+    return res.status(201).json({
+        "message": "Utilizador criado com sucesso!",
+        "_id": id
+    })
+})
+
+
+app.post('/api/login', async (req, res) => {
+    const { email, password } = req.body
+
+    const takenEmail = await findOneUser({email})
+    if (!takenEmail) {
+       return res.status(404).json({"message": "O utilizador não foi encontrado!"})
+    }
+
+    if (takenEmail.password !== password) {
+        return res.status(401).json({"message": "A password introduzida é inválida!"})
+    }
+
+    // Falta esta parte
+    tokensArr.push(takenEmail._id)
+
+    return res.status(200).json({
+        "_id": takenEmail._id
+    })
+
+})
+console.log(tokensArr)
+
 app.post('/api/chat', async (req, res) => {
     const { message } = req.body;
 
