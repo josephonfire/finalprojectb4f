@@ -1,6 +1,9 @@
 body {
   background-image: url('../src/images/fundo_proj_final.png');
   background-size:cover;
+   background-repeat: no-repeat;   /* Evita repetição da imagem */
+  background-position: center;    /* Centraliza a imagem */
+  height: 100vh; 
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
