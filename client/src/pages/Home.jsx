@@ -74,7 +74,7 @@ function Home() {
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Top 3 Today's Searches</h2>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
           {topCards.map((card, idx) => (
-            <div key={card.name} className="bg-white/10 rounded-lg p-4 shadow-lg flex-1 text-center">
+            <div key={card.name} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 shadow-lg flex-1 text-center">
               <div className="text-lg font-bold text-white mb-2">{idx + 1}º - {card.name}</div>
               <img src={card.image} alt={card.name} className="mx-auto rounded shadow mb-2 h-40 object-contain" />
               <div className="text-gray-300 text-sm">Searches today: {card.usage}</div>
