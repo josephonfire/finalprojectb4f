@@ -1,53 +1,56 @@
-import React from "react";
-import { useState } from "react";
-import axios from "axios"; // importar axios para requisições HTTP (scryfall API)
+import React, { useState } from "react";
+import axios from "axios";
 
-
-// Funcao e toda a logica para buscar uuma carta
 function CardSearch() {
-  const [name, setName] = useState(""); // Estado para armazenar o nome da carta
-  const [card, setCard] = useState(null); // Estado para armazenar os dados da carta encontrada
-  const [error, setError] = useState(""); // Caso ocorra um erro
+  const [name, setName] = useState("");
+  const [card, setCard] = useState(null);
+  const [error, setError] = useState("");
 
-
-  // Função para buscar a carta com base no nome
-  // Faz uma requisição para a API do Scryfall para buscar a carta pelo nome
-  // Se a carta for encontrada, atualiza o estado 'card' com os dados da carta
-  // Se ocorrer um erro, atualiza o estado 'error' com uma mensagem de erro
   const handleSearch = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3030/api/card?name=${encodeURIComponent(name)}` // Requisiçao para a API do Scryfall, usando porta 3030 no Backend
+        `http://localhost:3030/api/card?name=${encodeURIComponent(name)}`
       );
       setCard(response.data);
-      setError(""); // Limpa o erro após uma busca bem-sucedida
+      setError("");
     } catch (err) {
       setCard(null);
-      setError("Carta não encontrada!"); // mensagem de erro caso a carta não seja encontrada, usando o estado 'error'
+      setError("Carta não encontrada!");
     }
   };
 
-
-  // Renderiza o componente para retornar na pagina inicial
   return (
-    <div className="card-search">
-      <h1>Find your card</h1>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <button onClick={handleSearch}>Search</button> {/* Botão para buscar a carta */}
+    <div className="card-search mb-8 w-full max-w-md p-4">
+      <h1 className="text-2xl font-bold mb-4 text-center">Find your card</h1>
       
+      <div className="flex gap-2">
+        <input
+          className="flex-1 rounded border border-gray-300 bg-gray-800 px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Search card"
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <button
+          onClick={handleSearch}
+          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-900 transition duration-300"
+        >
+          Search
+        </button>
+      </div>
 
-      {error && <p>{error}</p>}
+      {error && <p className="mt-4 text-red-600 font-semibold">{error}</p>}
 
       {card && (
-          <>
-            <h2>{card.name}</h2>
-            <p>{card.oracle_text ? card.oracle_text : "No description available."}</p>
-            <img src={card.image_uris?.normal} alt={card.name} />
-          </>
+        <div className="mt-6 text-center">
+          <h2 className="text-xl font-bold mb-2">{card.name}</h2>
+          <p className="mb-4">{card.oracle_text || "No description available."}</p>
+          <img
+            src={card.image_uris?.normal}
+            alt={card.name}
+            className="mx-auto rounded shadow-lg"
+          />
+        </div>
       )}
     </div>
   );
