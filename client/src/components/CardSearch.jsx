@@ -21,7 +21,6 @@ function CardSearch() {
       );
       setCard(response.data);
       setError(""); // Limpa o erro após uma busca bem-sucedida
-      setError(""); // Limpa o erro ao encontrar uma carta com sucesso
     } catch (err) {
       setCard(null);
       setError("Carta não encontrada!"); // mensagem de erro caso a carta não seja encontrada, usando o estado 'error'
