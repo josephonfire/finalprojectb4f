@@ -1,0 +1,16 @@
+{T} Tap/ Virar icon
+{G} green mana icon
+{W} white mana icon
+{B} black mana icon
+{R} red mana icon
+{U} blue mana icon
+{1} one (number) icon
+{2}
+{3}
+{4}
+{5} 
+
+tenho que sacar os icones 
+substituir os simbolos pelos icones
+
+ou adicionar uma legenda
