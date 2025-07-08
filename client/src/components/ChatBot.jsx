@@ -24,7 +24,7 @@ function ChatBot() {
 
   return (
     <div>
-      <h2>Aprenda Magic com o ChatGPT</h2>
+      <h2>Aprenda Magic!</h2>
       <div style={{ height: 300, overflowY: 'auto', border: '1px solid #ccc', padding: 10 }}>
         {messages.map((msg, idx) => (
           <div key={idx} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
