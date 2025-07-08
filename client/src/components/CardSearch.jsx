@@ -21,7 +21,7 @@ function CardSearch() {
 
   return (
     <div className="card-search">
-      <h1>Busca de Cartas</h1>
+      <h1>Find your card</h1>
       <input
         type="text"
         value={name}
