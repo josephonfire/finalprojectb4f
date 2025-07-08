@@ -25,7 +25,7 @@ function CardSearch() {
       
       <div className="flex gap-2">
         <input
-          className="flex-1 rounded border border-gray-300 bg-gray-800 px-4 py-2 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 rounded border border-gray-300 bg-gray-800 px-4 py-2 text-white focus:outline-none focus:outline-2 focus:outline-red-700 active: outline-red-900"
           placeholder="Search card"
           type="text"
           value={name}
