@@ -23,7 +23,7 @@ function CardSearch() {
 
   return (
     <div className="card-search mb-8 w-full max-w-md p-4">
-      <form onSubmit={handleSearch} className="relative mb-4 flex flex-col gap-4 w-full items-stretch">
+      <form onSubmit={handleSearch} className="relative mb-4 flex flex-col gap-3 w-full items-stretch">
         <h1 className="text-2xl font-bold text-center">Find your card</h1>
         
         <div className="flex gap-2">
