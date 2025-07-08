@@ -37,7 +37,7 @@ function CardSearch() {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <button onClick={handleSearch}>Buscar</button> {/* Botão para buscar a carta */}
+      <button onClick={handleSearch}>Search</button> {/* Botão para buscar a carta */}
       
 
       {error && <p>{error}</p>}
