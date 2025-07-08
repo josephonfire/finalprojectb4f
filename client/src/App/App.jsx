@@ -1,9 +1,9 @@
 import './App.css';
-import CardSearch from './components/CardSearch';
-import ChatBot from './components/ChatBot';
-import Login from '././components/Login';
-import Home from './pages/Home';
-import LoginPage from './pages/Login';
+import CardSearch from '../components/Search Bar/CardSearch.jsx';
+import ChatBot from '../components/ChatBot.jsx';
+import Login from '../components/Login Form/Login.jsx';
+import Home from '../pages/Home.jsx';
+import LoginPage from '../pages/Login.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 

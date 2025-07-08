@@ -1,4 +1,4 @@
-import CardSearch from "../components/CardSearch"
+import CardSearch from "../components/Search Bar/CardSearch"
 
 function Home() {
     return (
