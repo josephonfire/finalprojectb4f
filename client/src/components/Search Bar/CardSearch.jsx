@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { FaSearch } from "react-icons/fa";
 
 function CardSearch() {
   const [name, setName] = useState("");
@@ -22,13 +23,13 @@ function CardSearch() {
   };
 
   return (
-    <div className="card-search mb-8 w-full max-w-md p-4">
+    <div className="card-search mb-0 w-full max-w-md p-4">
       <form onSubmit={handleSearch} className="relative mb-4 flex flex-col gap-3 w-full items-stretch">
-        <h1 className="text-2xl font-bold text-center">Find your card</h1>
+        <h1 className="text-2xl font-bold text-center text-white">Find your card</h1>
         
-        <div className="flex gap-2">
+        <div className="relative w-full">
           <input
-            className="flex-1 rounded border border-gray-300 bg-gray-800 px-4 py-2 text-white focus:outline-none focus:outline-2 focus:outline-red-700 active:outline-red-900"
+            className="flex-1 w-full rounded border border-gray-300 bg-black px-4 py-2 pr-10 text-white focus:outline-none focus:ring-2 focus:ring-red-600"
             placeholder="Search card"
             type="text"
             value={name}
@@ -36,9 +37,10 @@ function CardSearch() {
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-900 transition duration-300"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-red-600 hover:text-red-800 transition"
+            tabIndex={-1}
           >
-            Search
+            <FaSearch size={20} />
           </button>
         </div>
       </form>

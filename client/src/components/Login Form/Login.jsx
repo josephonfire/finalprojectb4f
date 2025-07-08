@@ -11,37 +11,51 @@ function Login() {
         console.log('Logging in with:', { username, password });
     };
     
-
-    // Formulario para o login
-    // O formulario tem dois campos, um para o username e outro para a senha
-    // Ao submeter o formulario, chama a funcao handleLogin
-    // A funcao handleLogin resolve os dados do formulario e imprime os dados
     return (
-        <div className="login-container">
-        <form onSubmit={handleLogin}>
-            <h2>Login</h2>
-            <div>
-            <label htmlFor="username">Username:</label> <br></br>
-            <input
-                type="text"
-                id="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-            />
+        <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+            <div className="w-full max-w-md space-y-8">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 sm:p-8 shadow-xl">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">
+                        Login
+                    </h2>
+                    <form onSubmit={handleLogin} className="space-y-4">
+                        <div>
+                            <label htmlFor="username" className="block text-sm font-medium text-gray-200 mb-2">
+                                Username:
+                            </label>
+                            <input
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white/20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                placeholder="Enter your username"
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                                Password:
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md bg-white/20 backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                placeholder="Enter your password"
+                            />
+                        </div>
+                        <button 
+                            type="submit"
+                            className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 font-medium"
+                        >
+                            Login
+                        </button>
+                    </form>
+                </div>
             </div>
-            <div>
-            <label htmlFor="password">Password:</label> <br></br>
-            <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            </div> <br></br>
-            <button type="submit">Login</button> 
-        </form>
         </div>
     );
 }
