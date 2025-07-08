@@ -20,6 +20,7 @@ function CardSearch() {
         `http://localhost:3030/api/card?name=${encodeURIComponent(name)}` // Requisiçao para a API do Scryfall, usando porta 3030 no Backend
       );
       setCard(response.data);
+      setError(""); // Limpa o erro após uma busca bem-sucedida
     } catch (err) {
       setCard(null);
       setError("Carta não encontrada!"); // mensagem de erro caso a carta não seja encontrada, usando o estado 'error'
@@ -42,11 +43,11 @@ function CardSearch() {
       {error && <p>{error}</p>}
 
       {card && (
-        <div>
-          <h2>{card.name}</h2>
-          <img src={card.image_uris?.normal} alt={card.name} />
-          <p>{card.oracle_text}</p>
-        </div>
+          <>
+            <h2>{card.name}</h2>
+            <p>{card.oracle_text ? card.oracle_text : "No description available."}</p>
+            <img src={card.image_uris?.normal} alt={card.name} />
+          </>
       )}
     </div>
   );
