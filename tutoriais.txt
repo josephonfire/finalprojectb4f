@@ -1,0 +1,141 @@
+O que é?
+
+Boas-vindos a Magic: The Gathering! Magic é um jogo de cartas colecionáveis no qual os jogadores invocam criaturas incríveis e conjuram magias poderosas para derrotar seus adversários. O jogo tem milhares de cartas, então tu sempre encontrarás uma forma de expressar teu estilo no campo de batalha.
+
+
+Como Jogar
+
+
+Configurar:
+APRENDE A A JOGAR. JOGUA PARA APRENDER.  
+Tem acesso a tudo o que tu precisas para os teus primeiros jogos de Magic: The Gathering, incluindo duas experiências de Decks guiados diferentes, um folheto de referência e Decks adicionais para começar a jogar com um amigo.
+
+ 1/2 
+Cada jogador embaralha o próprio Deck e o coloca com a face voltada para baixo á frente dele e depois compra uma MÃO* de sete cartas do seu próprio GRIMÓRIO**. Se um jogador não gostar da própria mão, ele pode optar por um MULLIGAN***. 
+
+
+*Mão 
+ A tua mão representa as cartas disponíveis para jogar. Essas cartas devem ficar escondidas, tu não deves mostrá-las ao oponente.
+ **Grimório 
+ O teu Deck de cartas é chamado de Grimório.
+ ***Mulligan 
+ Para fazer Mulligan, embaralha a tua mão no seu Grimório e compra sete cartas. Em seguida, coloca uma carta de tua escolha no fundo do teu Grimório a cada vez que fizeres mulligan neste jogo.
+
+  2/2 
+Escolhe uma maneira de CONTAR SEUS PONTOS DE VIDA* e decide qual jogador joga primeiro. Quem jogar primeiro pulará a sua primeira compra de cartas. Não te percas na contagem dos pontos de vida — para ganhares o jogo,  deves reduzir a zero os pontos de vida do teu adversário!  *Acompanhe seus pontos de vida Maneiras comuns de contar os pontos de vida incluem caneta e papel, um dado de vinte lados.
+
+
+
+CONJURANDO MAGIA
+Você deve conjurar uma carta para usá-lo.
+
+1/4
+Para conjurar uma magia, tu deves pagar numa quantidade de MANA* igual aos símbolos no canto superior direito da cartq. Os custos de MANA GENÉRICO** são representados por um número.
+ *Mana
+A mana é o poder mágico que tu utilizas para conjurar magias. Existem cinco cores de mana, cada uma representando diferentes aspectos e habilidades.
+
+**Mana genérico
+Uma carta com {4} requer quatro manas de qualquer cor, além de seus outros custos.
+
+2/4
+Para gerar mana, tu deves VIRAR* um terreno. Os terrenos produzem uma cor de mana indicada na carta. As cartas de terreno não são mágicas. Tu podes jogar um terreno durante cada um dos teus turnos gratuitamente.
+
+*Virar
+Virar é o ato de virar uma carta na área de jogo na horizontal.
+
+3/4
+Depois de conjuradas, as magias PERMANENTES*, como criaturas, artefactos e encantamentos, ficam no CAMPO DE BATALHA**.
+
+*Permanente
+Uma permanente é uma carta que permanece no campo de batalha depois de ser jogada. Artefactos, criaturas, encantamentos e terrenos são permanentes.
+
+**Campo de batalha
+O campo de batalha é o lugar em que as tuas permanentes ficam após conjuradas. As cartas no campo de batalha podem ser alvo de mágicas — tanto para ajudá-los quanto para atrapalhá-los!
+
+4/4
+Depois de conjuradas, as magias instantâneas e os feitiços vão para o CEMITÉRIO* depois de resolver seus efeitos.
+
+*Cemitério
+O cemitério é um monte com face voltada para cima para o qual as permanentes, como as criaturas, vão ao morrerem, e para o qual os feitiços e as magias instantâneas vão após serem conjurados.
+
+
+JOGANDO UM TURNO
+Cada um dos seus turnos é dividido em cinco fases.
+
+1/5
+Fase inicial — DESVIRE*  as tuas cartas e resolva quaisquer efeitos de MANUTENÇÃO**, e depois COMPRE*** uma carta.
+
+*Desvirar
+Para desvirar, retorne suas cartas para a posição vertical.
+
+**Manutenção
+Alguns das tuas cartas podem dizer “no início da tua manutenção, faz esta ação". Esta é a manutenção.
+
+***Comprar
+Coloca a carta do topo do teu grimório na tua mão. Não o mostre ao oponente!
+
+2/5
+Primeira fase principal — você pode jogar um card de terreno e conjurar quaisquer mágicas que puder em sua mão.
+
+3/5
+Fase de combate — momento em que tu  ATACAS* o oponente. A seção 4 explicará como o combate funciona.
+
+*Atacar
+Ao atacar, as tuas criaturas tentam causar dano ao oponente.
+
+4/5
+Segunda fase principal — funciona exatamente como a primeira. Se tu jogaste um terreno durante a tua primeira fase principal, não poderás fazê-lo neste momento.
+
+5/5
+Etapa final — remove qualquer dano causado às criaturas que ainda estão em jogo. Resolve quaisquer efeitos de final de turno e depois passe o turno para o oponente.
+
+
+COMBATE
+A fase de combate é dividida em diversas etapas que sempre acontecem na mesma ordem.
+
+1/3
+Declara os atacantes — escolhe com quais das tuas criaturas vais quer atacar o oponente. Vira-as.
+
+2/3
+Declara os bloqueadores — o jogador defensor pode escolher qualquer número de criaturas desviradas que ele controla para BLOQUEAR* as criaturas atacantes.
+
+Bloquear
+Se uma criatura for bloqueada, ela não poderá mais causar dano ao jogador a quem está a atacar. Ela causa dano à criatura que a está a bloquear, e a criatura bloqueadora causa dano à atacante.
+
+3/3
+Calcula o dano — os atacantes e bloqueadores CAUSAM DANO* uns aos outros, e as criaturas não bloqueadas causam dano ao jogador que está a ser atacado. As criaturas que sofreram dano igual ou superior à sua RESISTÊNCIA** morrem e são enviadas ao cemitério.
+
+Dano
+As criaturas causam dano igual ao próprio poder, o primeiro número no canto inferior direito da carta.
+
+Resistência
+O segundo número no canto inferior direito da carta é a resistência da criatura — a quantidade de dano que ela pode sofrer antes de morrer.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
