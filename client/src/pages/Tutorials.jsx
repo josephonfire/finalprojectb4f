@@ -60,7 +60,6 @@ function tutorials() {
                 </div>
             </div>
         </div>
-
     )
 }
 
