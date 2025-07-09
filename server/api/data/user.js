@@ -26,3 +26,5 @@
 
 // // exporar funções para POST e GET
 // module.exports = {createUser, getUsers, getOneUser}
+
+DB = "mongodb+srv://marlenekakonda:nczF6ayVZvITF8ra@cluster0.cifqqpy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"

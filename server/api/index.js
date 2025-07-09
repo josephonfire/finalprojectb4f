@@ -2,9 +2,14 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const cors = require('cors');
+import authRoutes from './routes.js';
+import dotenv from 'dotenv';
 
+
+dotenv.config();
 app.use(cors());
 app.use(express.json());
+app.use('/',authRoutes);
 
 
 const { newUser, findUsers, findOneUser } = require("./services/user");

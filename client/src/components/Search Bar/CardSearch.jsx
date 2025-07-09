@@ -52,7 +52,7 @@ function CardSearch() {
 
       {card && (
         <div className="mt-6 text-center">
-          <h2 className="text-xl font-bold mb-2">{card.name}</h2>
+          <h2 className="text-xl font-bold mb-2 text-white">{card.name}</h2>
           <p className="mb-4">{card.oracle_text || "No description available."}</p>
           <img
             src={card.image_uris?.normal}
