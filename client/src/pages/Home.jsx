@@ -37,18 +37,18 @@ function Home() {
   );
 
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
+    <><div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
       <Header />
       {/* Banner */}
-      { /* Adicionar algum banner aqui depois */ }
+      {/* Adicionar algum banner aqui depois */}
 
       <div className="w-full max-w-4xl mx-auto text-center">
         {/* Header */}
         <div className="mb-10 text-center ">
-          <img src={mtg_logo_duocolor} alt="MtG Deck Builder Logo" className="inline-block w-60 h-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"  />
+          <img src={mtg_logo_duocolor} alt="MtG Deck Builder Logo" className="inline-block w-60 h-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]" />
           {/* <h1 className="text-5xl font-extrabold mb-4 text-white drop-shadow-lg">
-            Magic: The Gathering
-          </h1> */}
+      Magic: The Gathering
+    </h1> */}
           <p className="text-xl mb-2 text-gray-200">
             Search for your favorite cards
           </p>
@@ -72,7 +72,7 @@ function Home() {
       </div>
 
       {/* Top 3 Cartas */}
-      <div className="mt-12 w-full max-w-4xl mx-auto"> 
+      <div className="mt-12 w-full max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Top 3 Today's Searches</h2>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
           {topCards.map((card, idx) => (
@@ -89,17 +89,16 @@ function Home() {
       <footer className="mt-16 text-gray-500 text-sm">
         © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
       </footer>
-    </div>
-    <div className="App min-h-screen flex flex-col items-center pt-16">
-      <br />
-      <h1 className="text-4xl font-bold mb-6">Magic: The Gathering</h1>
-      <p className="text-lg mb-4">Search for your favorite cards</p>
-      <p className="text-sm text-gray-200 mb-6">
-        Use the search bar below to find cards by name, type, or set.
-      </p>
-      <br />
-      <p className="text-lg font-semibold mb-4"></p>
-      <CardSearch />
+    </div><div className="App min-h-screen flex flex-col items-center pt-16">
+        <br />
+        <h1 className="text-4xl font-bold mb-6">Magic: The Gathering</h1>
+        <p className="text-lg mb-4">Search for your favorite cards</p>
+        <p className="text-sm text-gray-200 mb-6">
+          Use the search bar below to find cards by name, type, or set.
+        </p>
+        <br />
+        <p className="text-lg font-semibold mb-4"></p>
+        <CardSearch />
         <p className="text-lg font-medium mb-2">New to Magic?</p>
         <button className="px-6 py-3 bg-red-600 text-white rounded-4x1 hover:bg-red-700 transition">
           Get Started
@@ -108,7 +107,7 @@ function Home() {
           Login
         </button> <br></br>
         <button>Sign up</button>
-      </div>
+      </div></>
   );
 }
 

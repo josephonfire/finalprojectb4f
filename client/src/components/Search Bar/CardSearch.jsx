@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function CardSearch() {
   const [name, setName] = useState("");
   const [card, setCard] = useState(null);
   const [error, setError] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+  
 
   const handleSearch = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.get(
-        `http://localhost:3030/api/card?name=${encodeURIComponent(name)}`
-      );
-      setCard(response.data);
-      setError("");
+    try { 
+      // Redireciona para a página de resultados, passando o nome da carta como parâmetro de URL
+      navigate(`/search/${encodeURIComponent(name)}`);
+      // Não faz a requisição aqui; a próxima página irá buscar e mostrar os dados da carta
+      return;
     } catch (err) {
       setCard(null);
       setError("Carta não encontrada!");
