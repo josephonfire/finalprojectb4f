@@ -5,14 +5,25 @@ const cors = require('cors');
 const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
 const { registerUser, listUser } = require('./services/auth.js');
+const { newUser, findUsers, findOneUser } = require("./services/user");
+
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+
+app.use(express.json());
+app.use(cors(corsOptions));
+
+
+const signupRouter = require('./auth/signup.js');
+app.use("/api/signup", signupRouter);
 
 dotenv.config();
-app.use(cors());
-app.use(express.json());
 app.use('/',authRoutes);
 
 
-const { newUser, findUsers, findOneUser } = require("./services/user");
 
 // Criação de array de tokens
 const tokensArr = []

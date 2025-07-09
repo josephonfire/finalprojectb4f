@@ -2,6 +2,7 @@
 Bem-vindo ao Magic: The Gathering! Magic é um jogo de cartas colecionáveis onde os jogadores invocam criaturas incríveis e 
 lançam feitiços poderosos para derrotar os seus adversários. O jogo tem milhares de cartas, por isso encontrarás sempre uma forma única de expressar o teu estilo no campo de batalha.
 
+setup game
     1/2
     Cada jogador baralha o seu próprio baralho e coloca-o virado para baixo à sua frente. Depois, cada um compra uma mão de sete cartas do seu grimório. 
     Se não gostares da tua mão inicial, podes optar por fazer um mulligan.

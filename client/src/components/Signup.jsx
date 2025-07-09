@@ -6,10 +6,42 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
 
-    console.log("Signing up with:", { username, email, password });
+    if (password !== confirmPassword) {
+      alert("Password e Confirm Password precisam ser iguais.");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3030/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          username, 
+          email, 
+          password, 
+          confirmPassword 
+        }),
+      });
+
+      console.log("CENAS: ",response)
+      const data = await response.json();
+      if (!response.ok) {
+        alert(data.message || "Erro ao criar usuário");
+        return;
+      }
+
+      alert(data.message || "Usuário criado com sucesso!");
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      console.error("Erro no signup:", error);
+      alert("Erro de rede, tente novamente.");
+    }
   };
 
   return (
@@ -81,7 +113,12 @@ function Signup() {
               />
             </div>
             <br />
-            <button type="submit" className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-md transition-all duration-200 font-medium">Sign Up</button>
+            <button
+              type="submit"
+              className="w-full py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-md transition-all duration-200 font-medium"
+            >
+              Sign Up
+            </button>
           </form>
         </div>
       </div>
