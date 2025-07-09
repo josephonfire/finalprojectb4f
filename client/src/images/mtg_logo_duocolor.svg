@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
     <defs>
         <style>
-        .cls-1{fill:red;stroke:red;stroke-miterlimit:10;stroke-width:1.28px;}.cls-2{fill-rule:evenodd;}
+        .cls-1{fill:#bf0000;stroke:#bf0000;stroke-miterlimit:10;stroke-width:1.28px;}.cls-2{fill-rule:evenodd;}
         .cls-2{fill:white;stroke:white} </style></defs>
     <g id="Layer_4" data-name="Layer 4">
         <path class="cls-1"
