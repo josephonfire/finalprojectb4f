@@ -1,11 +1,6 @@
 import '../index.css';
 import { useState } from 'react';
 
-//a fazer: 
-//titulo da página
-//lista de conteudo
-//caixa para alojar a lista
-//scrollbar para a lista
 
 function Tutorials() {
     const [activeIndex, setActiveIndex] = useState(null); // guarda o índice clicado
@@ -34,6 +29,7 @@ function Tutorials() {
     ]));
     return (
         <>
+        <header></header>
         <div className="p-8 text-center min-h-screen text-white">
             <h1 className="font-bold text-xl mb-6 text-white">Tutorials</h1>
             <p className="text-gray-300">Learn how to play the game</p>
