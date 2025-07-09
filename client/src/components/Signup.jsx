@@ -45,6 +45,7 @@ function Signup() {
   };
 
   return (
+    <>
     <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 sm:p-8 shadow-xl">
@@ -123,6 +124,10 @@ function Signup() {
         </div>
       </div>
     </div>
+    <footer className="mt-4 text-gray-500 text-sm text-center">
+        © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
+      </footer>
+      </>
   );
 }
 
