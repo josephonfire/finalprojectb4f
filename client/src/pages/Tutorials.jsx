@@ -1,3 +1,4 @@
+import '../index.css';
 //titulo da página
 //lista de conteudo
 //caixa para alojar a lista
@@ -5,11 +6,15 @@
 
 function tutorials() {
     return (
-        <><div>
-        < h1 > teste</h1 >
 
-        </div>
-        </>
+        <>
+            <body>
+                <div className="p-8  text-center">
+                    < h1 className="text-white font-bold text-xl"> Tutoriais</h1>
+
+                </div>
+
+            </body></>
     )
 }
 
