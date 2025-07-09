@@ -1,49 +1,38 @@
-var express = require("express");
+const express = require("express");
 const { body, validationResult } = require("express-validator");
-const router_signup = express.Router();
-const { insertUser } = require("../../services/signup");
+const router = express.Router();
+const { registerUser } = require("../services/auth");
 
-router_signup.post(
-  // logica para o signup
+router.post(
   "/",
-  body("email").isEmail(), // confirma se é email pelo expressvalidator
-  body("password").isLength({ min: 6 }), //pede mais de 6 caracteres
-  body("confirmPassword").isLength({ min: 6 }),
+  
+  body("email").isEmail(),
+  body("password").isLength({ min: 6 }),
+  body("confirmPassword").custom((value, { req }) => {
+    if (value !== req.body.password) {
+      throw new Error("Password confirmation does not match password");
+    }
+    return true;
+  }),
   async (req, res) => {
-    const errors = validationResult(req); // erros do framework
+     console.log('Corpo da requisição:', req.body)
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-    const { email, password, confirmPassword } = req.body;
     try {
-      // se houver algum erro retorna os dados introduzidos conforme o desafio
-      if (!errors.isEmpty() && errors.errors[0].param === email) {
-        return res.status(400).send("Os dados introduzidos não são válidos.");
-      } // idem
-      if (!errors.isEmpty() && errors.errors[0].param === password) {
-        return res.status(400).send("Password precisa conter 6 caracteres.");
-      }
-      if (password !== confirmPassword) {
-        return res.status(400).json({
-          message: "Password e Confirmar Password precisa ser igual.",
-        });
-      }
-
-      const user = await insertUser(req.body);
-
-      return res.status(201).json({
-        message: "Utilizador criado com sucesso!",
-        user,
-      });
+      const userData = req.body;
+      await registerUser(userData);
+      return res.status(201).json({ message: "Utilizador criado com sucesso!" });
     } catch (err) {
-      if (err.message === "Este e-mail já está em uso." || err.code === 11000) {
-        return res.status(400).json({
-          message: "O endereço introduzido já está registado.",
-        });
+      if (err.status === 400) {
+        return res.status(400).json({ message: err.message });
       }
-      return res
-        .status(500)
-        .json({ message: "Erro ao criar o utilizador.", error: err.message });
+      console.error(err);
+      return res.status(500).json({ message: "Erro ao criar o utilizador." });
     }
   }
 );
 
-module.exports = router_signup;
+module.exports = router;
