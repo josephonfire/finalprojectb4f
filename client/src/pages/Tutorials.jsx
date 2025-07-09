@@ -22,7 +22,7 @@ function tutorials() {
             <h1 className="font-bold text-xl mb-6">Tutorials</h1>
             <p className="text-gray-300">Learn how to play the game</p>
 
-            <div className="min-h-screen bg-pink-900 text-white p-5 mt-5 border-[10px] border-black rounded-lg">
+            <div className="min-h-screen bg-gradient-to-br from-gray-950/60 to-red-950/60  text-white p-5 mt-5 border-[10px] border-black rounded-lg">
                 <div className="grid grid-cols-1 gap-7">
                     <div className="w-full max-h-64 overflow-y-scroll border border-white p-4 rounded shadow">
                         <ul className="text-left list-disc pl-5">
