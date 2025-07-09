@@ -10,12 +10,23 @@ function tutorials() {
     const conteudo = [
         "What is Magic: The Gathering?",
         "Setting up the play area",
+            "How to start",
+            "Tracking your life points",
         "Casting Spells",
+            "Paying Mana",
+            "Tap and Untap",
+            "Permanents",
+            "Graveyard",
         "Taking a turn",
-        "Deploy no Vercel",
-        "Consumir API",
-        "Gerir estado com Context",
-        "Hooks avançados"
+            "Beginning Phase",
+            "First Main Phase",
+            "Combat Phase",
+            "Second Main Phase",
+            "End Step",
+        "Combat",
+            "Declare Attackers",
+            "Declare Blockers",
+            "Calculate Damage",
     ];
     return (
         <div className="p-8 text-center min-h-screen text-white">
