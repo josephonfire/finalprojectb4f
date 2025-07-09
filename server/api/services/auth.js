@@ -1,11 +1,10 @@
-import bcrypt from 'bcryptjs';
-import dotenv from 'dotenv';
-
+const bcrypt = require('bcryptjs');
+const dotenv = require('dotenv');
 dotenv.config();
 
-export const registerUser = async (db, req, res) => {
+
+const registerUser = async (db, req, res) => {
   const { name, foto_url, email, password } = req.body;
-  //console.log('Dados recebidos:', req.body); 
 
   try {
     const usersCollection = db.collection('user');
@@ -19,7 +18,7 @@ export const registerUser = async (db, req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = { name, email, foto_url, password: hashedPassword };
-    console.log('Inserindo novo usuário:', newUser); // debug
+    console.log('Inserindo novo usuário:', newUser);
 
     await usersCollection.insertOne(newUser);
 
@@ -30,15 +29,16 @@ export const registerUser = async (db, req, res) => {
   }
 };
 
+const listUser = async (db, req, res) => {
+  try {
+    const usersCollection = db.collection('user');
+    const users = await usersCollection.find().toArray();
+    res.status(200).json({ message: users });
+    console.log(users);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Erro no servidor' });
+  }
+};
 
-export const listUser = async ( db, req, res) =>{
-    try {
-        const usersCollection = db.collection('user');
-        const users = await usersCollection.find().toArray();
-        res.status(200).json({message: users})
-        console.log(users)
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ msg: 'Erro no servidor' });
-    }
-}
+module.exports = { registerUser, listUser };

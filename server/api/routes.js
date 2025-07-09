@@ -1,8 +1,7 @@
-import express from 'express';
-import { connectToDatabase } from './db.js';
-import { listUser, registerUser } from './auth.js';
-
+const express = require('express');
 const router = express.Router();
+const { listUser, registerUser } = require('./services/auth.js');
+
 
 router.post('/register', async (req, res) => {
     const db = await connectToDatabase();
@@ -13,4 +12,7 @@ router.get('/users', async (req, res) => {
     const db = await connectToDatabase();
     await listUser(db, req, res);
 });
-export default router;
+
+
+
+module.exports = router;

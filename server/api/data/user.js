@@ -1,30 +1,32 @@
-// const {getCollection, getConnection, closeConnection} = require("./mongodb")
+// PENSAR EM CRUD - CREATE, READ, UPDATE, DELETE
 
-// // Criar New User (Registo)
-// async function createUser(data) {
-//     const collection = await getCollection("user")
-//     const create = await collection.insertOne(data)
-//     return create.insertedId
-// }
+const {getCollection, getConnection, closeConnection} = require("./db")
 
-// // LOGIN - CONFIRMAR SE TEM REGISTO FEITO
+// Create User
+async function insertUser (data) {
+    const collection = await getCollection("user");
+    const create = await collection.insertOne(data)
+    return create
+}
 
-// // Obter Todos os Users (get)
-// async function getUsers() {
-//     const collection = await getCollection("user")
-//     const result = await collection.find().toArray()
-//     return result
-// }
+// Read User
+async function findUser (data) {
+    const collection = await getCollection("user");
+    const result = await collection.findOne(data)
+    return result
+}
 
-// // Obter um User específico (get ID)
-// async function getOneUser(data) {
-//     const collection = await getCollection("user")
-//     const result = await collection.findOne(data)
-//     return result
-// }
+// Update User
+async function updateUser (data) {
+    const collection = await getCollection("user");
+    const result = await collection.updateOne(data)
+    return result
+}
 
+// Delete User
+async function deleteUser(data) {
+    const collection = await getCollection("user");
+    await collection.deleteOne(data)
+}
 
-// // exporar funções para POST e GET
-// module.exports = {createUser, getUsers, getOneUser}
-
-DB = "mongodb+srv://marlenekakonda:nczF6ayVZvITF8ra@cluster0.cifqqpy.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+module.exports = { insertUser, findUser, updateUser, deleteUser }

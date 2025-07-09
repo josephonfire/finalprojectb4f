@@ -1,15 +1,41 @@
-import { MongoClient } from 'mongodb';
-import dotenv from 'dotenv';
+// importar módulo MongoDB
+const { MongoClient } =  require('mongodb')
 
-dotenv.config();
+// Conexão URL
+const url = "mongodb://localhost:27017";
 
-const client = new MongoClient(process.env.MONGO_URL);
-let db;
+// DB name
+const defaultNameDb = "deckbuilder"
 
-export const connectToDatabase = async () => {
-    if (!db) {
-        await client.connect();
-        db = client.db('magic'); // ou process.env.DB_NAME se quiser flexibilidade
+// Conexão
+let client = undefined;
+
+// Conexão à base de dados
+async function getConnection() {
+    if (!client) {
+        try {
+            client = await MongoClient.connect(url)
+        } catch (err) {
+            console.log(err)
+        }
     }
-    return db;
-};
+    return client;
+}
+
+// Fechar conexão à db
+async function closeConnection() {
+    const client = await getConnection();
+    console.log(client);
+    return await client.close()
+}
+
+// Aceder à coleção 
+async function getCollection(collectionName) {
+    const client = await getConnection();
+    const db = client.db(defaultNameDb);
+    return db.collection(collectionName)
+}
+
+
+// Exportar para outros ficheiros as conexões
+module.exports = {getConnection, closeConnection, getCollection}

@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const axios = require('axios');
 const cors = require('cors');
-import authRoutes from './routes.js';
-import dotenv from 'dotenv';
-
+const authRoutes = require('./routes.js');
+const dotenv = require('dotenv');
+const { registerUser, listUser } = require('./services/auth.js');
 
 dotenv.config();
 app.use(cors());
@@ -29,6 +29,10 @@ const errors = {
         empty: "É obrigatório o preenchimento de todos os campos."
     }
 }
+
+// Exemplo de uso em uma rota Express:
+app.post('/api/register', (req, res) => registerUser(db, req, res));
+app.get('/api/users', (req, res) => listUser(db, req, res));
 
 // POST do registo com condições de verificação
 app.post('/api/signup', async (req, res) => {
