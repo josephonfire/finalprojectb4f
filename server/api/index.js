@@ -128,7 +128,7 @@ app.get('/api/cards/top3', (req, res) => {
   const topCards = [
     {
       name: 'Black Lotus',
-      image: 'https://cards.scryfall.io/large/front/6/d/6da045f8-6278-4c84-9d39-025adf0789c1.jpg?1562404626',
+      image: 'https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838',
       usage: 120
     },
     {
