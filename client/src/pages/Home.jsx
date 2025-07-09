@@ -47,9 +47,8 @@ function Home() {
         {/* Header */}
         <div className="mb-10 text-center ">
           <img src={mtg_logo_duocolor} alt="MtG Deck Builder Logo" className="inline-block w-60 h-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]" />
-          {/* <h1 className="text-5xl font-extrabold mb-4 text-white drop-shadow-lg">
-      Magic: The Gathering
-    </h1> */}
+          
+          
           <p className="text-xl mb-2 text-gray-200">
             Search for your favorite cards
           </p>
