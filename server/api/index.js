@@ -4,8 +4,8 @@ const axios = require('axios');
 const cors = require('cors');
 const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
-const { registerUser, listUser } = require('./services/auth.js');
-const { newUser, findUsers, findOneUser } = require("./services/user");
+const { registerUser, listUser } = require('./node_modules/services/auth.js');
+const { newUser, findUsers, findOneUser } = require("./node_modules/services/user.js");
 
 const corsOptions ={
    origin:'*', 
