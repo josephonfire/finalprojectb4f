@@ -37,7 +37,8 @@ function Home() {
   );
 
   return (
-    <><div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
+    <>
+    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
       <Header />
       {/* Banner */}
       {/* Adicionar algum banner aqui depois */}
@@ -107,8 +108,8 @@ function Home() {
           Login
         </button> <br></br>
         <button>Sign up</button>
-      </div></>
-  );
+      </div>
+  </>);
 }
 
 export default Home;
