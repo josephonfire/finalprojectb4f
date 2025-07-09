@@ -34,7 +34,7 @@ function Tutorials() {
     ]));
     return (
         <div className="p-8 text-center min-h-screen text-white">
-            <h1 className="font-bold text-xl mb-6">Tutorials</h1>
+            <h1 className="font-bold text-xl mb-6 text-white">Tutorials</h1>
             <p className="text-gray-300">Learn how to play the game</p>
 
             <div className="max-h-screen bg-gradient-to-br from-gray-950/60 to-red-950/60  text-white p-5 mt-5 border-[10px] border-black rounded-lg">
