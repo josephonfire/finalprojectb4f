@@ -33,6 +33,7 @@ function Tutorials() {
         ["Calculate Damage", "Assign Damage\nAttacking and blocking creatures deal damage to each other. Unblocked creatures deal damage to the opponent. If a creature takes damage equal to or greater than its toughness, it dies and goes to the graveyard.\nPower: The first number in the lower-right corner of the card indicates how much damage a creature deals. \nToughness: The second number shows how much damage it can take before dying."],
     ]));
     return (
+        <>
         <div className="p-8 text-center min-h-screen text-white">
             <h1 className="font-bold text-xl mb-6 text-white">Tutorials</h1>
             <p className="text-gray-300">Learn how to play the game</p>
@@ -76,6 +77,11 @@ function Tutorials() {
                 </div>
             </div>
         </div>
+
+        <footer className="mt-4 text-gray-500 text-sm text-center">
+        © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
+      </footer>
+      </>
     )
 }
 

@@ -63,7 +63,7 @@ function Signup() {
                 </a>
               </p>
             </div>
-            <div>
+            <div className="text-left">
               <label htmlFor="username">Username:</label> <br />
               <input
                 type="text"
@@ -75,7 +75,7 @@ function Signup() {
                 required
               />
             </div>
-            <div>
+            <div className="text-left">
               <label htmlFor="email">Email:</label> <br />
               <input
                 type="email"
@@ -87,7 +87,7 @@ function Signup() {
                 placeholder="Enter your email"
               />
             </div>
-            <div>
+            <div className="text-left">
               <label htmlFor="password">Password:</label> <br />
               <input
                 type="password"
@@ -99,7 +99,7 @@ function Signup() {
                 className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
-            <div>
+            <div className="text-left">
               <label htmlFor="confirmPassword">Confirm your password:</label>
               <br />
               <input
