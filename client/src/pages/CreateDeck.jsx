@@ -123,7 +123,7 @@ function CreateDeck() {
                 initial={{ y: 0 }}
                 animate={{ y: [0, -8, 0] }}
                 transition={{
-                  duration: 3,
+                  duration: 3 + Math.random(), // entre 3 e 4 segundos
                   repeat: Infinity,
                   repeatType: "loop",
                   ease: "easeInOut",

@@ -12,7 +12,7 @@ function CardSearch() {
     e.preventDefault();
 
     if (!name.trim()) {
-      setError("Digite o nome de uma carta.");
+      setError("Insert a name of a Card.");
       return;
     }
 
@@ -40,7 +40,7 @@ function CardSearch() {
                   ? 'border-red-500/50 shadow-lg shadow-red-500/25 focus:ring-4 focus:ring-red-500/20' 
                   : 'border-gray-600/50 hover:border-gray-500/50'
               }`}
-              placeholder="Digite o nome da carta..."
+              placeholder="Insert Card name..."
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}

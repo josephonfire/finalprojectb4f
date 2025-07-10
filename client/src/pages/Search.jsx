@@ -4,16 +4,10 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import NavBarHome from "../components/NavBarHome";
 
-// Componente de resultado de busca que exibe cartas encontradas com base no nome pesquisado
-// O nome da carta é obtido da URL, por exemplo, /search/Lightning Bolt
-// O componente faz uma requisição à API para buscar as cartas e exibe os resultados
-// Se não encontrar nenhuma carta, exibe uma mensagem de erro
-// O usuário pode clicar na carta e ver as especificações da carta em uma nova página
-
 function SearchResult() {
-  const { name } = useParams(); // Obtém o nome da carta
-  const [cards, setCards] = useState([]); // Estado para armazenar as cartas encontradas
-  const [error, setError] = useState(""); // Estado para armazenar mensagens de erro
+  const { name } = useParams();
+  const [cards, setCards] = useState([]);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -21,18 +15,18 @@ function SearchResult() {
     async function fetchCards() {
       setLoading(true);
       try {
-        const res = await axios.get(`http://localhost:3030/api/cards?name=${encodeURIComponent(name)}`); // Faz a requisição à API para buscar cartas pelo nome
+        const res = await axios.get(`http://localhost:3030/api/cards?name=${encodeURIComponent(name)}`);
         setCards(res.data);
         setError("");
       } catch (err) {
         setCards([]);
-        setError("Nenhuma carta encontrada."); // Define mensagem de erro se não encontrar cartas
+        setError("No card found.");
       } finally {
         setLoading(false);
       }
     }
-    fetchCards(); // Chama a função para buscar as cartas quando o componente é montado
-  }, [name]); // Reexecuta a busca se o nome mudar
+    fetchCards();
+  }, [name]);
 
   if (loading) {
     return (
@@ -41,7 +35,7 @@ function SearchResult() {
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mx-auto mb-4"></div>
-            <p className="text-white">Buscando cartas...</p>
+            <p className="text-white">Searching for Cards...</p>
           </div>
         </div>
       </>
@@ -71,67 +65,73 @@ function SearchResult() {
           <h1 className="text-2xl font-bold text-white mb-2">
             Resultados para: <span className="text-red-400">{name}</span>
           </h1>
-          <p className="text-gray-300">{cards.length} carta{cards.length !== 1 ? 's' : ''} encontrada{cards.length !== 1 ? 's' : ''}</p>
+          <p className="text-gray-300">
+            {cards.length} Card{cards.length !== 1 ? "s" : ""} found{cards.length !== 1 ? "s" : ""}
+          </p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {cards.length === 0 && (
             <div className="col-span-full text-center py-8">
               <div className="bg-white/5 rounded-lg p-6">
-                <p className="text-white">Nenhuma carta encontrada.</p>
+                <p className="text-white">No Card found.</p>
               </div>
             </div>
           )}
-          
+
           {cards.map((card, index) => (
             <motion.div
               key={card.id}
               className="group"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.3, 
-                delay: index * 0.05
+              transition={{
+                duration: 0.3,
+                delay: index * 0.05,
               }}
-              whileHover={{ 
+              whileHover={{
                 y: -4,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.2 },
               }}
             >
-              <div 
+              <div
                 className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200"
                 onClick={() => navigate(`/card/${card.id}`)}
               >
-                <h3 className="font-bold mb-2 text-white text-center text-sm">
+                <h3 className="font-bold mb-4 text-white text-center text-sm">
                   {card.name}
                 </h3>
-                
-                <div className="relative overflow-hidden rounded-lg">
-                  <motion.img
+
+                {/* Imagem + overlay com movimento sincronizado */}
+                <motion.div
+                  className="relative rounded-lg"
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{
+                    duration: 3 + Math.random(),
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
+                  whileHover={{
+                    scale: 1.02,
+                    transition: { duration: 0.2 },
+                  }}
+                >
+                  <img
                     src={card.image_uris?.normal}
                     alt={card.name}
-                    className="w-full h-auto rounded-lg shadow-md"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ 
-                      duration: 0.3, 
-                      delay: 0.2 + index * 0.05
-                    }}
-                    whileHover={{ 
-                      scale: 1.02,
-                      transition: { duration: 0.2 }
-                    }}
+                    className="mx-auto rounded shadow-lg"
                   />
-                  
-                  {/* Overlay simples */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-lg">
+
+                  {/* Overlay que acompanha a imagem */}
+                  <div className="absolute inset-[-1px] bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-lg pointer-events-none">
                     <div className="absolute bottom-2 left-2 right-2 text-center">
                       <span className="text-white text-xs font-medium bg-black/70 px-2 py-1 rounded">
                         Click to see details
                       </span>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           ))}
@@ -146,3 +146,4 @@ function SearchResult() {
 }
 
 export default SearchResult;
+
