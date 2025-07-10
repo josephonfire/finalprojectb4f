@@ -1,9 +1,8 @@
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import NavBarHome from "../components/NavBarHome";
-import '../index.css';
+import "../index.css";
 import { motion } from "framer-motion";
-
 
 // Componente para criar um novo deck
 // Este componente permite ao usuário criar um deck, buscar cartas usando a API Scryfall e
@@ -36,6 +35,14 @@ function CreateDeck() {
 
   // Função para adicionar uma carta ao deck
   const handleAddCard = (card) => {
+    // Conta quantas vezes essa carta já está no deck
+    const count = deckCards.filter((c) => c.id === card.id).length;
+
+    if (count >= 4) {
+      alert("You can't add more than 4 copies of the same card!"); // Logica para não permitir mais de 4 cópias da mesma carta
+      return;
+    }
+
     setDeckCards((prev) => [...prev, card]);
   };
 
@@ -63,7 +70,9 @@ function CreateDeck() {
     <>
       <NavBarHome />
       <div className="p-8 text-white text-center">
-        <h1 className="text-3xl mt-16 mb-4">{username} create your new deck!</h1>
+        <h1 className="text-3xl mt-16 mb-4">
+          {username} create your new deck!
+        </h1>
 
         {/* Formulario para nome do deck*/}
         <form onSubmit={handleSubmit}>
@@ -72,7 +81,8 @@ function CreateDeck() {
             type="text"
             value={deckName}
             onChange={(e) => setDeckName(e.target.value)}
-            className="text-black px-4 py-2 rounded w-50 mb-4" />
+            className="text-black px-4 py-2 rounded w-50 mb-4"
+          />
           <button
             type="submit"
             className="bg-red-700 px-6 py-2 rounded hover:bg-red-900 transition m-2"
@@ -89,7 +99,8 @@ function CreateDeck() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="text-black px-4 py-2 rounded w-50 mb-2" />
+            className="text-black px-4 py-2 rounded w-50 mb-2"
+          />
           <button
             onClick={searchCards}
             className="bg-blue-900 px-4 py-2 rounded hover:bg-blue-700 transition m-2"
@@ -115,13 +126,22 @@ function CreateDeck() {
                   repeat: Infinity,
                   repeatType: "loop",
                   ease: "easeInOut",
-                }} />
+                }}
+              />
               <div className="mt-2">
                 <button
                   onClick={() => handleAddCard(card)}
                   className="bg-green-600 px-4 py-2 rounded hover:bg-green-800 transition"
-                >+</button>
-                <button onClick={() => handleRemoveCard(card.id)} className="ml-4 bg-red-600 px-4 py-2 rounded hover:bg-red-800 transition text-white">-</button></div>
+                >
+                  +
+                </button>
+                <button
+                  onClick={() => handleRemoveCard(card.id)}
+                  className="ml-4 bg-red-600 px-4 py-2 rounded hover:bg-red-800 transition text-white"
+                >
+                  -
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -135,12 +155,14 @@ function CreateDeck() {
           ) : (
             <ul className="list-disc ml-6">
               {deckCards.map((card, index) => (
-                <li
-                  className="flex items-center"
-                  key={`${card.id}-${index}`}
-                >
+                <li className="flex items-center" key={`${card.id}-${index}`}>
                   {card.name}
-                  <button onClick={() => handleRemoveCard(card.id)} className="ml-4 mb-2 bg-red-600 px-2 py-0,5 rounded hover:bg-red-800 transition text-white">-</button>
+                  <button
+                    onClick={() => handleRemoveCard(card.id)}
+                    className="ml-4 mb-2 bg-red-600 px-2 py-0,5 rounded hover:bg-red-800 transition text-white"
+                  >
+                    -
+                  </button>
                 </li>
               ))}
             </ul>
