@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import NavBarHome from "../components/NavBarHome";
 
 function SearchResult() {
   const { name } = useParams();
@@ -24,6 +25,7 @@ function SearchResult() {
 
   return (
     <>
+      <header> <NavBarHome /> </header>
       <div className="w-full max-w-md mx-auto p-4">
         {error && <p className="mt-4 text-red-600 font-semibold">{error}</p>}
         {card && (

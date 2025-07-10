@@ -118,7 +118,8 @@ export default function NavBarHome() {
       </NavbarContent>
 
       {/* Mobile menu */}
-      <NavbarMenu>
+      <NavbarMenu className="sm:hidden z-50 bg-black/90 text-white">
+
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
             <Link

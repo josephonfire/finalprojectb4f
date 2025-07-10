@@ -6,6 +6,7 @@ import CardSearch from '../components/Search Bar/CardSearch.jsx';
 import profilePhoto from '../images/profile_photo.jpg';
 import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
+import NavBarHome from "../components/NavBarHome";
 
 
 function Profile() {
@@ -13,7 +14,7 @@ function Profile() {
   return (
     <>
       {/* cabecalho para colocar a navbar */}
-      <header></header>
+      <header><NavBarHome /></header>
       {/* barra de pesquisa */}
       <div className="mb-0 flex justify-center">
         <CardSearch />

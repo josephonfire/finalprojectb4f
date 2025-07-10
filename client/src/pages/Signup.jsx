@@ -3,6 +3,7 @@ import Signup from "../components/Signup";
 function SignUpPage() {
   return (
     <>
+    
       <div className="App">
         <Signup/> <br />
        
