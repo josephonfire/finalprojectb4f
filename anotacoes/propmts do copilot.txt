@@ -1,0 +1,38 @@
+<<
+na pagina com os detalhes da carta tenho uns excertos de texto (por exemplo: {T}, entre outros)
+e eu quero que, quando vistos no website, aparecca uma pequena imagem svg que ilustra esse excerto
+
+diz-me o passo-a -passo para fazer isso, indica quais os ficheiros(e respetivas localizacoes) a alterar
+
+(ainda nao tenho as imagens adicionadas ao projeto, mas irei tratar disso)
+
+>>
+Claro! Aqui está o passo-a-passo para substituir excertos de texto como {T} por imagens SVG na página de detalhes da carta:
+
+1. Adicione as imagens SVG ao projeto
+Crie uma pasta para os ícones, por exemplo:
+client/src/images/mana-icons/
+Coloque os SVGs lá, por exemplo:
+T.svg (para {T})
+G.svg, R.svg, etc. (para outros símbolos de mana)
+
+2. Crie uma função utilitária para substituir os símbolos por imagens
+Crie um novo ficheiro:
+client/src/utils/replaceManaSymbols.js
+Implemente uma função que recebe o texto e retorna JSX com as imagens nos lugares certos.
+
+3. Altere o componente CardDetails.jsx
+Importe e utilize a função utilitária para renderizar o texto com imagens.
+Altere onde mostra {card.oracle_text} e {card.mana_cost}.
+
+
+Ficheiros a criar/alterar:
+
+Adicionar SVGs:
+client/src/images/mana-icons/ (criar pasta e adicionar SVGs)
+
+Criar utilitário:
+client/src/utils/replaceManaSymbols.js (novo ficheiro)
+
+Alterar componente:
+CardDetails.jsx (alterar para usar o utilitário)

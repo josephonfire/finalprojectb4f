@@ -1,0 +1,4 @@
+para atualizar o meu clone do repositorio,
+abrir a pasta do projeto e no terminal fazer: git pull (puxa as atualizacoes)
+
+quando ha erros ao tentar fazer npm start, tentar reparar com npm isntall
