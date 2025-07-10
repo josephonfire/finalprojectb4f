@@ -143,27 +143,51 @@ app.get('/api/card', async (req, res) => {
     }
 });
 
-// Endpoint Top 3 cartas mais utilizadas (mock)
-app.get('/api/cards/top3', (req, res) => {
-  const topCards = [
-    {
-      name: 'Black Lotus',
-      image: 'https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838',
-      usage: 120
-    },
-    {
-      name: 'Lightning Bolt',
-      image: 'https://cards.scryfall.io/large/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968',
-      usage: 110
-    },
-    {
-      name: 'Counterspell',
-      image: 'https://cards.scryfall.io/normal/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1751282477',
-      usage: 100
+app.get('/api/cards', async (req, res) => {
+    const cardName = req.query.name;
+    if (!cardName) {
+        return res.status(400).json({ error: 'Parâmetro "name" é obrigatório' });
     }
-  ];
-  res.json(topCards);
+
+    try {
+        const response = await axios.get(`https://api.scryfall.com/cards/search?q=${encodeURIComponent(cardName)}`);
+        res.json(response.data.data); // apenas o array de cartas
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar cartas na API Scryfall' });
+    }
 });
+
+app.get('/api/cards/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(`https://api.scryfall.com/cards/${id}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: 'Carta não encontrada' });
+  }
+});
+
+// Endpoint Top 3 cartas mais utilizadas (mock)
+// app.get('/api/cards/top3', (req, res) => {
+//   const topCards = [
+//     {
+//       name: 'Black Lotus',
+//       image: 'https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838',
+//       usage: 120
+//     },
+//     {
+//       name: 'Lightning Bolt',
+//       image: 'https://cards.scryfall.io/large/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968',
+//       usage: 110
+//     },
+//     {
+//       name: 'Counterspell',
+//       image: 'https://cards.scryfall.io/normal/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1751282477',
+//       usage: 100
+//     }
+//   ];
+//   res.json(topCards);
+// });
 
 app.listen(3030, () => {
     console.log('Server is running on http://localhost:3030');

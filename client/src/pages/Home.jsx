@@ -71,7 +71,7 @@ function Home() {
         </div>
       </div>
 
-      {/* Top 3 Cartas */}
+      {/* Top 3 Cartas
       <div className="mt-12 w-full max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Top 3 Today's Searches</h2>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
@@ -83,7 +83,7 @@ function Home() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Rodapé */}
       <footer className="mt-16 text-gray-500 text-sm">

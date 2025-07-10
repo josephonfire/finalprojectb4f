@@ -99,7 +99,7 @@ export default function NavBarHome() {
           <Button
             variant="light"
             color="default"
-            className="m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
+            className="flex m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
             onClick={() => navigate("/login")}
           >
             Login
@@ -109,7 +109,7 @@ export default function NavBarHome() {
           <Button
             color="primary"
             variant="flat"
-            className="px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
+            className="flex px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
             onClick={() => navigate("/signup")}
           >
             Sign Up

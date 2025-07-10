@@ -1,14 +1,18 @@
-//componente botao para listas no perfil, pagina das cartas e dos decks
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // se estiver usando React Router
+import { useNavigate } from 'react-router-dom';
 
-function ListButton({ text, link }) {
+function ListButton({ text, link, onClick }) {
   const [isSelected, setIsSelected] = useState(false);
   const navigate = useNavigate();
 
   const handleClick = () => {
     setIsSelected(true);
-    navigate(link); // redireciona para a página desejada
+
+    if (onClick) {
+      onClick(); // 🔴 usa a função personalizada (como navigate com username)
+    } else if (link) {
+      navigate(link); // 🔄 fallback se não tiver onClick
+    }
   };
 
   return (
@@ -28,5 +32,3 @@ function ListButton({ text, link }) {
 }
 
 export default ListButton;
-
-

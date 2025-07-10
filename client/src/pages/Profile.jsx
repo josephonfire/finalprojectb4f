@@ -6,10 +6,19 @@ import CardSearch from '../components/Search Bar/CardSearch.jsx';
 import profilePhoto from '../images/profile_photo.jpg';
 import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function Profile() {
-  const { username } = useParams(); // pega o nome da URL
+
+  const { username } = useParams(); // vai pegar "testuser" da url /profile/testuser
+  const navigate = useNavigate();
+  
+  const handleCreateDeck = () => { 
+    navigate(`/create-deck?user=${username}`);
+  }
+
   return (
     <>
       {/* cabecalho para colocar a navbar */}
@@ -34,6 +43,7 @@ function Profile() {
         {/*  substituir pelo link correto */}
         <ListButton text="My Cards" link="link para pagina de cartas do user" />
         {/*  substituir pelo link correto */}
+        <ListButton text="Create New Deck" link="#" onClick={() => handleCreateDeck()} />
         <ListButton text="My Decks" link="link para pagina de Decks do user" />
         {/*  substituir pelo link correto */}
         <ListButton text="Tutorials" link="/Tutorials/" />
