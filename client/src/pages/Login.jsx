@@ -1,10 +1,12 @@
 import Login from "../components/Login Form/Login"
+import NavBarHome from "../components/NavBarHome";
 import Signup from "../components/Signup";
 
 function LoginPage() {
   return (
     <>
       <div className="App">
+        <NavBarHome />
         <Login/> <br />
        
       </div>

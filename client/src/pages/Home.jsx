@@ -2,13 +2,13 @@ import CardSearch from "../components/Search Bar/CardSearch";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg"
+import NavBarHome from "../components/NavBarHome";
 
 
 function Home() {
   const navigate = useNavigate();
   const [topCards, setTopCards] = useState([]);
 
-  console.log(topCards);
   useEffect(() => {
     fetch("http://localhost:3030/api/cards/top3")
       .then(res => res.json())
@@ -18,7 +18,7 @@ function Home() {
 
   // Header fixo no topo
   const Header = () => (
-    <header className="w-full flex justify-end items-center px-6 py-4 bg-transparent fixed top-0 left-0 z-20">
+    <header className="w-full flex justify-end items-center px-6 py-4 bg-transparent top-0 left-0 z-20">
       <div className="flex gap-4">
         <button
           onClick={() => navigate('/login')}
@@ -38,8 +38,8 @@ function Home() {
 
   return (
     <>
+    <NavBarHome />
     <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
-      <Header />
       {/* Banner */}
       {/* Adicionar algum banner aqui depois */}
 
