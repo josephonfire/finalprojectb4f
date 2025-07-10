@@ -6,7 +6,7 @@ import SearchPage from '../pages/Search';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Tutorials from '../pages/Tutorials';
 import Profile from '../pages/Profile';
-import Graficos from '../pages/Graficos';
+import Graphs from '../pages/Graficos';
 import MagicFireBackground from '../components/MagicFireBG/MagicFireBg';
 import React from 'react';
 
@@ -28,7 +28,8 @@ function App() {
             <Route path='search/:name' element={<SearchPage />} />
             <Route path='/Tutorials' element={<Tutorials />} />
             <Route path='/profile' element={<Profile />} />
-             <Route path="/graficos" element={<Graficos />} />
+            <Route path="/graphs" element={<Graphs />} />
+
           </Routes>
           <div className="App">
           </div>
