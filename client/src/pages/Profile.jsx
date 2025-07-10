@@ -19,7 +19,7 @@ function Profile() {
   const { username } = useParams(); // vai pegar "testuser" da url /profile/testuser
   const navigate = useNavigate(); // hook para navegar entre paginas
 
-  const handleCreateDeck = () => { 
+  const handleCreateDeck = () => {
     navigate(`/create-deck?user=${username}`); // Navega para a página de criação de deck com o username como parâmetro
   };
 
@@ -30,7 +30,7 @@ function Profile() {
         <NavBarHome />
       </header>
       {/* barra de pesquisa */}
-      <div className="mb-0 flex justify-center">
+      <div className="mb-0 mt-16 flex justify-center">
         <CardSearch />
       </div>
       {/* foto do perfil */}

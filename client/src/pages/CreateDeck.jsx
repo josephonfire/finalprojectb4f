@@ -70,8 +70,9 @@ function CreateDeck() {
     <>
       <NavBarHome />
       <div className="p-8 text-white text-center">
-        <h1 className="text-3xl mt-16 mb-4">
-          {username} create your new deck!
+        <h1 className="text-3xl font-bold mt-16 mb-4">
+          {username},
+          <br></br>create your new deck!
         </h1>
 
         {/* Formulario para nome do deck*/}

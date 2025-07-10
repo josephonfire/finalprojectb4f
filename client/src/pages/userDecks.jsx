@@ -41,7 +41,7 @@ function OwnedDecks() {
             </header >
 
             <div className="p-8 text-center min-h-screen text-white">
-                <h1 className="font-bold text-xl mb-6 text-white">Your owned Decks</h1>
+                <h1 className="font-bold text-3xl mb-6 text-white">Your owned Decks</h1>
             </div>
 
             <div className="m-10 flex flex-col justify-center">

@@ -45,7 +45,7 @@ function OwnedCards() {
       </header>
 
       <div className="p-8 text-center min-h-screen text-white">
-        <h1 className="font-bold text-2xl mb-4">Your Cards</h1>
+        <h1 className="font-bold text-3xl mb-4">Your Cards</h1>
         <p className="text-gray-300 mb-6">Visualiza todas as cartas associadas aos teus decks.</p>
 
         {/* Barra de filtros */}
