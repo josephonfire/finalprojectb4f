@@ -10,7 +10,6 @@ const data = [
 ];
 
 const colors = ['#3B82F6', '#10B981', '#EF4444'];
-
 function Graphs() {
   return (
     <main className="flex justify-center items-center py-16 px-4">
