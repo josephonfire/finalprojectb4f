@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg"
 import NavBarHome from "../components/NavBarHome";
+import '../index.css';
 
 
 // Pagina inicial do site, onde o usuario pode pesquisar cartas, ver as 3 cartas mais pesquisadas do dia e acessar o login e cadastro
