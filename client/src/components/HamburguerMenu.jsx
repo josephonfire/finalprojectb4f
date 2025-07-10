@@ -11,7 +11,7 @@ const MenuSandwich = () => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-col justify-center items-center w-10 h-10 space-y-1.5 group"
-        aria-label="Abrir menu"
+        aria-label="Abrir Menu"
       >
         {/* efeito de criar um X para fechar o menu */}
         <span className={`w-6 h-0.5 bg-white transition-transform duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />

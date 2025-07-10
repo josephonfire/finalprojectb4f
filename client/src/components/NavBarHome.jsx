@@ -26,120 +26,121 @@ export default function NavBarHome() {
   const navigate = useNavigate();
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    { label: "Profile", path: "/profile" },
+    { label: "Dashboard", path: "#" },
+    { label: "Analytics", path: "#" },
+    { label: "My Settings", path: "#" },
+    { label: "Help & Feedback", path: "#" },
+    { label: "Log Out", path: "#" },
   ];
 
   return (
-    <Navbar
-      maxWidth="full"
-      className="bg-black/80 text-white backdrop-blur-sm border-b border-gray-700"
-      onMenuOpenChange={setIsMenuOpen}
-      isMenuOpen={isMenuOpen}
-    >
-      {/* Left side: Hamburger + Logo */}
-      <NavbarContent className="flex-1">
-        {" "}
-        {/* flex-1 para ocupar espaço à esquerda */}
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="sm:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        />
-        <NavbarBrand className="flex items-center gap-2">
-          <MtgLogo />
-          <p className="font-bold text-inherit">Magic Deck Builder</p>
-        </NavbarBrand>
-      </NavbarContent>
+    <>
+      <Navbar
+        maxWidth="full"
+        className="bg-black/90 text-white backdrop-blur-sm border-b border-red-700"
+        onMenuOpenChange={setIsMenuOpen}
+        isMenuOpen={isMenuOpen}
+      >
+        {/* Left: Logo + Menu Toggle */}
+        <NavbarContent className="flex-1">
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-white hover:text-red-500 transition-colors duration-200 font-bold text-lg"
+          >
+            Menu
+          </button>
+          <NavbarBrand className="flex items-center gap-2">
+            <MtgLogo />
+            <p className="font-bold text-inherit">Magic Deck Builder</p>
+          </NavbarBrand>
+        </NavbarContent>
 
-      {/* Center menu links - hidden on mobile */}
-      <NavbarContent className="hidden sm:flex gap-4">
-        <NavbarItem>
-          <Button onClick={() => navigate("/")}
-            className="font-bold text-white hover:text-red-500 transition-colors duration-200"
-            color="foreground"
-            href="#"
-          >
-            Home
-          </Button>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link
-            className="font-bold text-white hover:text-red-500 transition-colors duration-200"
-            aria-current="page"
-            href="#"
-          >
-            Decks
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            onClick={() => navigate("/graficos")}
-            className="font-bold text-white hover:text-red-500 transition-colors duration-200"
-            color="foreground"
-          >
-            Graphs
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-
-      {/* Right side login/signup buttons */}
-      <NavbarContent className="flex-1 justify-end">
-        {" "}
-        {/* flex-1 + justify-end empurra para direita */}
-        <NavbarItem>
-          <Button
-            variant="light"
-            color="default"
-            className="flex m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            color="primary"
-            variant="flat"
-            className="flex px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
-            onClick={() => navigate("/signup")}
-          >
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
-
-      {/* Mobile menu */}
-      <NavbarMenu className="sm:hidden z-50 bg-black/90 text-white">
-
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+        {/* Center Links */}
+        <NavbarContent className="hidden sm:flex gap-4">
+          <NavbarItem>
+            <Button
+              onClick={() => navigate("/")}
+              className="font-bold text-white hover:text-red-500 transition-colors"
+              variant="light"
             >
-              {item}
+              Home
+            </Button>
+          </NavbarItem>
+          <NavbarItem>
+            <Link
+              className="font-bold text-white hover:text-red-500 transition-colors"
+              href="#"
+            >
+              Decks
             </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarMenu>
-    </Navbar>
+          </NavbarItem>
+          <NavbarItem>
+            <Button
+              onClick={() => navigate("/graficos")}
+              className="font-bold text-white hover:text-red-500 transition-colors"
+              variant="light"
+            >
+              Graphs
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+
+        {/* Right: Auth Buttons */}
+        <NavbarContent className="flex-1 justify-end">
+          <NavbarItem>
+            <Button
+              variant="light"
+              color="default"
+              className="flex m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </Button>
+          </NavbarItem>
+          <NavbarItem>
+            <Button
+              color="primary"
+              variant="flat"
+              className="flex px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+
+        {/* Sidebar Menu */}
+        <NavbarMenu className="fixed top-0 left-0 w-64 h-full z-50 bg-black text-white p-6 transition-transform transform duration-300 ease-in-out shadow-xl border-r border-red-700 sm:w-72">
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-red-500">Menu</h2>
+          </div>
+
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={index} className="mb-2">
+              <Link
+                className={`block w-full text-lg font-medium transition-colors ${
+                  item.label === "Log Out"
+                    ? "text-red-500 hover:text-red-700"
+                    : "text-white hover:text-red-500"
+                }`}
+                href={item.path}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {item.label}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+      </Navbar>
+
+      {/* 🔳 Overlay para fechar o menu clicando fora */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+    </>
   );
 }
