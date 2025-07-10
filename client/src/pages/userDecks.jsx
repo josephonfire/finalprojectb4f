@@ -12,7 +12,22 @@ import NavBarHome from "../components/NavBarHome";
 //lista dos decks do user
 //tem que ir a bd do user e ver que decks (listas de cartas) lhe estão associados
 
-function Decks(){
+function ownedDecks() {
 
+    return (<>
+        <NavBarHome />
+        <div>
+        </div>
+
+
+
+
+
+        {/* Rodapé */}
+        <footer className="mt-16 text-gray-500 text-sm text-center">
+            © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
+        </footer>
+
+    </>
 }
-export default Decks;
+export default ownedDecks;
