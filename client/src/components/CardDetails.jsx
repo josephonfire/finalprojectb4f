@@ -96,9 +96,18 @@ function CardDetails() {
                   src={card.image_uris?.normal || card.image_uris?.large}
                   alt={card.name}
                   className="relative rounded-2xl shadow-2xl max-w-sm w-full h-auto"
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.02,
                     transition: { duration: 0.2 }
+
+                  }}
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{
+                    duration: 3 + Math.random(), // entre 3 e 4 segundos
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
                   }}
                 />
               </div>
