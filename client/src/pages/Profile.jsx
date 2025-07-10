@@ -10,24 +10,29 @@ import ListButton from '../components/list_btn.jsx';
 function Profile() {
   return (
     <>
-    {/* cabecalho para colocar a navbar */}
-    <header></header>
-    {/* barra de pesquisa */}
+      {/* cabecalho para colocar a navbar */}
+      <header></header>
+      {/* barra de pesquisa */}
       <div className="mb-0 flex justify-center">
         <CardSearch />
       </div>
       {/* foto de perfil */}
       <div className="mb-0 flex justify-center">
-        <img src={profilePhoto} alt="user-profile-photo" className="rounded-full w-52 h-52 object-cover drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] m-5"  />
+        <img src={profilePhoto} alt="user-profile-photo" className="rounded-full w-52 h-52 object-cover drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] m-5" />
       </div>
 
       {/* caixa com user name */}
-      <div></div>
+      <div className="m-10 flex flex-col justify-center">{userName}</div>
 
       {/* menu com botoes para as outras paginas */}
       <div className="m-10 flex flex-col justify-center">
-        <ListButton/>
-        <ListButton/>
+        <ListButton text="Statistics" link="link para pagina de estatísticas" />
+        {/*  substituir pelo link correto */}
+        <ListButton text="My Cards" link="link para pagina de cartas do user" />
+        {/*  substituir pelo link correto */}
+        <ListButton text="My Decks" link="link para pagina de Decks do user" />
+        {/*  substituir pelo link correto */}
+        <ListButton text="Tutorials" link="/Tutorials/" />
       </div>
 
       {/* rodape */}
