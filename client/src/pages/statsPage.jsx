@@ -102,7 +102,7 @@ function StatsPage() {
                         </div>
 
                         {/* Gráfico renderizado */}
-                        <div className="w-full border-2 border-red-800 p-4 rounded shadow bg-gray-900">
+                        <div className="w-full border-2 border-red-800 p-4 rounded shadow bg-gray-950/25 text-center">
                             {activeIndex !== null ? conteudo[activeIndex][1] : (
                                 <p className="text-left text-sm text-gray-500 italic">Seleciona uma opção abaixo para visualizar.</p>
                             )}
@@ -114,7 +114,7 @@ function StatsPage() {
                         </div>
 
                         {/* Botões de seleção */}
-                        <div className="w-full border-2 border-red-800 p-4 rounded shadow bg-gray-900">
+                        <div className="w-full border-2 border-red-800 p-4 rounded shadow bg-gray-950/25">
                             <ul className="text-left pl-0 list-none">
                                 {conteudo.map(([key], index) => (
                                     <li key={index} className="mb-2">
