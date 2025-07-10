@@ -11,11 +11,11 @@ import {
   Button,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
-import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg";
+import mtg_logo_monocolor from "../images/mtg_logo_monocolor.svg";
 
 const MtgLogo = () => (
   <img
-    src={mtg_logo_duocolor}
+    src={mtg_logo_monocolor}
     alt="MtG Deck Builder Logo"
     className="h-10 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
   />
