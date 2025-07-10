@@ -65,7 +65,7 @@ function Home() {
         {/* New to Magic + Get Started */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-4">
           <span className="text-lg sm:text-xl font-medium text-white">New to Magic?</span>
-          <button className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 transition duration-300 font-medium shadow-lg">
+          <button onClick={() => navigate("/tutorials")} className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 transition duration-300 font-medium shadow-lg">
             Get Started
           </button>
         </div>

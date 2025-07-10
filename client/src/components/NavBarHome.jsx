@@ -63,13 +63,13 @@ export default function NavBarHome() {
       {/* Center menu links - hidden on mobile */}
       <NavbarContent className="hidden sm:flex gap-4">
         <NavbarItem>
-          <Link
+          <Button onClick={() => navigate("/")}
             className="font-bold text-white hover:text-red-500 transition-colors duration-200"
             color="foreground"
             href="#"
           >
-            Search
-          </Link>
+            Home
+          </Button>
         </NavbarItem>
         <NavbarItem isActive>
           <Link
@@ -133,7 +133,7 @@ export default function NavBarHome() {
               }
               href="#"
               size="lg"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {item}
             </Link>
