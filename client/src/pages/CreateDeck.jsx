@@ -155,27 +155,6 @@ function CreateDeck() {
         © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
       </footer>
     </>
-      <div className="mt-8">
-        <h2 className="text-2xl mb-4">Cartas no Deck:</h2>
-        {deckCards.length === 0 ? (
-          <p>Nenhuma carta adicionada ainda.</p>
-        ) : (
-          <ul className="list-disc ml-6">
-            {deckCards.map((card, index) => (
-              <li className="flex items-center" key={`${card.id}-${index}`}>
-                {card.name}
-                <button
-                  onClick={() => handleRemoveCard(card.id)}
-                  className="ml-4 bg-red-600 px-2 py-1 rounded hover:bg-red-800 transition text-white"
-                >
-                  Remove
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
   );
 }
 
