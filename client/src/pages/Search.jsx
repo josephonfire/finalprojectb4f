@@ -51,7 +51,7 @@ function SearchResult() {
           {cards.map((card) => (
             <div
               key={card.id}
-              className="bg-gray-800 p-4 rounded cursor-pointer hover:bg-gray-700 transition"
+              className="bg-gray-900 p-4 rounded-2xl cursor-pointer hover:bg-gray-700 transition"
               onClick={() => navigate(`/card/${card.id}`)}
             >
               <h3 className="font-bold mb-2 text-white">{card.name}</h3>

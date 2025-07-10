@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 // Componente que exibe os detalhes de uma carta específica
 // Obtém o ID da carta da URL, faz uma requisição à API para buscar os detalhes da carta
 // Exibe o nome, imagem, tipo, texto oracle, custo de mana e nome do conjunto
@@ -13,6 +12,11 @@ function CardDetails() {
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const cleanManaSymbols = (text) => {
+    if (!text) return "N/A";
+    return text.replace(/[{}]/g, "");
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3030/api/cards/${cardId}`)
@@ -41,7 +45,7 @@ function CardDetails() {
         <strong>Oracle Text:</strong> {card.oracle_text || "N/A"}
       </p>
       <p>
-        <strong>Mana Cost:</strong> {card.mana_cost || "N/A"}
+        <strong>Mana Cost:</strong> {cleanManaSymbols(card.mana_cost)}
       </p>
       <p>
         <strong>Set Name:</strong> {card.set_name}

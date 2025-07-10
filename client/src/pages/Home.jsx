@@ -44,36 +44,50 @@ function Home() {
   // );
 
   return (
-    <>
+  <>
     <NavBarHome />
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-0">
+    <div className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16 py-12 pt-0">
       {/* Banner */}
       {/* Adicionar algum banner aqui depois */}
 
       <div className="w-full max-w-4xl mx-auto text-center">
         {/* Header */}
-        <div className="mb-10 text-center ">
-          <img src={mtg_logo_duocolor} alt="MtG Deck Builder Logo" className="inline-block w-60 h-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]" />
-          
-          
-          <p className="text-xl mb-2 text-gray-200">
+        <div className="mb-12">
+          <img
+            src={mtg_logo_duocolor}
+            alt="MtG Deck Builder Logo"
+            className="mx-auto w-56 sm:w-64 md:w-72 drop-shadow-[0_0_8px_rgba(255,0,0,0.75)]"
+          />
+
+          <p className="mt-6 text-2xl sm:text-3xl font-semibold text-gray-200">
             Search for your favorite cards
           </p>
-          <p className="text-base text-gray-400 mb-8 max-w-2xl mx-auto">
+          <p className="mt-3 text-gray-400 text-base sm:text-lg max-w-3xl mx-auto">
             Use the search bar below to find cards by name, type, or set.
           </p>
         </div>
 
         {/* Componente de busca */}
-        <div className="mb-0 flex justify-center">
-          <CardSearch /> 
+        <div className="mb-8 flex justify-center">
+          <CardSearch />
         </div>
 
-        {/* New to Magic, Get started é o botão para ir ao tutorial */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-4">
-          <span className="text-lg sm:text-xl font-medium text-white">New to Magic?</span>
-          <button onClick={() => navigate("/tutorials")} className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 transition duration-300 font-medium shadow-lg">
+        {/* New to Magic / Get started / Tools buttons */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+          <span className="text-lg sm:text-xl font-medium text-white select-none">
+            New to Magic?
+          </span>
+          <button
+            onClick={() => navigate("/tutorials")}
+            className="px-8 py-3 bg-red-600 text-white rounded-lg shadow-lg hover:bg-red-700 hover:scale-105 transition-transform duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-red-500"
+          >
             Get Started
+          </button>
+          <button
+            onClick={() => navigate("/lifecounter")}
+            className="px-8 py-3 bg-white text-black rounded-lg shadow-lg hover:scale-105 hover:text-gray-900 transition-transform duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400"
+          >
+            Tools
           </button>
         </div>
       </div>
