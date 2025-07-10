@@ -1,6 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+
+// Componente que exibe os detalhes de uma carta específica
+// Obtém o ID da carta da URL, faz uma requisição à API para buscar os detalhes da carta
+// Exibe o nome, imagem, tipo, texto oracle, custo de mana e nome do conjunto
+// Se a carta não for encontrada, exibe uma mensagem de erro
+// Lembrar de estilizar e adicionar mais coisas depois
+
 function CardDetails() {
   const { cardId } = useParams();
   const [card, setCard] = useState(null);

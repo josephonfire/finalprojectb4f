@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+// Componente de botão de lista que pode ser usado para navegar ou executar uma ação personalizada
+// Recebe texto, link e uma função onClick como props
+// Se onClick for fornecido, ele será chamado ao clicar no botão; caso contrário,
+// o botão navegará para o link fornecido
+// O botão também muda de estilo quando selecionado, com uma animação de escala e mudança
 function ListButton({ text, link, onClick }) {
   const [isSelected, setIsSelected] = useState(false);
   const navigate = useNavigate();

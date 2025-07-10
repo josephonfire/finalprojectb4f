@@ -4,25 +4,32 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import NavBarHome from "../components/NavBarHome";
 
+
+// Componente de resultado de busca que exibe cartas encontradas com base no nome pesquisado
+// O nome da carta é obtido da URL, por exemplo, /search/Lightning Bolt
+// O componente faz uma requisição à API para buscar as cartas e exibe os resultados
+// Se não encontrar nenhuma carta, exibe uma mensagem de erro
+// O usuário pode clicar na carta e ver as especificações da carta em uma nova página
+
 function SearchResult() {
-  const { name } = useParams();
-  const [cards, setCards] = useState([]);
-  const [error, setError] = useState("");
+  const { name } = useParams(); // Obtém o nome da carta
+  const [cards, setCards] = useState([]); // Estado para armazenar as cartas encontradas
+  const [error, setError] = useState(""); // Estado para armazenar mensagens de erro
   const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchCards() {
       try {
-        const res = await axios.get(`http://localhost:3030/api/cards?name=${encodeURIComponent(name)}`);
+        const res = await axios.get(`http://localhost:3030/api/cards?name=${encodeURIComponent(name)}`); // Faz a requisição à API para buscar cartas pelo nome
         setCards(res.data);
         setError("");
       } catch (err) {
         setCards([]);
-        setError("Nenhuma carta encontrada.");
+        setError("Nenhuma carta encontrada."); // Define mensagem de erro se não encontrar cartas
       }
     }
-    fetchCards();
-  }, [name]);
+    fetchCards(); // Chama a função para buscar as cartas quando o componente é montado
+  }, [name]); // Reexecuta a busca se o nome mudar
 
   if (error) {
     return (

@@ -1,6 +1,15 @@
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
+
+// Componente para criar um novo deck
+// Este componente permite ao usuário criar um deck, buscar cartas usando a API Scryfall e
+// adicionar/remover cartas do deck. O deck é salvo a principio no localStorage do navegador.
+// O nome do deck e o usuário são passados como parâmetros de busca na URL.
+// O usuário pode buscar cartas por nome e adicionar ao deck, que é exibido abaixo da busca.
+// As cartas adicionadas ao deck podem ser removidas individualmente.
+// O deck é salvo no localStorage com o nome, usuário, cartas e data de criação
+
 function CreateDeck() {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("user");
@@ -11,9 +20,9 @@ function CreateDeck() {
 
   const searchCards = async () => {
     const res = await fetch(
-      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}`
+      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}` // Busca as cartas por nome no Scryfall
     );
-    const data = await res.json();
+    const data = await res.json(); // Espera a resposta da API Scryfall e recebe em json
 
     if (data?.data) {
       setSearchResults(data.data);
@@ -22,14 +31,17 @@ function CreateDeck() {
     }
   };
 
+  // Função para adicionar uma carta ao deck
   const handleAddCard = (card) => {
     setDeckCards((prev) => [...prev, card]);
   };
 
+  // Função para remover uma carta do deck
   const handleRemoveCard = (cardId) => {
     setDeckCards((prev) => prev.filter((card) => card.id !== cardId));
   };
 
+  // Função para lidar com o envio do formulário de criação do deck
   const handleSubmit = (e) => {
     e.preventDefault();
     const deck = {
@@ -38,7 +50,7 @@ function CreateDeck() {
       cards: deckCards,
       createdAt: new Date().toISOString(),
     };
-    const existingDecks = JSON.parse(localStorage.getItem("decks")) || [];
+    const existingDecks = JSON.parse(localStorage.getItem("decks")) || []; // Recupera os decks existentes do localStorage ou cria um array vazio se não houver nenhum
     localStorage.setItem("decks", JSON.stringify([...existingDecks, deck]));
     alert("Deck salvo com sucesso!");
     console.log(`Deck "${deckName}" criado para o usuário ${username}`);
@@ -113,12 +125,14 @@ function CreateDeck() {
         ) : (
           <ul className="list-disc ml-6">
             {deckCards.map((card, index) => (
-              <li
-                className="flex items-center"
-                key={`${card.id}-${index}`}
-              >
+              <li className="flex items-center" key={`${card.id}-${index}`}>
                 {card.name}
-                <button onClick={() => handleRemoveCard(card.id)} className="ml-4 bg-red-600 px-2 py-1 rounded hover:bg-red-800 transition text-white">Remove</button>
+                <button
+                  onClick={() => handleRemoveCard(card.id)}
+                  className="ml-4 bg-red-600 px-2 py-1 rounded hover:bg-red-800 transition text-white"
+                >
+                  Remove
+                </button>
               </li>
             ))}
           </ul>

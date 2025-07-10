@@ -1,24 +1,31 @@
 import { useState } from "react";
 
+// Componente de Signup que permite aos usuários se registrarem com um nome de usuário, email e senha
+// O componente faz uma requisição POST para a API para criar um novo usuário
+// Se a senha e a confirmação de senha não coincidirem, exibe um alerta
+// Se o usuário for criado com sucesso, exibe uma mensagem de sucesso e limpa os campos
+// Se ocorrer um erro, exibe uma mensagem de erro
+// O componente também inclui links para navegar para a página de login
+
 function Signup() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState(""); // Estado para armazenar o nome de usuário
+  const [email, setEmail] = useState(""); // Estado para armazenar o email
+  const [password, setPassword] = useState(""); // Estado para armazenar a senha
+  const [confirmPassword, setConfirmPassword] = useState(""); // Estado para armazenar a confirmação da senha
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Password e Confirm Password precisam ser iguais.");
+      alert("Password e Confirm Password precisam ser iguais."); // Verifica se a senha e a confirmação de senha são iguais
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3030/api/signup", {
+      const response = await fetch("http://localhost:3030/api/signup", { // Faz uma requisição POST para a API de signup
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
+        headers: { "Content-Type": "application/json" }, // Define o cabeçalho Content-Type como application/json
+        body: JSON.stringify({ // Envia os dados do usuário como um objeto JSON
           username, 
           email, 
           password, 
@@ -26,7 +33,7 @@ function Signup() {
         }),
       });
 
-      console.log("CENAS: ",response)
+      console.log("CENAS: ",response) // Coisas do professor, deixei de proposito
       const data = await response.json();
       if (!response.ok) {
         alert(data.message || "Erro ao criar usuário");
