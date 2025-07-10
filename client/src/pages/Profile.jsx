@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import React from 'react';
-import "../index.css";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CardSearch from '../components/Search Bar/CardSearch.jsx';
 import profilePhoto from '../images/profile_photo.jpg';
