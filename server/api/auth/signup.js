@@ -1,7 +1,7 @@
 const express = require("express");
 const { body, validationResult } = require("express-validator");
 const router = express.Router();
-const { registerUser } = require("../node_modules/services/auth.js");
+const { newUser } = require("../data/user.js");
 
 router.post(
   "/",
@@ -23,7 +23,7 @@ router.post(
 
     try {
       const userData = req.body;
-      await registerUser(userData);
+      await newUser(userData);
       return res.status(201).json({ message: "Utilizador criado com sucesso!" });
     } catch (err) {
       if (err.status === 400) {
