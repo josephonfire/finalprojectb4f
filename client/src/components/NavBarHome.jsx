@@ -67,7 +67,7 @@ export default function NavBarHome() {
     </NavbarItem>
     <NavbarItem>
       <Link color="foreground" href="#">
-        News
+        Graphs
       </Link>
     </NavbarItem>
   </NavbarContent>
@@ -78,7 +78,7 @@ export default function NavBarHome() {
       <Button
         variant="light"
         color="default"
-        className="px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
+        className="m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
         onClick={() => navigate("/login")}
       >
         Login
