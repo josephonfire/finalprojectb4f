@@ -150,6 +150,10 @@ function CreateDeck() {
           )}
         </div>
       </div>
+      {/* Rodapé */}
+      <footer className="mt-16 text-gray-500 text-sm text-center">
+        © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
+      </footer>
     </>
       <div className="mt-8">
         <h2 className="text-2xl mb-4">Cartas no Deck:</h2>
