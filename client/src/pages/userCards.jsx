@@ -13,7 +13,7 @@ import NavBarHome from "../components/NavBarHome";
 //lista das cartas do user
 //tem que ir a bd do user e ver caretas lhe estão associadas
 
-function ownedCards(){
+function OwnedCards(){
 
 }
-export default ownedCards;
+export default OwnedCards;

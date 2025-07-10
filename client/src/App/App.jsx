@@ -12,6 +12,8 @@ import CreateDeck from "../pages/CreateDeck";
 import ProfileTest from "../pages/ProfileTest";
 import CardDetails from "../components/CardDetails";
 import StatsPage from "../pages/statsPage";
+import OwnedCards from "../pages/userCards";
+import OwnedDecks from "../pages/userDecks";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
             <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
+            <Route path="/ownedCards" element={<OwnedCards />} />
+            <Route path="/ownedDecks" element={<OwnedDecks />} />
           </Routes>
         </div>
       </div>

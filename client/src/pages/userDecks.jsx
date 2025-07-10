@@ -12,7 +12,7 @@ import NavBarHome from "../components/NavBarHome";
 //lista dos decks do user
 //tem que ir a bd do user e ver que decks (listas de cartas) lhe estão associados
 
-function ownedDecks() {
+function OwnedDecks() {
 
     return (<>
         <NavBarHome />
@@ -29,5 +29,6 @@ function ownedDecks() {
         </footer>
 
     </>
+    );
 }
-export default ownedDecks;
+export default OwnedDecks;
