@@ -39,7 +39,7 @@ export default function NavBarHome() {
   ];
 
   return (
-    <Navbar maxWidth="full" className="bg-black/80 text-white backdrop-blur-sm" onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen}>
+    <Navbar maxWidth="full" className="bg-black/80 text-white backdrop-blur-sm border-b border-gray-700" onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen}>
   {/* Left side: Hamburger + Logo */}
   <NavbarContent className="flex-1">  {/* flex-1 para ocupar espaço à esquerda */}
     <NavbarMenuToggle
