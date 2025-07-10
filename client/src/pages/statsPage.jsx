@@ -25,20 +25,22 @@ function StatsPage() {
 
     // Dados fictícios (devem ser substituídos por dados reais do utilizador via API)
     const colorData = [
-        { name: 'Preto', value: 12 },
-        { name: 'Branco', value: 8 },
-        { name: 'Vermelho', value: 15 },
-        { name: 'Verde', value: 10 },
-        { name: 'Azul', value: 6 },
+        { name: 'Black', value: 12 },
+        { name: 'White', value: 8 },
+        { name: 'Red', value: 15 },
+        { name: 'Green', value: 10 },
+        { name: 'Blue', value: 6 },
     ];
     const barColors = ['#1f1f1f', '#ffffe6', '#cf1919', '#16a816', '#4573ff'];
 
 
     const typeData = [
-        { name: 'Criatura', value: 20 },
-        { name: 'Feitiço', value: 7 },
-        { name: 'Encantamento', value: 5 },
-        { name: 'Instantânea', value: 10 },
+        { name: 'Creature', value: 20 },
+        { name: 'Sorcery', value: 7 },
+        { name: 'Enchantment', value: 5 },
+        { name: 'Instant', value: 10 },
+        { name: 'Artifact', value: 3 },
+        { name: 'Planeswalker', value: 1 },
     ];
 
     const topCards = [
@@ -51,7 +53,7 @@ function StatsPage() {
 
     // Lista de botões e componentes associados
     const conteudo = [
-        ['Cartas por Cor', (
+        ['Cards by Color', (
             <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={colorData}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -66,7 +68,7 @@ function StatsPage() {
                 </BarChart>
             </ResponsiveContainer>
         )],
-        ['Cartas por Tipo', (
+        ['Cards by Type', (
             <ResponsiveContainer width="100%" height={200}>
                 <BarChart data={typeData}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -77,7 +79,7 @@ function StatsPage() {
                 </BarChart>
             </ResponsiveContainer>
         )],
-        ['Top 5 Cartas', (
+        ['Top 5 Cards', (
             <ul className="text-left text-white text-lg">
                 {topCards.map((card, index) => (
                     <li key={index} className="mb-1">{card.name} — {card.count}x</li>
