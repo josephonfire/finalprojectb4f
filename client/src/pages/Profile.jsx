@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import React from 'react';
 import "../index.css";
@@ -8,6 +7,7 @@ import profilePhoto from '../images/profile_photo.jpg';
 import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import "../index.css";
 import NavBarHome from "../components/NavBarHome";
 
 
