@@ -1,3 +1,4 @@
+import GraficoPage from "../components/Graficos";
 import Login from "../components/Login Form/Login"
 import Signup from "../components/Signup";
 
@@ -5,7 +6,7 @@ function LoginPage() {
   return (
     <>
       <div className="App">
-        <Login/> <br />
+        <GraficoPage/> <br />
        
       </div>
       <footer className="mt-4 text-gray-500 text-sm text-center">
