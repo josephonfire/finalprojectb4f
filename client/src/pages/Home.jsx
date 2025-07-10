@@ -2,13 +2,13 @@ import CardSearch from "../components/Search Bar/CardSearch";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg"
+import NavBarHome from "../components/NavBarHome";
 
 
 function Home() {
   const navigate = useNavigate();
   const [topCards, setTopCards] = useState([]);
 
-  console.log(topCards);
   useEffect(() => {
     fetch("http://localhost:3030/api/cards/top3")
       .then(res => res.json())
@@ -18,7 +18,7 @@ function Home() {
 
   // Header fixo no topo
   const Header = () => (
-    <header className="w-full flex justify-end items-center px-6 py-4 bg-transparent fixed top-0 left-0 z-20">
+    <header className="w-full flex justify-end items-center px-6 py-4 bg-transparent top-0 left-0 z-20">
       <div className="flex gap-4">
         <button
           onClick={() => navigate('/login')}
@@ -38,8 +38,8 @@ function Home() {
 
   return (
     <>
+    <NavBarHome />
     <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
-      <Header />
       {/* Banner */}
       {/* Adicionar algum banner aqui depois */}
 
@@ -47,9 +47,8 @@ function Home() {
         {/* Header */}
         <div className="mb-10 text-center ">
           <img src={mtg_logo_duocolor} alt="MtG Deck Builder Logo" className="inline-block w-60 h-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]" />
-          {/* <h1 className="text-5xl font-extrabold mb-4 text-white drop-shadow-lg">
-      Magic: The Gathering
-    </h1> */}
+          
+          
           <p className="text-xl mb-2 text-gray-200">
             Search for your favorite cards
           </p>
@@ -66,13 +65,13 @@ function Home() {
         {/* New to Magic + Get Started */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-2 mb-4">
           <span className="text-lg sm:text-xl font-medium text-white">New to Magic?</span>
-          <button className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 transition duration-300 font-medium shadow-lg">
+          <button onClick={() => navigate("/tutorials")} className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 transition duration-300 font-medium shadow-lg">
             Get Started
           </button>
         </div>
       </div>
 
-      {/* Top 3 Cartas */}
+      {/* Top 3 Cartas
       <div className="mt-12 w-full max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Top 3 Today's Searches</h2>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
@@ -84,7 +83,7 @@ function Home() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* Rodapé */}
       <footer className="mt-16 text-gray-500 text-sm">

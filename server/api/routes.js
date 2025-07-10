@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { listUser, registerUser } = require('./services/auth.js');
+const { listUser, registerUser } = require('./node_modules/services/auth.js');
+
 
 
 router.post('/register', async (req, res) => {

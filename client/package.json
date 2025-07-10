@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@heroui/navbar": "^2.2.20",
+    "@nextui-org/react": "^2.6.11",
     "@testing-library/jest-dom": "^6.1.2",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.4.3",
     "axios": "^1.7.2",
+    "framer-motion": "^12.23.3",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-icons": "^5.5.0",

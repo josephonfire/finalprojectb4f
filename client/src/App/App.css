@@ -37,3 +37,23 @@
     transform: rotate(360deg);
   }
 }
+
+.glow-border {
+  border: 4px solid transparent;
+  border-radius: 0.5rem;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 270deg,
+    white 270deg 360deg
+  );
+  background-size: 100% 100%;
+  background-origin: border-box;
+  animation: spinGlow 1s linear infinite;
+  z-index: 0;
+}
+
+@keyframes spinGlow {
+  to {
+    transform: rotate(360deg);
+  }
+}

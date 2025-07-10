@@ -11,7 +11,7 @@ const data = [
 
 const colors = ['#3B82F6', '#10B981', '#EF4444'];
 
-function Graficos() {
+function Graphs() {
   return (
     <main className="flex justify-center items-center py-16 px-4">
       <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-xl">
@@ -34,4 +34,4 @@ function Graficos() {
   );
 }
 
-export default Graficos;
+export default Graphs;

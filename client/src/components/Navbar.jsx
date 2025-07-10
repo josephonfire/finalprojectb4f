@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import {graficos} from './Graficos'
 function Navbar() {
   return (
     <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-indigo-600">MeuApp</h1>
+        <h1 className="text-xl font-bold text-indigo-600">Graficos</h1>
+      <div className="max-w-7xl mx-auto px-8 py-4 flex justify-center items-center">
+
         <ul className="flex gap-12 text-gray-700 font-medium">
           <li><Link to="/" className="hover:text-indigo-600">Início</Link></li>
           <li><Link to="/graficos" className="hover:text-indigo-600">Gráficos</Link></li>
@@ -16,3 +17,4 @@ function Navbar() {
     </nav>
   );
 }
+export default Navbar;
