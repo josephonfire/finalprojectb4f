@@ -25,7 +25,7 @@ function Profile() {
       <div></div>
 
       {/* menu com botoes para as outras paginas */}
-      <div className="m-10 flex justify-center">
+      <div className="m-10 flex flex-col justify-center">
         <ListButton/>
         <ListButton/>
       </div>
