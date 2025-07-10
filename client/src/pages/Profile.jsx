@@ -8,6 +8,7 @@ import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import NavBarHome from "../components/NavBarHome";
 
 
 function Profile() {
@@ -22,7 +23,7 @@ function Profile() {
   return (
     <>
       {/* cabecalho para colocar a navbar */}
-      <header></header>
+      <header><NavBarHome /></header>
       {/* barra de pesquisa */}
       <div className="mb-0 flex justify-center">
         <CardSearch />

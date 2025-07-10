@@ -1,5 +1,6 @@
 import '../index.css';
 import { useState } from 'react';
+import NavBarHome from "../components/NavBarHome";
 
 
 function Tutorials() {
@@ -29,7 +30,7 @@ function Tutorials() {
     ]));
     return (
         <>
-        <header></header>
+        <header><NavBarHome/></header>
         <div className="p-8 text-center min-h-screen text-white">
             <h1 className="font-bold text-xl mb-6 text-white">Tutorials</h1>
             <p className="text-gray-300">Learn how to play the game</p>

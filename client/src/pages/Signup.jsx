@@ -1,8 +1,10 @@
 import Signup from "../components/Signup";
+import NavBarHome from "../components/NavBarHome";
 
 function SignUpPage() {
   return (
     <>
+    <header><NavBarHome/></header>
       <div className="App">
         <Signup/> <br />
        
