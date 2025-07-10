@@ -4,6 +4,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CardSearch from '../components/Search Bar/CardSearch.jsx';
 import profilePhoto from '../images/profile_photo.jpg';
+import ListButton from '../components/list_btn.jsx';
 
 
 function Profile() {
@@ -24,7 +25,10 @@ function Profile() {
       <div></div>
 
       {/* menu com botoes para as outras paginas */}
-      <div></div>
+      <div className="m-10 flex justify-center">
+        <ListButton/>
+        <ListButton/>
+      </div>
 
       {/* rodape */}
       <footer className="mt-4 text-gray-500 text-sm text-center">
