@@ -39,85 +39,106 @@ export default function NavBarHome() {
   ];
 
   return (
-    <Navbar maxWidth="full" className="bg-black/80 text-white backdrop-blur-sm border-b border-gray-700" onMenuOpenChange={setIsMenuOpen} isMenuOpen={isMenuOpen}>
-  {/* Left side: Hamburger + Logo */}
-  <NavbarContent className="flex-1">  {/* flex-1 para ocupar espaço à esquerda */}
-    <NavbarMenuToggle
-      aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-      className="sm:hidden"
-      onClick={() => setIsMenuOpen(!isMenuOpen)}
-    />
-    <NavbarBrand className="flex items-center gap-2">
-      <MtgLogo />
-      <p className="font-bold text-inherit">Magic Deck Builder</p>
-    </NavbarBrand>
-  </NavbarContent>
+    <Navbar
+      maxWidth="full"
+      className="bg-black/80 text-white backdrop-blur-sm border-b border-gray-700"
+      onMenuOpenChange={setIsMenuOpen}
+      isMenuOpen={isMenuOpen}
+    >
+      {/* Left side: Hamburger + Logo */}
+      <NavbarContent className="flex-1">
+        {" "}
+        {/* flex-1 para ocupar espaço à esquerda */}
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        />
+        <NavbarBrand className="flex items-center gap-2">
+          <MtgLogo />
+          <p className="font-bold text-inherit">Magic Deck Builder</p>
+        </NavbarBrand>
+      </NavbarContent>
 
-  {/* Center menu links - hidden on mobile */}
-  <NavbarContent className="hidden sm:flex gap-4">
-    <NavbarItem>
-      <Link color="foreground" href="#">
-        Search
-      </Link>
-    </NavbarItem>
-    <NavbarItem isActive>
-      <Link aria-current="page" href="#">
-        Decks
-      </Link>
-    </NavbarItem>
-    <NavbarItem>
-      <Link color="foreground" href="#">
-        Graphs
-      </Link>
-    </NavbarItem>
-  </NavbarContent>
+      {/* Center menu links - hidden on mobile */}
+      <NavbarContent className="hidden sm:flex gap-4">
+        <NavbarItem>
+          <Link
+            className="font-bold text-white hover:text-red-500 transition-colors duration-200"
+            color="foreground"
+            href="#"
+          >
+            Search
+          </Link>
+        </NavbarItem>
+        <NavbarItem isActive>
+          <Link
+            className="font-bold text-white hover:text-red-500 transition-colors duration-200"
+            aria-current="page"
+            href="#"
+          >
+            Decks
+          </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            onClick={() => navigate("/graficos")}
+            className="font-bold text-white hover:text-red-500 transition-colors duration-200"
+            color="foreground"
+          >
+            Graphs
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
 
-  {/* Right side login/signup buttons */}
-  <NavbarContent className="flex-1 justify-end"> {/* flex-1 + justify-end empurra para direita */}
-    <NavbarItem>
-      <Button
-        variant="light"
-        color="default"
-        className="m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
-        onClick={() => navigate("/login")}
-      >
-        Login
-      </Button>
-    </NavbarItem>
-    <NavbarItem>
-      <Button
-        color="primary"
-        variant="flat"
-        className="px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
-        onClick={() => navigate("/signup")}
-      >
-        Sign Up
-      </Button>
-    </NavbarItem>
-  </NavbarContent>
+      {/* Right side login/signup buttons */}
+      <NavbarContent className="flex-1 justify-end">
+        {" "}
+        {/* flex-1 + justify-end empurra para direita */}
+        <NavbarItem>
+          <Button
+            variant="light"
+            color="default"
+            className="m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            color="primary"
+            variant="flat"
+            className="px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
+            onClick={() => navigate("/signup")}
+          >
+            Sign Up
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
 
-  {/* Mobile menu */}
-  <NavbarMenu>
-    {menuItems.map((item, index) => (
-      <NavbarMenuItem key={`${item}-${index}`}>
-        <Link
-          className="w-full"
-          color={
-            index === 2
-              ? "primary"
-              : index === menuItems.length - 1
-              ? "danger"
-              : "foreground"
-          }
-          href="#"
-          size="lg"
-          onClick={() => setIsMenuOpen(false)}
-        >
-          {item}
-        </Link>
-      </NavbarMenuItem>
-    ))}
-  </NavbarMenu>
-</Navbar>
-    );
-    }
+      {/* Mobile menu */}
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              className="w-full"
+              color={
+                index === 2
+                  ? "primary"
+                  : index === menuItems.length - 1
+                  ? "danger"
+                  : "foreground"
+              }
+              href="#"
+              size="lg"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
+    </Navbar>
+  );
+}
