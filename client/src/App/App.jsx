@@ -43,7 +43,6 @@ function App() {
             <Route path='/profile' element={<Profile />} />
             <Route path="/graphs" element={<Graphs />} />
 
-            <Route path="search/:name" element={<SearchPage />} />
             <Route path="/Tutorials" element={<Tutorials />} />
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/graficos" element={<Graficos />} />
