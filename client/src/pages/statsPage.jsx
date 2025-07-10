@@ -23,14 +23,14 @@ function StatsPage() {
         <>
         <header><NavBarHome/></header>
         <div className="p-8 text-center min-h-screen text-white">
-            <h1 className="font-bold text-xl mb-6 text-white">Tutorials</h1>
-            <p className="text-gray-300">Learn how to play the game</p>
+            <h1 className="font-bold text-xl mb-6 text-white">Statistics</h1>
+            <p className="text-gray-300">text goes here</p>
 
             <div className="max-h-screen bg-gradient-to-br from-gray-950/60 to-red-950/60  text-white p-5 mt-5 border-[10px] border-black rounded-lg">
                 <div className="grid grid-cols-1 gap-2">
 
                     <div className="w-full max-h-64 overflow-y-scroll border-2 border-red-800 p-2 rounded shadow bg-gradient-to-br from-gray-950/70 to-red-950/70">
-                        <h2 className="font-bold text-left">Content</h2></div>
+                        <h2 className="font-bold text-left">Graphic Display</h2></div>
 
                     <div className="w-full max-h-64 overflow-y-scroll border-2 border-red-800 p-4 rounded shadow">
                         <ul className="text-left pl-0 list-none">
@@ -49,7 +49,7 @@ function StatsPage() {
                     </div>
 
                     <div className="w-full max-h-64 overflow-y-scroll border-2 border-red-800 p-2 rounded shadow bg-gradient-to-br from-gray-950/70 to-red-950/70">
-                        <h2 className="font-bold text-left">Description</h2></div>
+                        <h2 className="font-bold text-left">Charts</h2></div>
 
                     <div className="w-full max-h-64 overflow-y-scroll border-2 border-red-800 p-4 rounded shadow">
                         {activeIndex !== null ? (

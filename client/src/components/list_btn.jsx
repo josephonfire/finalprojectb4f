@@ -9,9 +9,9 @@ function ListButton({ text, link, onClick }) {
     setIsSelected(true);
 
     if (onClick) {
-      onClick(); // 🔴 usa a função personalizada (como navigate com username)
+      onClick(); //  usa a função personalizada (como navigate com username)
     } else if (link) {
-      navigate(link); // 🔄 fallback se não tiver onClick
+      navigate(link); //  fallback se não tiver onClick
     }
   };
 

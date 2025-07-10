@@ -39,7 +39,7 @@ function Home() {
   return (
     <>
     <NavBarHome />
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-20">
+    <div className="relative min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 py-8 pt-0">
       {/* Banner */}
       {/* Adicionar algum banner aqui depois */}
 
@@ -86,7 +86,7 @@ function Home() {
       </div> */}
 
       {/* Rodapé */}
-      <footer className="mt-16 text-gray-500 text-sm">
+      <footer className="mt-16 text-gray-500 text-sm text-center">
         © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
       </footer>
       </div>
