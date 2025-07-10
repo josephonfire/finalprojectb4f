@@ -11,6 +11,9 @@ import MagicFireBackground from "../components/MagicFireBG/MagicFireBg";
 import CreateDeck from "../pages/CreateDeck";
 import ProfileTest from "../pages/ProfileTest";
 import CardDetails from "../components/CardDetails";
+import StatsPage from "../pages/statsPage";
+import OwnedCards from "../pages/userCards";
+import OwnedDecks from "../pages/userDecks";
 import LifeCounter from "../components/LifeCounter";
 // import StatsPage from "../pages/StatsPage";
 
@@ -37,6 +40,9 @@ function App() {
             <Route path="/create-deck" element={<CreateDeck />} />
             <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
+            <Route path="statsPage" element={<StatsPage />} />
+            <Route path="/ownedCards" element={<OwnedCards />} />
+            <Route path="/ownedDecks" element={<OwnedDecks />} />
             {/* <Route path="statsPage" element={<StatsPage />} /> */}
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>
