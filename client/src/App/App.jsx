@@ -27,6 +27,8 @@ function App() {
             <Route path='search/:name' element={<SearchPage />} />
             <Route path='/Tutorials' element={<Tutorials />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/profile/:username' element={<Profile />} />
+            {/* Adicione outras rotas conforme necessário */}
           </Routes>
           <div className="App">
           </div>
