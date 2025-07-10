@@ -63,7 +63,7 @@ function CreateDeck() {
     <><>
           <NavBarHome />
           <div className="p-8 text-white text-center">
-              <h1 className="text-3xl mb-4">{username} create your new deck!</h1>
+              <h1 className="text-3xl mt-16 mb-4">{username} create your new deck!</h1>
 
               {/* Formulario para nome do deck*/}
               <form onSubmit={handleSubmit}>
