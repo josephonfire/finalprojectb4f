@@ -21,7 +21,7 @@ function CardDetails() {
 
   return (
     <div className="p-6 text-white">
-      <h1 className="text-3xl font-bold mb-4">{card.name}</h1>
+      <h1 className="text-3xl font-bold mb-4 justify-center">{card.name}</h1>
       <img
         src={card.image_uris?.normal || card.image_uris?.large}
         alt={card.name}

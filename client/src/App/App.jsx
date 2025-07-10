@@ -11,6 +11,7 @@ import MagicFireBackground from "../components/MagicFireBG/MagicFireBg";
 import CreateDeck from "../pages/CreateDeck";
 import ProfileTest from "../pages/ProfileTest";
 import CardDetails from "../components/CardDetails";
+import StatsPage from "../pages/statsPage";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/create-deck" element={<CreateDeck />} />
             <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
+            <Route path="statsPage" element={<StatsPage />} />
           </Routes>
         </div>
       </div>

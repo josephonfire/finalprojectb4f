@@ -40,12 +40,12 @@ function Profile() {
 
       {/* menu com botoes para as outras paginas */}
       <div className="m-10 flex flex-col justify-center">
-        <ListButton text="Statistics" link="link para pagina de estatísticas" />
+        <ListButton text="Statistics" link="/statsPage/" />
         {/*  substituir pelo link correto */}
-        <ListButton text="My Cards" link="link para pagina de cartas do user" />
+        <ListButton text="My Cards" link="/userCards/" />
         {/*  substituir pelo link correto */}
         <ListButton text="Create New Deck" link="#" onClick={() => handleCreateDeck()} />
-        <ListButton text="My Decks" link="link para pagina de Decks do user" />
+        <ListButton text="My Decks" link="/userDecks/" />
         {/*  substituir pelo link correto */}
         <ListButton text="Tutorials" link="/Tutorials/" />
       </div>

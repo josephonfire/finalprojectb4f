@@ -14,6 +14,8 @@ router.get('/users', async (req, res) => {
     await listUser(db, req, res);
 });
 
+router.get('/api/user/:id/stats', getUserStats);
+
 
 
 module.exports = router;
