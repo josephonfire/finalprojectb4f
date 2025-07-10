@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg"
 import NavBarHome from "../components/NavBarHome";
+import '../index.css';
 
 
 function Home() {
