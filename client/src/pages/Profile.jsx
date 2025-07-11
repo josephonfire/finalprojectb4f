@@ -76,7 +76,7 @@ function Profile() {
 
   // Editar deck (mock)
   const handleEditDeck = (deckId) => {
-    navigate(`/create-deck?edit=${deckId}`);
+    navigate(`/create-deck?edit=${deckId}&user=${username}`);
   };
 
   return (

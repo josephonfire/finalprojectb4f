@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavBarAndSearch from "../components/NavBarAndSearch";
 import "../index.css";
@@ -96,6 +96,7 @@ function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckNa
 
 function CreateDeck() {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const username = searchParams.get("user");
   const cardParam = searchParams.get("card");
   const editId = searchParams.get("edit");
@@ -204,6 +205,10 @@ function CreateDeck() {
       });
       if (res.ok) {
         alert("Deck salvo com sucesso!");
+        // Se o deck tiver mais de 10 cartas, redireciona para o perfil
+        if (deckCards.length > 10 && username) {
+          navigate(`/profile/${username}`);
+        }
         // Redirecionar ou limpar formulário se quiser
       } else {
         alert("Erro ao salvar deck!");
@@ -220,6 +225,7 @@ function CreateDeck() {
       return;
     }
     await handleSubmit({ preventDefault: () => {} });
+    
   };
   const handleClearDeck = () => {
     if (window.confirm("Are you sure you want to remove all cards from this deck?")) {
