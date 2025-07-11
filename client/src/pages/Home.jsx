@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg"
 import NavBarHome from "../components/NavBarHome";
 import '../index.css';
+import { FaHeart, FaDiceD20 } from "react-icons/fa";
 
 
 // Pagina inicial do site, onde o usuario pode pesquisar cartas, ver as 3 cartas mais pesquisadas do dia e acessar o login e cadastro
@@ -14,6 +15,7 @@ import '../index.css';
 function Home() {
   const navigate = useNavigate();
   const [topCards, setTopCards] = useState([]); // Adicionado mas lembrar de adicionar depois
+  const [toolsOpen, setToolsOpen] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3030/api/cards/top3") // Endpoint para buscar as 3 cartas mais pesquisadas do dia
@@ -73,7 +75,7 @@ function Home() {
         </div>
 
         {/* New to Magic / Get started / Tools buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 relative">
           <span className="text-lg sm:text-xl font-medium text-white select-none">
             New to Magic?
           </span>
@@ -83,12 +85,33 @@ function Home() {
           >
             Get Started
           </button>
-          <button
-            onClick={() => navigate("/lifecounter")}
-            className="px-8 py-3 bg-white text-black rounded-lg shadow-lg hover:scale-105 hover:text-gray-900 transition-transform duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400"
+          <div
+            className="relative"
+            onMouseEnter={() => setToolsOpen(true)}
+            onMouseLeave={() => setToolsOpen(false)}
           >
-            Tools
-          </button>
+            <button
+              ref={el => (window._toolsBtn = el)}
+              className="px-8 py-3 bg-white text-black rounded-lg shadow-lg hover:scale-105 hover:text-gray-900 transition-transform duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400"
+              style={{ zIndex: 2, position: 'relative', minWidth: 160 }}
+            >
+              Tools
+            </button>
+            {/* Dropdown */}
+            <div
+              className={`absolute left-0 top-full mt-0 bg-white/95 border border-red-700 rounded-b-xl shadow-md transition-all duration-300 z-20 overflow-hidden ${toolsOpen ? 'opacity-100 visible translate-y-0 max-h-40' : 'opacity-0 invisible -translate-y-2 max-h-0'}`}
+              style={{ width: '100%', minWidth: 160, transitionProperty: 'opacity,transform,max-height', transitionDuration: '300ms' }}
+            >
+              <button
+                className="w-full flex items-center gap-3 text-left px-6 py-2 text-black hover:bg-red-600 hover:text-white transition-all duration-200 font-semibold text-base focus:outline-none active:scale-95"
+                onClick={() => navigate("/lifecounter")}
+                style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+              >
+                <FaDiceD20 className="text-red-700 text-lg" />
+                Life Counter
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
