@@ -16,9 +16,12 @@ import OwnedCards from "../pages/userCards";
 import OwnedDecks from "../pages/userDecks";
 import LifeCounter from "../components/LifeCounter";
 // import StatsPage from "../pages/StatsPage";
+import CardSearch from "../components/Search Bar/CardSearch";
+import NavBarHome from "../components/NavBarHome";
 
 function App() {
   return (
+  
     <Router>
       <div
         className="relative w-full h-screen bg-cover bg-center"
@@ -41,8 +44,8 @@ function App() {
             <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
-            <Route path="/ownedCards" element={<OwnedCards />} />
-            <Route path="/ownedDecks" element={<OwnedDecks />} />
+            <Route path="/ownedcards" element={<OwnedCards />} />
+            <Route path="/owneddecks" element={<OwnedDecks />} />
             {/* <Route path="statsPage" element={<StatsPage />} /> */}
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>

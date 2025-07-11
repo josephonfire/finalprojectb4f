@@ -4,7 +4,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
   Link,
@@ -12,6 +11,7 @@ import {
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import mtg_logo_monocolor from "../images/mtg_logo_monocolor.svg";
+import SearchBarOnly from "./Search Bar/SearchBarOnly";
 
 const MtgLogo = () => (
   <img
@@ -27,9 +27,11 @@ export default function NavBarHome() {
   const isLoggedIn = !!localStorage.getItem('token');
 
   const menuItems = [
+    { label: "Home", path: "/" },
     { label: "Profile", path: "/profile" },
     { label: "Dashboard", path: "#" },
-    { label: "Analytics", path: "#" },
+    { label: "Decks", path: "/" },
+    { label: "Graphs", path: "/graficos" },
     { label: "My Settings", path: "#" },
     { label: "Help & Feedback", path: "#" },
   ];
@@ -46,12 +48,12 @@ export default function NavBarHome() {
     <>
       <Navbar
         maxWidth="full"
-        className="fixed bg-black/90 text-white backdrop-blur-sm border-b border-gray-700"
+        className="fixed bg-black/90 text-white backdrop-blur-sm border-b border-gray-700 z-50"
         onMenuOpenChange={setIsMenuOpen}
         isMenuOpen={isMenuOpen}
       >
-        {/* Left: Logo + Menu Toggle */}
-        <NavbarContent className="flex-1">
+        {/* Left: Menu + Logo */}
+        <NavbarContent className="flex items-center gap-4">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-white hover:text-red-500 transition-colors duration-200 font-bold text-lg"
@@ -60,13 +62,20 @@ export default function NavBarHome() {
           </button>
           <NavbarBrand className="flex items-center gap-2">
             <MtgLogo />
+            <p className="font-bold text-inherit">Magic Deck Builder</p>
           </NavbarBrand>
         </NavbarContent>
 
-        {/* Center Links */}
-         <NavbarContent className="hidden sm:flex gap-4">
-          <p className="flex justify-center items-center font-bold text-inherit">Magic Deck Builder</p>
-        {/*  <NavbarItem>
+        {/* Center: Search bar */}
+        <NavbarContent className="hidden md:flex justify-center flex-1">
+          <div className="w-full max-w-md">
+            <SearchBarOnly />
+          </div>
+        </NavbarContent>
+
+        {/* Right: Navigation Links */}
+        {/* <NavbarContent className="hidden sm:flex gap-4 items-center">
+          <NavbarItem>
             <Button
               onClick={() => navigate("/")}
               className="font-bold text-white hover:text-red-500 transition-colors"
@@ -91,17 +100,17 @@ export default function NavBarHome() {
             >
               Graphs
             </Button>
-          </NavbarItem> */ }
-        </NavbarContent>
+          </NavbarItem>
+        </NavbarContent> */}
 
-        {/* Right: Auth Buttons */}
+        {/* Right-most: Auth Buttons */}
         {!isLoggedIn && (
-          <NavbarContent className="flex-1 justify-end">
+          <NavbarContent className="flex gap-2 justify-end">
             <NavbarItem>
               <Button
                 variant="light"
                 color="default"
-                className="flex m-2 px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
+                className="flex px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
                 onClick={() => navigate("/login")}
               >
                 Login
@@ -120,7 +129,7 @@ export default function NavBarHome() {
           </NavbarContent>
         )}
         {isLoggedIn && (
-          <NavbarContent className="flex-1 justify-end">
+          <NavbarContent className="flex gap-2 justify-end">
             <NavbarItem>
               <Button
                 color="danger"
@@ -164,7 +173,7 @@ export default function NavBarHome() {
         </NavbarMenu>
       </Navbar>
 
-      {/* 🔳 Overlay para fechar o menu clicando fora */}
+      {/* Overlay para fechar menu lateral clicando fora */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50"
