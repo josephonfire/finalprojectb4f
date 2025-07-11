@@ -24,13 +24,13 @@ router.post(
     try {
       const userData = req.body;
       await newUser(userData);
-      return res.status(201).json({ message: "Utilizador criado com sucesso!" });
+      return res.status(201).json({ message: "User account created with success!" });
     } catch (err) {
       if (err.status === 400) {
         return res.status(400).json({ message: err.message });
       }
       console.error(err);
-      return res.status(500).json({ message: "Erro ao criar o utilizador." });
+      return res.status(500).json({ message: "Error creating user." });
     }
   }
 );

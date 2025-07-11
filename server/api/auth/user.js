@@ -12,7 +12,7 @@ router_user.get("/", async (req, res) => {
     const token = authHeader.replace("Bearer ", "");
 
     try {
-        const decoded = jwt.verify(token, 'pedro');
+        const decoded = jwt.verify(token, 'mtg');
 
         return res.status(200).json({
             message: "Token recebido!",
