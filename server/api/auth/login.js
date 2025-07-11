@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 const { findOneUser } = require("../data/user.js");
 const jwt = require("jsonwebtoken");
 
-const SECRET = 'pedro'; // Defina sua chave secreta
+const SECRET = 'mtg'; // Defina sua chave secreta
 
 const router_login = express.Router();
 
@@ -21,13 +21,13 @@ router_login.post(
 
       const user = await findOneUser({email, password});
       if (!user) {
-        return res.status(401).json({ message: "O utilizador não foi encontrado!" });
+        return res.status(401).json({ message: "User not found!" });
       }
       if (user) {
         const token = jwt.sign({ id: user._id, email: user.email }, SECRET);
         return res.status(200).json({
           token,
-          message: "Login realizado com sucesso!",
+          message: "Login successful!",
           Id: user._id
         });
       }
