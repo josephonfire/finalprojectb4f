@@ -5,7 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
 const { newUser, findUsers, findOneUser } = require("./data/user.js");
-const { createDeck, getUserDecks, getDeckById, updateDeck } = require("./data/deck.js");
+const { createDeck, getUserDecks, getDeckById, updateDeck } = require("./data/decks.js");
 
 const corsOptions ={
    origin:'*', 
