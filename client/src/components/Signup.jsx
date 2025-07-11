@@ -71,31 +71,31 @@ function Signup() {
                 </a>
               </p>
             </div>
-            <div className="text-left">
+            <div className="text-left text-white font-semibold">
               <label htmlFor="username">Username:</label> <br />
               <input
                 type="text"
                 id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="font-normal w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 placeholder="Enter your username"
                 required
               />
             </div>
-            <div className="text-left">
+            <div className="text-left text-white font-semibold">
               <label htmlFor="email">Email:</label> <br />
               <input
                 type="email"
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="font-normal w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 required
                 placeholder="Enter your email"
               />
             </div>
-            <div className="text-left">
+            <div className="text-left text-white font-semibold">
               <label htmlFor="password">Password:</label> <br />
               <input
                 type="password"
@@ -104,11 +104,11 @@ function Signup() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 placeholder="Enter your password"
-                className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="font-normal w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
-            <div className="text-left">
-              <label htmlFor="confirmPassword">Confirm your password:</label>
+            <div className="text-left text-white font-semibold">
+              <label htmlFor="confirmPasswor">Confirm your password:</label>
               <br />
               <input
                 type="password"
@@ -117,7 +117,7 @@ function Signup() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 placeholder="Confirm your password"
-                className="w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                className="font-normal w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
             <br />
