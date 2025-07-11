@@ -16,9 +16,12 @@ import OwnedCards from "../pages/userCards";
 import OwnedDecks from "../pages/userDecks";
 import LifeCounter from "../components/LifeCounter";
 // import StatsPage from "../pages/StatsPage";
+import CardSearch from "../components/Search Bar/CardSearch";
+import NavBarHome from "../components/NavBarHome";
 
 function App() {
   return (
+  
     <Router>
       <div
         className="relative w-full h-screen bg-cover bg-center"
