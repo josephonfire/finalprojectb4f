@@ -31,8 +31,8 @@ export default function NavBarHome() {
     { label: "Analytics", path: "#" },
     { label: "My Settings", path: "#" },
     { label: "Help & Feedback", path: "#" },
-    { label: "Log Out", path: "#" },
   ];
+  const logoutItem = { label: "Log Out", path: "#" };
 
   return (
     <>
@@ -111,7 +111,7 @@ export default function NavBarHome() {
         </NavbarContent>
 
         {/* Sidebar Menu */}
-        <NavbarMenu className="fixed top-0 left-0 w-64 h-full z-50 bg-black text-white p-6 transition-transform transform duration-300 ease-in-out shadow-xl border-r border-red-700 sm:w-72">
+        <NavbarMenu className="fixed top-0 left-0 w-64 h-full z-50 bg-black text-white p-6 transition-transform transform duration-300 ease-in-out shadow-xl border-r border-red-700 sm:w-72 flex flex-col">
           <div className="mb-6">
             <h2 className="text-xl font-bold text-red-500">Menu</h2>
           </div>
@@ -119,11 +119,7 @@ export default function NavBarHome() {
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={index} className="mb-2">
               <Link
-                className={`block w-full text-lg font-medium transition-colors ${
-                  item.label === "Log Out"
-                    ? "text-red-500 hover:text-red-700"
-                    : "text-white hover:text-red-500"
-                }`}
+                className="block w-full text-lg font-medium transition-colors text-white hover:text-red-500"
                 href={item.path}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -131,6 +127,17 @@ export default function NavBarHome() {
               </Link>
             </NavbarMenuItem>
           ))}
+          <div className="mt-auto pt-8">
+            <NavbarMenuItem>
+              <Link
+                className="block w-full text-lg font-medium transition-colors text-red-500 hover:text-red-700"
+                href={logoutItem.path}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {logoutItem.label}
+              </Link>
+            </NavbarMenuItem>
+          </div>
         </NavbarMenu>
       </Navbar>
 

@@ -7,7 +7,7 @@ import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import "../index.css";
-import NavBarHome from "../components/NavBarHome";
+import NavBarAndSearch from "../components/NavBarAndSearch";
 
 
 // Componente de perfil do usuário, que exibe informações do usuário e permite navegar para outras páginas
@@ -25,13 +25,11 @@ function Profile() {
 
   return (
     <>
-      {/* cabecalho para colocar a navbar */}
       <header>
-        <NavBarHome />
+        {/* barra de pesquisa e navbar */}
+        <NavBarAndSearch/>
       </header>
-      {/* barra de pesquisa */}
       <div className="mb-0 mt-16 flex justify-center">
-        <CardSearch />
       </div>
       {/* foto do perfil */}
       <div className="mb-0 flex justify-center">
