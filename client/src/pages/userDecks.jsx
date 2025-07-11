@@ -1,69 +1,57 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import CardSearch from '../components/Search Bar/CardSearch.jsx';
-import profilePhoto from '../images/profile_photo.jpg';
+import React, { useEffect, useState } from "react";
+import NavBarAndSearch from "../components/NavBarAndSearch";
 import ListButton from '../components/list_btn.jsx';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import NavBarHome from "../components/NavBarHome";
-
-//lista dos decks do user
-//tem que ir a bd do user e ver que decks (listas de cartas) lhe estão associados
-import { useEffect, useState } from "react";
 import axios from "axios";
 
-
-//é necessário ligar à db
-
-function OwnedDecks() {
-
-    const { userId } = useParams();
+function UserDecks() {
+    // Usar o username do localStorage, que é o mesmo usado na criação do deck
+    const username = localStorage.getItem('username');
     const [decks, setDecks] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchDecks = async () => {
             try {
-                const res = await axios.get(`/api/user/${userId}/decks`);
+                const res = await axios.get(`http://localhost:3030/api/decks?user=${username}`);
                 setDecks(res.data);
             } catch (err) {
                 console.error("Erro ao carregar decks", err);
+            } finally {
+                setLoading(false);
             }
         };
-
-        fetchDecks();
-    }, []);
+        if (username) fetchDecks();
+    }, [username]);
 
     return (
-
         <>
-            < header >
-                <NavBarHome />
-            </header >
+            <header>
+                <NavBarAndSearch />
+            </header>
 
             <div className="p-8 text-center min-h-screen text-white">
                 <h1 className="font-bold text-3xl mb-6 text-white">Your owned Decks</h1>
+                {loading ? (
+                  <p className="text-white/70">Loading...</p>
+                ) : decks.length === 0 ? (
+                  <p className="text-white/70">No decks found for this user.</p>
+                ) : (
+                  <div className="m-10 flex flex-col justify-center">
+                    {decks.map((deck, index) => (
+                        <ListButton
+                            key={deck._id || index}
+                            text={deck.name}
+                            link={`/decks/${deck._id}`}
+                        />
+                    ))}
+                  </div>
+                )}
             </div>
 
-            <div className="m-10 flex flex-col justify-center">
-                {decks.map((deck, index) => (
-                    <ListButton
-                        key={deck._id || index}
-                        text={deck.name}
-                        link={`/decks/${deck._id}`}
-                    />
-                ))}
-
-            </div >
-
-
-
-
-
-
-            < footer className="mt-16 text-gray-500 text-sm text-center" >
+            <footer className="mt-16 text-gray-500 text-sm text-center">
                 © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
-            </footer >
+            </footer>
         </>
     );
 }
-export default OwnedDecks;
+export default UserDecks;

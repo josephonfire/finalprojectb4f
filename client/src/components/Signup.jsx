@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Componente de Signup que permite aos usuários se registrarem com um nome de usuário, email e senha
 // O componente faz uma requisição POST para a API para criar um novo usuário
@@ -12,31 +13,36 @@ function Signup() {
   const [email, setEmail] = useState(""); // Estado para armazenar o email
   const [password, setPassword] = useState(""); // Estado para armazenar a senha
   const [confirmPassword, setConfirmPassword] = useState(""); // Estado para armazenar a confirmação da senha
+  const [passwordError, setPasswordError] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    if (password.length < 6) {
+      setPasswordError("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
     if (password !== confirmPassword) {
-      alert("Password e Confirm Password precisam ser iguais."); // Verifica se a senha e a confirmação de senha são iguais
+      setPasswordError("Password e Confirm Password precisam ser iguais.");
       return;
     }
 
     try {
-      const response = await fetch("http://localhost:3030/api/signup", { // Faz uma requisição POST para a API de signup
+      const response = await fetch("http://localhost:3030/api/signup", {
         method: "POST",
-        headers: { "Content-Type": "application/json" }, // Define o cabeçalho Content-Type como application/json
-        body: JSON.stringify({ // Envia os dados do usuário como um objeto JSON
-          username, 
-          email, 
-          password, 
-          confirmPassword 
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username,
+          email,
+          password,
+          confirmPassword
         }),
       });
 
-      console.log("CENAS: ",response) // Coisas do professor, deixei de proposito
       const data = await response.json();
       if (!response.ok) {
-        alert(data.message || "Erro ao criar usuário");
+        setPasswordError(data.error || data.message || "Erro ao criar usuário");
         return;
       }
 
@@ -45,9 +51,11 @@ function Signup() {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      setPasswordError("");
+      navigate('/login'); // Redireciona para login após cadastro
     } catch (error) {
       console.error("Erro no signup:", error);
-      alert("Erro de rede, tente novamente.");
+      setPasswordError("Erro de rede, tente novamente.");
     }
   };
 
@@ -101,12 +109,18 @@ function Signup() {
                 type="password"
                 id="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setPasswordError("");
+                }}
                 required
                 placeholder="Enter your password"
                 className="font-normal w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
               />
             </div>
+            {passwordError && (
+              <p className="text-red-500 text-sm mt-1">{passwordError}</p>
+            )}
             <div className="text-left text-white font-semibold">
               <label htmlFor="confirmPasswor">Confirm your password:</label>
               <br />
@@ -114,7 +128,10 @@ function Signup() {
                 type="password"
                 id="confirmPassword"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                  setPasswordError("");
+                }}
                 required
                 placeholder="Confirm your password"
                 className="font-normal w-full px-3 py-2 border border-gray-800 rounded-md bg-black backdrop-blur-sm text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"

@@ -25,9 +25,10 @@ export default function NavBarHome() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
+  const username = localStorage.getItem('username');
 
   const menuItems = [
-    { label: "Profile", path: "/profile" },
+    { label: "Profile", path: `/profile/${username}` },
     { label: "Dashboard", path: "#" },
     { label: "Analytics", path: "#" },
     { label: "My Settings", path: "#" },

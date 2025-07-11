@@ -18,6 +18,7 @@ import LifeCounter from "../components/LifeCounter";
 // import StatsPage from "../pages/StatsPage";
 import CardSearch from "../components/Search Bar/CardSearch";
 import NavBarHome from "../components/NavBarHome";
+import UserDecks from "../pages/userDecks";
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
             <Route path="/ownedCards" element={<OwnedCards />} />
-            <Route path="/ownedDecks" element={<OwnedDecks />} />
+            <Route path="/userdecks" element={<UserDecks />} />
             {/* <Route path="statsPage" element={<StatsPage />} /> */}
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>

@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
 const { newUser, findUsers, findOneUser } = require("./data/user.js");
+const { createDeck, getUserDecks, getDeckById, updateDeck } = require("./data/deck.js");
 
 const corsOptions ={
    origin:'*', 
@@ -162,6 +163,38 @@ app.get('/api/cards/:id', async (req, res) => {
   }
 });
 
+// Criar deck
+app.post('/api/decks', async (req, res) => {
+    try {
+      const id = await createDeck(req.body);
+      res.status(201).json({ message: "Deck criado com sucesso!", _id: id });
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao criar deck" });
+    }
+  });
+  
+  // Listar decks de um usuário
+  app.get('/api/decks', async (req, res) => {
+    const { user } = req.query;
+    if (!user) return res.status(400).json({ error: "Usuário não informado" });
+    try {
+      const decks = await getUserDecks(user);
+      res.json(decks);
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao buscar decks" });
+    }
+  });
+  
+  // Editar deck
+  app.put('/api/decks/:id', async (req, res) => {
+    try {
+      await updateDeck(req.params.id, req.body);
+      res.json({ message: "Deck atualizado com sucesso!" });
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao atualizar deck" });
+    }
+  });
+  
 // Endpoint Top 3 cartas mais utilizadas (mock)
 app.get('/api/cards/top3', (req, res) => {
   const topCards = [

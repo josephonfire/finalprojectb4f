@@ -103,7 +103,7 @@ function CreateDeck() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const deck = {
       name: deckName,
@@ -111,10 +111,21 @@ function CreateDeck() {
       cards: deckCards,
       createdAt: new Date().toISOString(),
     };
-    const existingDecks = JSON.parse(localStorage.getItem("decks")) || [];
-    localStorage.setItem("decks", JSON.stringify([...existingDecks, deck]));
-    alert("Deck salvo com sucesso!");
-    console.log(`Deck "${deckName}" criado para o usuário ${username}`);
+    try {
+      const res = await fetch("http://localhost:3030/api/decks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(deck),
+      });
+      if (res.ok) {
+        alert("Deck salvo com sucesso!");
+        // Redirecionar ou limpar formulário se quiser
+      } else {
+        alert("Erro ao salvar deck!");
+      }
+    } catch (err) {
+      alert("Erro de rede ao salvar deck!");
+    }
   };
 
   return (

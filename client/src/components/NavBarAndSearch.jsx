@@ -25,12 +25,15 @@ export default function NavBarHome() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
+  const username = localStorage.getItem('username');
+  const profilePath = `/profile/${username}`;
+  
 
   const menuItems = [
     { label: "Home", path: "/" },
-    { label: "Profile", path: "/profile" },
+    { label: "Profile", path: profilePath },
     { label: "Dashboard", path: "#" },
-    { label: "Decks", path: "/" },
+    { label: "Decks", path: "/userdecks" },
     { label: "Graphs", path: "/graficos" },
     { label: "My Settings", path: "#" },
     { label: "Help & Feedback", path: "#" },
