@@ -44,8 +44,8 @@ function App() {
             <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
-            <Route path="/ownedCards" element={<OwnedCards />} />
-            <Route path="/ownedDecks" element={<OwnedDecks />} />
+            <Route path="/ownedcards" element={<OwnedCards />} />
+            <Route path="/profile/:username/owneddecks" element={<OwnedDecks />} />
             {/* <Route path="statsPage" element={<StatsPage />} /> */}
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>
