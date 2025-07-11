@@ -60,6 +60,7 @@ const MenuSandwich = () => {
         </div>
       </div>
     </div>
+    </div>
   );
 };
 

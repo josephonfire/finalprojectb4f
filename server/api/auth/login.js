@@ -1,6 +1,6 @@
 const express = require('express');
 const { body, validationResult } = require('express-validator');
-const { findUserByEmailAndPassword } = require("../../data/users");
+const { findOneUser } = require("../data/user.js");
 const jwt = require("jsonwebtoken");
 
 const SECRET = 'pedro'; // Defina sua chave secreta
@@ -19,7 +19,7 @@ router_login.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-      const user = await findUserByEmailAndPassword({email, password});
+      const user = await findOneUser({email, password});
       if (!user) {
         return res.status(401).json({ message: "O utilizador não foi encontrado!" });
       }

@@ -1,0 +1,114 @@
+Claro! Vamos implementar isso passo a passo:
+
+---
+
+## 🛠️ 1. Criar o utilitário `replaceManaSymbols.js`
+
+### 📁 Localização:
+`client/src/utils/replaceManaSymbols.js`
+
+### 📄 Conteúdo do ficheiro:
+
+```jsx
+import React from "react";
+
+// Caminho base para os ícones SVG
+const ICON_PATH = "/images/mana-icons"; // relativo à pasta public
+
+// Mapeamento de símbolos para nomes de ficheiros
+const symbolMap = {
+  "{T}": "T.svg",
+  "{G}": "G.svg",
+  "{R}": "R.svg",
+  "{U}": "U.svg",
+  "{B}": "B.svg",
+  "{W}": "W.svg",
+  "{C}": "C.svg",
+  "{X}": "X.svg",
+  "{0}": "0.svg",
+  "{1}": "1.svg",
+  "{2}": "2.svg",
+  "{3}": "3.svg",
+  "{4}": "4.svg",
+  "{5}": "5.svg",
+  "{6}": "6.svg",
+  "{7}": "7.svg",
+  "{8}": "8.svg",
+  "{9}": "9.svg",
+  "{10}": "10.svg",
+  "{11}": "11.svg",
+  "{12}": "12.svg",
+  "{13}": "13.svg",
+  "{14}": "14.svg",
+  "{15}": "15.svg",
+  "{16}": "16.svg",
+  "{17}": "17.svg",
+  "{18}": "18.svg",
+  "{19}": "19.svg",
+  "{20}": "20.svg",
+  // Adiciona mais conforme necessário
+};
+
+export function replaceManaSymbols(text) {
+  if (!text) return null;
+
+  const parts = text.split(/(\{[^}]+\})/g); // divide por símbolos como {T}, {G}, etc.
+
+  return parts.map((part, index) => {
+    if (symbolMap[part]) {
+      return (
+        <img
+          key={index}
+          src={`${ICON_PATH}/${symbolMap[part]}`}
+          alt={part}
+          className="inline w-5 h-5 mx-0.5 align-text-bottom"
+        />
+      );
+    } else {
+      return <React.Fragment key={index}>{part}</React.Fragment>;
+    }
+  });
+}
+```
+
+---
+
+## 🧩 2. Alterar o componente `CardDetails.jsx`
+
+### 📁 Localização:
+`client/src/pages/CardDetails.jsx` (ou onde estiveres a renderizar os detalhes da carta)
+
+### 🛠️ Alterações:
+
+1. Importa o utilitário:
+```jsx
+import { replaceManaSymbols } from "../utils/replaceManaSymbols";
+```
+
+2. Substitui onde renderizas `card.oracle_text` e `card.mana_cost`:
+
+```jsx
+<p className="text-white text-sm mb-2">
+  {replaceManaSymbols(card.mana_cost)}
+</p>
+
+<p className="text-white text-sm whitespace-pre-line">
+  {replaceManaSymbols(card.oracle_text)}
+</p>
+```
+
+> Usa `whitespace-pre-line` para preservar quebras de linha no texto da carta.
+
+---
+
+## 🧾 Resumo dos ficheiros a criar/alterar:
+
+| Ficheiro | Ação |
+|---------|------|
+| `client/src/images/mana-icons/` | 📁 Cria a pasta e adiciona os SVGs (ex: `T.svg`, `G.svg`, etc.) |
+| `client/src/utils/replaceManaSymbols.js` | 🆕 Cria o utilitário para substituir símbolos por imagens |
+| `client/src/pages/CardDetails.jsx` | ✏️ Altera para usar o utilitário ao renderizar texto |
+
+---
+
+Se quiseres que os ícones tenham animações, tooltips ou adaptação ao tema escuro, posso ajudar a adicionar isso também. Queres? ✨

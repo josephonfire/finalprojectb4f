@@ -17,7 +17,7 @@ const MtgLogo = () => (
   <img
     src={mtg_logo_monocolor}
     alt="MtG Deck Builder Logo"
-    className="h-10 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
+    className="h-14 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
   />
 );
 
@@ -38,7 +38,7 @@ export default function NavBarHome() {
     <>
       <Navbar
         maxWidth="full"
-        className="bg-black/90 text-white backdrop-blur-sm border-b border-red-700"
+        className="fixed bg-black/90 text-white backdrop-blur-sm border-b border-gray-700"
         onMenuOpenChange={setIsMenuOpen}
         isMenuOpen={isMenuOpen}
       >

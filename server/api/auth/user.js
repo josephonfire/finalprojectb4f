@@ -1,7 +1,6 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const router_user = express.Router();
-const { findToken } = require("../../services/signup");
 
 router_user.get("/", async (req, res) => {
     const authHeader = req.headers.authorization;

@@ -4,6 +4,10 @@ import NavBarHome from "../components/NavBarHome";
 import Signup from "../components/Signup";
 import AppBar from "../AppNav"
 
+
+// Pagina do login do site. 
+// Importante: o servidor deve estar rodando na porta 3030 para que a API funcione corretamente
+
 function LoginPage() {
   return (
     <>

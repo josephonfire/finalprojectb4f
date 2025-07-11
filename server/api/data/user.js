@@ -28,4 +28,21 @@ async function deleteUser(data) {
     await collection.deleteOne(data)
 }
 
-module.exports = { insertUser, findUser, updateUser, deleteUser }
+// Funções necessárias para o index.js
+async function newUser(data) {
+  const collection = await getCollection("user");
+  const result = await collection.insertOne(data);
+  return result.insertedId;
+}
+
+async function findUsers() {
+  const collection = await getCollection("user");
+  return await collection.find({}).toArray();
+}
+
+async function findOneUser(query) {
+  const collection = await getCollection("user");
+  return await collection.findOne(query);
+}
+
+module.exports = { insertUser, findUser, updateUser, deleteUser, newUser, findUsers, findOneUser }
