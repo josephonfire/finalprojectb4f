@@ -180,7 +180,7 @@ function CardDetails() {
                       Oracle Text
                     </h3>
                     <p className="text-white text-base leading-relaxed whitespace-pre-wrap">
-                      {replaceManaSymbols(card.mana_cost)}
+                      {replaceManaSymbols(card.oracle_text)}
                     </p>
                   </motion.div>
                 )}

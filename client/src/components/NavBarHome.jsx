@@ -14,20 +14,22 @@ import { useNavigate } from "react-router-dom";
 import mtg_logo_monocolor from "../images/mtg_logo_monocolor.svg";
 import SearchBarOnly from "./Search Bar/SearchBarOnly";
 
-const MtgLogo = () => (
-  <img
-    src={mtg_logo_monocolor}
-    alt="MtG Deck Builder Logo"
-    className="h-14 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
-  />
-);
-
 export default function NavBarHome() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const hasValidUser = isLoggedIn && username && username !== "null" && username !== "undefined";
+
+  const MtgLogo = () => (
+    <img
+      src={mtg_logo_monocolor}
+      alt="MtG Deck Builder Logo"
+      className="h-14 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)], cursor-pointer"
+      onClick={() => navigate("/")}
+    />
+  );
+  
 
   const menuItems = [
     { label: "Profile", path: hasValidUser ? `/profile/${username}` : "/login" },
@@ -64,13 +66,6 @@ export default function NavBarHome() {
           <NavbarBrand className="flex items-center gap-2">
             <MtgLogo />
           </NavbarBrand>
-        </NavbarContent>
-
-        {/* Center: Search bar */}
-        <NavbarContent className="hidden md:flex justify-center flex-1">
-          <div className="w-full max-w-md">
-            <SearchBarOnly />
-          </div>
         </NavbarContent>
 
         {/* Center Links */}

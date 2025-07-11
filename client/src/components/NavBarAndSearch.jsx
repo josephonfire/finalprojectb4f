@@ -13,13 +13,7 @@ import { useNavigate } from "react-router-dom";
 import mtg_logo_monocolor from "../images/mtg_logo_monocolor.svg";
 import SearchBarOnly from "./Search Bar/SearchBarOnly";
 
-const MtgLogo = () => (
-  <img
-    src={mtg_logo_monocolor}
-    alt="MtG Deck Builder Logo"
-    className="h-14 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
-  />
-);
+
 
 export default function NavBarHome() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
@@ -30,6 +24,14 @@ export default function NavBarHome() {
 
   const profilePath = hasValidUser ? `/profile/${username}` : "/login";
   
+  const MtgLogo = () => (
+    <img
+      src={mtg_logo_monocolor}
+      alt="MtG Deck Builder Logo"
+      className="h-14 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)], cursor-pointer"
+      onClick={() => navigate("/")}
+    />
+  );
 
   const menuItems = [
     { label: "Home", path: "/" },
