@@ -18,10 +18,10 @@ function CardDetails() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  const cleanManaSymbols = (text) => {
-    if (!text) return "N/A";
-    return text.replace(/[{}]/g, "");
-  };
+  // const cleanManaSymbols = (text) => {
+  //   if (!text) return "N/A";
+  //   return text.replace(/[{}]/g, "");
+  // };
 
   useEffect(() => {
     fetch(`http://localhost:3030/api/cards/${cardId}`)
@@ -154,7 +154,7 @@ function CardDetails() {
                   <h3 className="text-red-400 font-semibold text-sm uppercase tracking-wide mb-2">
                     Mana Cost
                   </h3>
-                  <p className="text-white text-lg font-mono">{cleanManaSymbols(card.mana_cost)}</p>
+                  <p className="text-white text-lg font-mono">{replaceManaSymbols(card.mana_cost)}</p>
                 </motion.div>
 
                 <motion.div
@@ -190,7 +190,7 @@ function CardDetails() {
                   className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 text-lg"
                   onClick={() => navigate(`/create-deck?card=${encodeURIComponent(card.name)}`)}
                 >
-                  Crie um deck com essa carta
+                  Create a Deck with this card!
                 </button>
               </div>
             </motion.div>
