@@ -6,7 +6,7 @@ router_user.get("/", async (req, res) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({ message: "Token de autenticação não enviado." });
+        return res.status(401).json({ message: "Authentication Token not sent" });
     }
 
     const token = authHeader.replace("Bearer ", "");
@@ -15,12 +15,12 @@ router_user.get("/", async (req, res) => {
         const decoded = jwt.verify(token, 'mtg');
 
         return res.status(200).json({
-            message: "Token recebido!",
+            message: "Token received!",
             userId: decoded.id,
             email: decoded.email
         });
     } catch (err) {
-        return res.status(401).json({ message: "Token inválido ou expirado." });
+        return res.status(401).json({ message: "Invalid or expired Token." });
     }
 });
 
