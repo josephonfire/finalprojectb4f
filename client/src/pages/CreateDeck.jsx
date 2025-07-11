@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavBarAndSearch from "../components/NavBarAndSearch";
 import "../index.css";
 import { motion } from "framer-motion";
@@ -68,10 +68,28 @@ function DeckSidebar({ deckCards, onRemove }) {
 function CreateDeck() {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("user");
+  const cardParam = searchParams.get("card");
   const [deckName, setDeckName] = useState("");
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [deckCards, setDeckCards] = useState([]);
+
+  useEffect(() => {
+    if (cardParam) {
+      // Buscar a carta na API Scryfall pelo nome
+      fetch(`https://api.scryfall.com/cards/named?exact=${encodeURIComponent(cardParam)}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data && data.id) {
+            setDeckCards(prev => {
+              // Evitar duplicatas
+              if (prev.some(card => card.id === data.id)) return prev;
+              return [...prev, data];
+            });
+          }
+        });
+    }
+  }, [cardParam]);
 
   const searchCards = async () => {
     const res = await fetch(
@@ -136,7 +154,7 @@ function CreateDeck() {
         {/* Conteúdo principal */}
         <div className="p-8 bg-white/10 rounded-xl shadow-md max-w-5xl mx-auto w-full mb-8 lg:mb-0 border border-white/10">
           <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-center text-white">
-            {username}, <br /> create your new deck!
+            Welcome to your Deck Builder, <br />{username}
           </h1>
           {/* Nome do deck */}
           <form onSubmit={handleSubmit} className="mb-6">

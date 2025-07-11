@@ -26,7 +26,9 @@ export default function NavBarHome() {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
   const username = localStorage.getItem('username');
-  const profilePath = `/profile/${username}`;
+  const hasValidUser = isLoggedIn && username && username !== "null" && username !== "undefined";
+
+  const profilePath = hasValidUser ? `/profile/${username}` : "/login";
   
 
   const menuItems = [

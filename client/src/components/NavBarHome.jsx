@@ -12,6 +12,7 @@ import {
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import mtg_logo_monocolor from "../images/mtg_logo_monocolor.svg";
+import SearchBarOnly from "./Search Bar/SearchBarOnly";
 
 const MtgLogo = () => (
   <img
@@ -26,9 +27,10 @@ export default function NavBarHome() {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
   const username = localStorage.getItem('username');
+  const hasValidUser = isLoggedIn && username && username !== "null" && username !== "undefined";
 
   const menuItems = [
-    { label: "Profile", path: `/profile/${username}` },
+    { label: "Profile", path: hasValidUser ? `/profile/${username}` : "/login" },
     { label: "Dashboard", path: "#" },
     { label: "Analytics", path: "#" },
     { label: "My Settings", path: "#" },
@@ -52,7 +54,7 @@ export default function NavBarHome() {
         isMenuOpen={isMenuOpen}
       >
         {/* Left: Logo + Menu Toggle */}
-        <NavbarContent className="flex-1">
+        <NavbarContent className="flex items-center gap-4">
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             className="text-white hover:text-red-500 transition-colors duration-200 font-bold text-lg"
@@ -62,6 +64,13 @@ export default function NavBarHome() {
           <NavbarBrand className="flex items-center gap-2">
             <MtgLogo />
           </NavbarBrand>
+        </NavbarContent>
+
+        {/* Center: Search bar */}
+        <NavbarContent className="hidden md:flex justify-center flex-1">
+          <div className="w-full max-w-md">
+            <SearchBarOnly />
+          </div>
         </NavbarContent>
 
         {/* Center Links */}

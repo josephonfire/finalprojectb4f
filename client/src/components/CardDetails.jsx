@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { replaceManaSymbols } from "../utils/replaceManaSymbols";
@@ -16,6 +16,7 @@ function CardDetails() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const cleanManaSymbols = (text) => {
     if (!text) return "N/A";
@@ -183,6 +184,14 @@ function CardDetails() {
                     </p>
                   </motion.div>
                 )}
+              </div>
+              <div className="flex justify-center mt-8">
+                <button
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 text-lg"
+                  onClick={() => navigate(`/create-deck?card=${encodeURIComponent(card.name)}`)}
+                >
+                  Crie um deck com essa carta
+                </button>
               </div>
             </motion.div>
           </motion.div>
