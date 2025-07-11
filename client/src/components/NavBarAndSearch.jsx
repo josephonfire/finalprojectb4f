@@ -24,6 +24,7 @@ const MtgLogo = () => (
 export default function NavBarHome() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const navigate = useNavigate();
+  const isLoggedIn = !!localStorage.getItem('token');
 
   const menuItems = [
     { label: "Home", path: "/" },
@@ -35,6 +36,13 @@ export default function NavBarHome() {
     { label: "Help & Feedback", path: "#" },
   ];
   const logoutItem = { label: "Log Out", path: "#" };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    setIsMenuOpen && setIsMenuOpen(false);
+    navigate('/login');
+  };
 
   return (
     <>
@@ -96,28 +104,44 @@ export default function NavBarHome() {
         </NavbarContent> */}
 
         {/* Right-most: Auth Buttons */}
-        <NavbarContent className="flex gap-2 justify-end">
-          <NavbarItem>
-            <Button
-              variant="light"
-              color="default"
-              className="flex px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button
-              color="primary"
-              variant="flat"
-              className="flex px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
-              onClick={() => navigate("/signup")}
-            >
-              Sign Up
-            </Button>
-          </NavbarItem>
-        </NavbarContent>
+        {!isLoggedIn && (
+          <NavbarContent className="flex gap-2 justify-end">
+            <NavbarItem>
+              <Button
+                variant="light"
+                color="default"
+                className="flex px-6 py-3 bg-white text-black rounded-lg hover:bg-red-700 hover:scale-105 hover:text-white transition duration-300 font-medium shadow-lg"
+                onClick={() => navigate("/login")}
+              >
+                Login
+              </Button>
+            </NavbarItem>
+            <NavbarItem>
+              <Button
+                color="primary"
+                variant="flat"
+                className="flex px-5 py-2 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-gray-900 transition font-medium shadow"
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </Button>
+            </NavbarItem>
+          </NavbarContent>
+        )}
+        {isLoggedIn && (
+          <NavbarContent className="flex gap-2 justify-end">
+            <NavbarItem>
+              <Button
+                color="danger"
+                variant="flat"
+                className="flex px-5 py-2 bg-transparent border-2 border-red-500 text-red-500 rounded-lg hover:bg-red-600 hover:text-white transition font-medium shadow"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
+            </NavbarItem>
+          </NavbarContent>
+        )}
 
         {/* Sidebar Menu */}
         <NavbarMenu className="fixed top-0 left-0 w-64 h-full z-50 bg-black text-white p-6 transition-transform transform duration-300 ease-in-out shadow-xl border-r border-red-700 sm:w-72 flex flex-col">
@@ -138,13 +162,12 @@ export default function NavBarHome() {
           ))}
           <div className="mt-auto pt-8">
             <NavbarMenuItem>
-              <Link
-                className="block w-full text-lg font-medium transition-colors text-red-500 hover:text-red-700"
-                href={logoutItem.path}
-                onClick={() => setIsMenuOpen(false)}
+              <button
+                className="block w-full text-left text-lg font-medium transition-colors text-red-500 hover:text-red-700 bg-transparent border-none outline-none cursor-pointer"
+                onClick={handleLogout}
               >
                 {logoutItem.label}
-              </Link>
+              </button>
             </NavbarMenuItem>
           </div>
         </NavbarMenu>

@@ -71,22 +71,22 @@ app.post('/api/signup', async (req, res) => {
 
 
 app.post('/api/login', async (req, res) => {
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    const takenEmail = await findOneUser({email})
-    if (!takenEmail) {
+    const takenUserName = await findOneUser({username})
+    if (!takenUserName) {
        return res.status(404).json({"message": "O utilizador não foi encontrado!"})
     }
 
-    if (takenEmail.password !== password) {
+    if (takenUserName.password !== password) {
         return res.status(401).json({"message": "A password introduzida é inválida!"})
     }
 
     // Falta esta parte
-    tokensArr.push(takenEmail._id)
+    tokensArr.push(takenUserName._id)
 
     return res.status(200).json({
-        "_id": takenEmail._id
+        "_id": takenUserName._id
     })
 
 })

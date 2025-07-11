@@ -16,7 +16,7 @@ import NavBarAndSearch from "../components/NavBarAndSearch";
 // O componente também inclui uma barra de pesquisa para buscar cartas
 
 function Profile() {
-  const { username } = useParams(); // vai pegar "testuser" da url /profile/testuser
+  const { username } = useParams(); //
   const navigate = useNavigate(); // hook para navegar entre paginas
 
   const handleCreateDeck = () => {

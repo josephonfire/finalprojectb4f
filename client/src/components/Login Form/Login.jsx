@@ -22,8 +22,9 @@ function Login() {
 
       if (res.ok) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('username', username); // Salva o username
         console.log('Login successful:', data);
-        navigate(`/profile`);
+        navigate(`/profile/${username}`); // Redireciona para o perfil do usuário
       } else {
         console.error('Login failed:', data.message);
         alert('Login failed: ' + data.message);
