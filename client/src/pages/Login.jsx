@@ -12,7 +12,7 @@ function LoginPage() {
   return (
     <>
       <div className="App">
-        <AppBar/> <br />
+        <Login/> <br />
        
       </div>
       <footer className="mt-4 text-gray-500 text-sm text-center">
