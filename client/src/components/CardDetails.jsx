@@ -1,19 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import NavBarHome from "./NavBarHome";
+import { replaceManaSymbols } from "../utils/replaceManaSymbols";
 import NavBarAndSearch from "./NavBarAndSearch";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  NavbarMenu,
-  NavbarMenuItem,
-  Link,
-  Button,
-} from "@nextui-org/react";
-import MtgLogo from "../images/mtg_logo_monocolor.svg";
 
 // Componente que exibe os detalhes de uma carta específica
 // Obtém o ID da carta da URL, faz uma requisição à API para buscar os detalhes da carta
@@ -190,7 +179,7 @@ function CardDetails() {
                       Oracle Text
                     </h3>
                     <p className="text-white text-base leading-relaxed whitespace-pre-wrap">
-                      {card.oracle_text}
+                      {replaceManaSymbols(card.mana_cost)}
                     </p>
                   </motion.div>
                 )}
@@ -202,5 +191,4 @@ function CardDetails() {
     </>
   );
 }
-
 export default CardDetails;

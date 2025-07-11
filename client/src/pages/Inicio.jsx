@@ -10,11 +10,12 @@ const data = [
 ];
 
 const colors = ['#3B82F6', '#10B981', '#EF4444'];
+
 function Graphs() {
   return (
     <main className="flex justify-center items-center py-16 px-4">
       <div className="bg-white rounded-2xl shadow-lg p-6 w-full max-w-xl">
-        <h2 className="text-lg font-semibold mb-4 text-gray-800">Gráfico Geral</h2>
+        <h2 className="text-lg font-semibold mb-4 text-gray-800">Gráfico de Cores</h2>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />

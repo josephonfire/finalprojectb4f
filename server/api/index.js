@@ -60,7 +60,7 @@ app.post('/api/signup', async (req, res) => {
     if (password !== passwordConfirmation) {
         return res.status(400).json({"message": errors.message, "error": errors.errors.passwordConfirmation})
     }
-
+    
     // se passar todas as confirmações, executa a função
     const id = await newUser(req.body);
     
