@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import NavBarHome from "../components/NavBarHome";
+import NavBarSearch from "../components/NavBarAndSearch";
 
 function SearchResult() {
   const { name } = useParams();
@@ -10,6 +11,18 @@ function SearchResult() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+
+//   function NavbarSearchBar() {
+//   return (
+//     <div className="w-full max-w-6xl mx-auto px-6 pt-6">
+//       <NavBarHome />
+//       <div className="mt-6">
+//         <CardSearch />
+//       </div>
+//     </div>
+//   );
+// }
 
   useEffect(() => {
     async function fetchCards() {
@@ -31,7 +44,7 @@ function SearchResult() {
   if (loading) {
     return (
       <>
-        <NavBarHome />
+        <NavBarSearch />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mx-auto mb-4"></div>
@@ -45,7 +58,7 @@ function SearchResult() {
   if (error) {
     return (
       <>
-        <NavBarHome />
+        <NavBarSearch />
         <div className="flex items-center justify-center min-h-screen">
           <div className="text-center">
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 max-w-md">
@@ -59,7 +72,9 @@ function SearchResult() {
 
   return (
     <>
-      <NavBarHome />
+    
+    
+      <NavBarSearch />
       <div className="w-full max-w-6xl mx-auto p-6 pt-24">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-white mb-2">

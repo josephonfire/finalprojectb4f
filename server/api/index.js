@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
 const { newUser, findUsers, findOneUser } = require("./data/user.js");
+const { createDeck, getUserDecks, getDeckById, updateDeck } = require("./data/deck.js");
 
 const corsOptions ={
    origin:'*', 
@@ -71,22 +72,22 @@ app.post('/api/signup', async (req, res) => {
 
 
 app.post('/api/login', async (req, res) => {
-    const { email, password } = req.body
+    const { username, password } = req.body
 
-    const takenEmail = await findOneUser({email})
-    if (!takenEmail) {
+    const takenUserName = await findOneUser({username})
+    if (!takenUserName) {
        return res.status(404).json({"message": "O utilizador não foi encontrado!"})
     }
 
-    if (takenEmail.password !== password) {
+    if (takenUserName.password !== password) {
         return res.status(401).json({"message": "A password introduzida é inválida!"})
     }
 
     // Falta esta parte
-    tokensArr.push(takenEmail._id)
+    tokensArr.push(takenUserName._id)
 
     return res.status(200).json({
-        "_id": takenEmail._id
+        "_id": takenUserName._id
     })
 
 })
@@ -162,6 +163,38 @@ app.get('/api/cards/:id', async (req, res) => {
   }
 });
 
+// Criar deck
+app.post('/api/decks', async (req, res) => {
+    try {
+      const id = await createDeck(req.body);
+      res.status(201).json({ message: "Deck criado com sucesso!", _id: id });
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao criar deck" });
+    }
+  });
+  
+  // Listar decks de um usuário
+  app.get('/api/decks', async (req, res) => {
+    const { user } = req.query;
+    if (!user) return res.status(400).json({ error: "Usuário não informado" });
+    try {
+      const decks = await getUserDecks(user);
+      res.json(decks);
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao buscar decks" });
+    }
+  });
+  
+  // Editar deck
+  app.put('/api/decks/:id', async (req, res) => {
+    try {
+      await updateDeck(req.params.id, req.body);
+      res.json({ message: "Deck atualizado com sucesso!" });
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao atualizar deck" });
+    }
+  });
+  
 // Endpoint Top 3 cartas mais utilizadas (mock)
 app.get('/api/cards/top3', (req, res) => {
   const topCards = [

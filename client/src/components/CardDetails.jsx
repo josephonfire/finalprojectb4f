@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import NavBarHome from "./NavBarHome";
 import { replaceManaSymbols } from "../utils/replaceManaSymbols";
+import NavBarAndSearch from "./NavBarAndSearch";
 
 // Componente que exibe os detalhes de uma carta específica
 // Obtém o ID da carta da URL, faz uma requisição à API para buscar os detalhes da carta
@@ -15,6 +15,7 @@ function CardDetails() {
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const cleanManaSymbols = (text) => {
     if (!text) return "N/A";
@@ -32,7 +33,7 @@ function CardDetails() {
   if (loading) {
     return (
       <>
-        <NavBarHome />
+        <NavBarAndSearch />
         <div className="flex items-center justify-center min-h-screen pt-24">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mx-auto mb-4"></div>
@@ -46,7 +47,7 @@ function CardDetails() {
   if (error) {
     return (
       <>
-        <NavBarHome />
+        <NavBarAndSearch />
         <div className="flex items-center justify-center min-h-screen pt-24">
           <div className="text-center">
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 max-w-md">
@@ -61,7 +62,7 @@ function CardDetails() {
   if (!card) {
     return (
       <>
-        <NavBarHome />
+        <NavBarAndSearch />
         <div className="flex items-center justify-center min-h-screen pt-24">
           <div className="text-center">
             <div className="bg-white/5 rounded-lg p-6">
@@ -75,7 +76,8 @@ function CardDetails() {
 
   return (
     <>
-      <NavBarHome />
+      
+      <NavBarAndSearch />
       <div className="min-h-screen pt-24 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div

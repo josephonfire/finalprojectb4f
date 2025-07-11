@@ -1,16 +1,69 @@
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import NavBarHome from "../components/NavBarHome";
+import NavBarAndSearch from "../components/NavBarAndSearch";
 import "../index.css";
 import { motion } from "framer-motion";
 
-// Componente para criar um novo deck
-// Este componente permite ao usuário criar um deck, buscar cartas usando a API Scryfall e
-// adicionar/remover cartas do deck. O deck é salvo a principio no localStorage do navegador.
-// O nome do deck e o usuário são passados como parâmetros de busca na URL.
-// O usuário pode buscar cartas por nome e adicionar ao deck, que é exibido abaixo da busca.
-// As cartas adicionadas ao deck podem ser removidas individualmente.
-// O deck é salvo no localStorage com o nome, usuário, cartas e data de criação
+function CardResult({ card, onAdd, onRemove }) {
+  return (
+    <div
+      className="relative bg-white/10 p-4 rounded-xl shadow-md transition-transform hover:scale-105 hover:bg-white/20 group cursor-pointer border border-white/10"
+    >
+      <h2 className="text-sm font-bold mb-2 text-center text-white">
+        {card.name}
+      </h2>
+      <img
+        src={card.image_uris?.normal || card.image_uris?.large}
+        alt={card.name}
+        className="relative rounded-lg shadow max-w-full mx-auto"
+      />
+      <div className="mt-2 flex justify-center gap-2">
+        <button
+          onClick={() => onAdd(card)}
+          className="bg-green-600 px-4 py-1 rounded hover:bg-green-800 transition border border-white/10"
+        >
+          +
+        </button>
+        <button
+          onClick={() => onRemove(card.id)}
+          className="bg-red-600 px-4 py-1 rounded hover:bg-red-800 transition border border-white/10"
+        >
+          -
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function DeckSidebar({ deckCards, onRemove }) {
+  return (
+    <aside className="bg-white/10 border-l border-red-800 p-6 overflow-y-auto shadow-md sticky top-24 h-[calc(100vh-6rem)] hidden lg:block min-w-[300px] rounded-l-xl border-t border-b border-white/10">
+      <h2 className="text-xl font-bold mb-4 border-b border-red-700 pb-2 text-white">
+        Current Deck
+      </h2>
+      {deckCards.length === 0 ? (
+        <p className="text-white/70 italic">No cards added yet.</p>
+      ) : (
+        <ul className="space-y-3">
+          {deckCards.map((card, index) => (
+            <li
+              key={`${card.id}-${index}`}
+              className="flex justify-between items-center bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition border border-white/5"
+            >
+              <span className="text-sm font-medium text-white truncate max-w-[150px]">{card.name}</span>
+              <button
+                onClick={() => onRemove(card.id)}
+                className="bg-red-600 px-2 py-1 text-xs rounded hover:bg-red-800 transition border border-white/10"
+              >
+                Remove
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </aside>
+  );
+}
 
 function CreateDeck() {
   const [searchParams] = useSearchParams();
@@ -22,10 +75,9 @@ function CreateDeck() {
 
   const searchCards = async () => {
     const res = await fetch(
-      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}` // Busca as cartas por nome no Scryfall
+      `https://api.scryfall.com/cards/search?q=${encodeURIComponent(query)}`
     );
-    const data = await res.json(); // Espera a resposta da API Scryfall e recebe em json
-
+    const data = await res.json();
     if (data?.data) {
       setSearchResults(data.data);
     } else {
@@ -33,26 +85,25 @@ function CreateDeck() {
     }
   };
 
-  // Função para adicionar uma carta ao deck
   const handleAddCard = (card) => {
-    // Conta quantas vezes essa carta já está no deck
     const count = deckCards.filter((c) => c.id === card.id).length;
-
     if (count >= 4) {
-      alert("You can't add more than 4 copies of the same card!"); // Logica para não permitir mais de 4 cópias da mesma carta
+      alert("You can't add more than 4 copies of the same card!");
       return;
     }
-
     setDeckCards((prev) => [...prev, card]);
   };
 
-  // Função para remover uma carta do deck
   const handleRemoveCard = (cardId) => {
-    setDeckCards((prev) => prev.filter((card) => card.id !== cardId));
+    const indexToRemove = deckCards.findIndex((card) => card.id === cardId);
+    if (indexToRemove !== -1) {
+      const newDeck = [...deckCards];
+      newDeck.splice(indexToRemove, 1);
+      setDeckCards(newDeck);
+    }
   };
 
-  // Função para lidar com o envio do formulário de criação do deck
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const deck = {
       name: deckName,
@@ -60,115 +111,93 @@ function CreateDeck() {
       cards: deckCards,
       createdAt: new Date().toISOString(),
     };
-    const existingDecks = JSON.parse(localStorage.getItem("decks")) || []; // Recupera os decks existentes do localStorage ou cria um array vazio se não houver nenhum
-    localStorage.setItem("decks", JSON.stringify([...existingDecks, deck]));
-    alert("Deck salvo com sucesso!");
-    console.log(`Deck "${deckName}" criado para o usuário ${username}`);
+    try {
+      const res = await fetch("http://localhost:3030/api/decks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(deck),
+      });
+      if (res.ok) {
+        alert("Deck salvo com sucesso!");
+        // Redirecionar ou limpar formulário se quiser
+      } else {
+        alert("Erro ao salvar deck!");
+      }
+    } catch (err) {
+      alert("Erro de rede ao salvar deck!");
+    }
   };
 
   return (
     <>
-      <NavBarHome />
-      <div className="p-8 text-white text-center">
-        <h1 className="text-3xl font-bold mt-16 mb-4">
-          {username},
-          <br></br>create your new deck!
-        </h1>
-
-        {/* Formulario para nome do deck*/}
-        <form onSubmit={handleSubmit}>
-          <label className="block mb-2">Deck Name:</label>
-          <input
-            type="text"
-            value={deckName}
-            onChange={(e) => setDeckName(e.target.value)}
-            className="text-black px-4 py-2 rounded w-50 mb-4"
-          />
-          <button
-            type="submit"
-            className="bg-red-700 px-6 py-2 rounded hover:bg-red-900 transition m-2"
-          >
-            Create Deck
-          </button>
-        </form>
-
-        {/* Busca de cartas Scrifall*/}
-
-        <div className="mt-8">
-          <label className="block mb-2">Search for the cards to add:</label>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="text-black px-4 py-2 rounded w-50 mb-2"
-          />
-          <button
-            onClick={searchCards}
-            className="bg-blue-900 px-4 py-2 rounded hover:bg-blue-700 transition m-2"
-          >
-            Search
-          </button>
-        </div>
-
-        {/* Resultado da busca */}
-
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {searchResults.map((card) => (
-            <div key={card.id} className="bg-white/10 p-4 rounded">
-              <h2 className="text-sm font-bold mb-2">{card.name}</h2>
-              <motion.img
-                src={card.image_uris?.normal || card.image_uris?.large}
-                alt={card.name}
-                className="mx-auto rounded shadow-lg"
-                initial={{ y: 0 }}
-                animate={{ y: [0, -8, 0] }}
-                transition={{
-                  duration: 3 + Math.random(), // entre 3 e 4 segundos
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  ease: "easeInOut",
-                }}
-              />
-              <div className="mt-2">
-                <button
-                  onClick={() => handleAddCard(card)}
-                  className="bg-green-600 px-4 py-2 rounded hover:bg-green-800 transition"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => handleRemoveCard(card.id)}
-                  className="ml-4 bg-red-600 px-4 py-2 rounded hover:bg-red-800 transition text-white"
-                >
-                  -
-                </button>
-              </div>
+      <NavBarAndSearch />
+      {/* Remover overlay pesado, manter background padrão do body */}
+      <div className="relative z-10 pt-24 grid grid-cols-1 lg:grid-cols-[1fr_350px] min-h-screen text-white">
+        {/* Conteúdo principal */}
+        <div className="p-8 bg-white/10 rounded-xl shadow-md max-w-5xl mx-auto w-full mb-8 lg:mb-0 border border-white/10">
+          <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-center text-white">
+            {username}, <br /> create your new deck!
+          </h1>
+          {/* Nome do deck */}
+          <form onSubmit={handleSubmit} className="mb-6">
+            <label className="block mb-2 font-semibold text-white/80">Deck Name:</label>
+            <input
+              type="text"
+              value={deckName}
+              onChange={(e) => setDeckName(e.target.value)}
+              className="text-black px-4 py-2 rounded w-full mb-2 border border-white/10 focus:outline-none focus:ring-2 focus:ring-red-400"
+              placeholder="Enter deck name"
+            />
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-red-700 px-6 py-2 rounded hover:bg-red-900 transition mt-2 border border-white/10 font-semibold"
+              >
+                Create Deck
+              </button>
             </div>
-          ))}
+          </form>
+          {/* Buscar carta */}
+          <div className="mb-8">
+            <label className="block mb-2 font-semibold text-white/80">
+              Search for cards:
+            </label>
+            <div className="flex gap-2 flex-col sm:flex-row">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="text-black px-4 py-2 rounded flex-1 border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                placeholder="Ex: Lightning Bolt"
+              />
+              <button
+                onClick={searchCards}
+                className="bg-blue-900 px-4 py-2 rounded hover:bg-blue-700 transition border border-white/10 font-semibold"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+          {/* Resultados da busca */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+            {searchResults.map((card) => (
+              <CardResult
+                key={card.id}
+                card={card}
+                onAdd={handleAddCard}
+                onRemove={handleRemoveCard}
+              />
+            ))}
+          </div>
         </div>
-
-        {/* Cartas Adicionadas */}
-
-        <div className="mt-8">
-          <h2 className="text-2xl mb-4"> Your Deck:</h2>
-          {deckCards.length === 0 ? (
-            <p>No cards added yet!</p>
-          ) : (
-            <ul className="list-disc ml-6">
-              {deckCards.map((card, index) => (
-                <li className="flex items-center" key={`${card.id}-${index}`}>
-                  {card.name}
-                  <button
-                    onClick={() => handleRemoveCard(card.id)}
-                    className="ml-4 mb-2 bg-red-600 px-2 py-0,5 rounded hover:bg-red-800 transition text-white"
-                  >
-                    -
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+        {/* SIDEBAR - Deck atual, responsiva */}
+        <div className="lg:static lg:block w-full">
+          <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} />
         </div>
+      </div>
+      {/* Sidebar mobile: aparece abaixo do conteúdo principal */}
+      <div className="block lg:hidden p-4">
+        <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} />
       </div>
     </>
   );
