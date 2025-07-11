@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import "../index.css";
 import NavBarAndSearch from "../components/NavBarAndSearch";
+import axios from "axios";
 
 
 // Componente de perfil do usuário, que exibe informações do usuário e permite navegar para outras páginas
@@ -18,55 +19,161 @@ import NavBarAndSearch from "../components/NavBarAndSearch";
 function Profile() {
   const { username } = useParams(); //
   const navigate = useNavigate(); // hook para navegar entre paginas
+  const [decks, setDecks] = useState([]);
+  const [loadingDecks, setLoadingDecks] = useState(true);
 
   const handleCreateDeck = () => {
     navigate(`/create-deck?user=${username}`); // Navega para a página de criação de deck com o username como parâmetro
   };
 
+  // Exemplo de dados rápidos (mock)
+  const quickStats = [
+    { label: "Decks", value: decks.length },
+    { label: "Shared Decks", value: 0 }, // Adicionar depois essa funcionalidade
+    { label: "Cards", value: 0 },
+    { label: "Wins", value: 1 },
+    { label: "Losses", value: 0 },
+  ];
+
+  const menuItems = [
+    { text: "Statistics", link: "/statsPage/" },
+    { text: "My Cards", link: "/userCards/" },
+    { text: "Create New Deck", link: "#", onClick: () => handleCreateDeck() },
+    { text: "Tutorials", link: "/Tutorials/" },
+  ];
+
+  // Handler para alterar imagem (mock)
+  const handleChangePhoto = () => {
+    alert("Funcionalidade de alterar foto em breve!");
+  };
+
+  // Buscar decks do usuário
+  React.useEffect(() => {
+    const fetchDecks = async () => {
+      setLoadingDecks(true);
+      try {
+        const res = await axios.get(`http://localhost:3030/api/decks?user=${username}`);
+        setDecks(res.data);
+      } catch (err) {
+        setDecks([]);
+      } finally {
+        setLoadingDecks(false);
+      }
+    };
+    if (username) fetchDecks();
+  }, [username]);
+
+  // Excluir deck
+  const handleDeleteDeck = async (deckId) => {
+    if (!window.confirm("Are you sure you want to delete this deck?")) return;
+    try {
+      await axios.delete(`http://localhost:3030/api/decks/${deckId}`);
+      setDecks((prev) => prev.filter((d) => d._id !== deckId));
+    } catch (err) {
+      alert("Erro ao excluir deck!");
+    }
+  };
+
+  // Editar deck (mock)
+  const handleEditDeck = (deckId) => {
+    navigate(`/create-deck?edit=${deckId}`);
+  };
+
   return (
     <>
       <header>
-        {/* barra de pesquisa e navbar */}
         <NavBarAndSearch/>
       </header>
-      <div className="mb-0 mt-16 flex justify-center">
-      </div>
-      {/* foto do perfil */}
-      <div className="mb-0 flex justify-center">
-        <img
-          src={profilePhoto}
-          alt="user-profile-photo"
-          className="rounded-full w-52 h-52 object-cover drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] m-5"
-        />
-      </div>
+      <main className="w-full min-h-screen pt-24 pb-8 bg-transparent">
+        {/* Imagem de perfil centralizada */}
+        <div className="flex flex-col items-center mt-4 mb-2">
+          <div className="relative">
+            <img
+              src={profilePhoto}
+              alt="user-profile-photo"
+              className="rounded-full w-36 h-36 object-cover drop-shadow-[0_0_16px_rgba(255,255,255,0.8)] border-4 border-red-700 mx-auto"
+            />
+            <button
+              onClick={handleChangePhoto}
+              className="absolute bottom-2 right-2 bg-black/80 text-white px-3 py-1 rounded-full text-xs border border-white/30 hover:bg-red-700 transition"
+            >
+              Alterar foto
+            </button>
+          </div>
+          <h2 className="mt-4 text-3xl font-extrabold tracking-tight font-magic bg-gradient-to-r from-red-500 to-yellow-300 bg-clip-text text-transparent drop-shadow text-center select-text">
+            {username}
+          </h2>
+        </div>
 
-      {/* caixa com user name FALTA CORES NO FUNDO DA CAIXA*/}
-      <div className="m-10 flex flex-col justify-center bg-gradient-to-br from-red-950/90 to-gray-950/90 object-cover drop-shadow-[0_0_6px_rgba(255,255,255,0.4)] mt-7">
-        <h2 className="mx-auto w-fit text-white text-2xl font-bold">
-          {username}
-        </h2>
-      </div>
+        {/* Quick stats */}
+        <div className="flex flex-wrap justify-center gap-6 my-6">
+          {quickStats.map((stat) => (
+            <div key={stat.label} className="flex flex-col items-center bg-white/10 rounded-xl px-6 py-3 shadow border border-white/20 min-w-[90px]">
+              <span className="text-xl font-bold text-white">{stat.value}</span>
+              <span className="text-xs text-gray-300 uppercase tracking-wide">{stat.label}</span>
+            </div>
+          ))}
+        </div>
 
-      {/* menu com botoes para as outras paginas */}
-      <div className="m-10 flex flex-col justify-center">
-        <ListButton text="Statistics" link="/statsPage/" />
-        {/*  substituir pelo link correto */}
-        <ListButton text="My Cards" link="/userCards/" />
-        {/*  substituir pelo link correto */}
-        <ListButton
-          text="Create New Deck"
-          link="#"
-          onClick={() => handleCreateDeck()}
-        />
-        <ListButton text="My Decks" link="/userDecks/" />
-        {/*  substituir pelo link correto */}
-        <ListButton text="Tutorials" link="/Tutorials/" />
-      </div>
-
-      {/* rodape */}
-      <footer className="mt-4 text-gray-500 text-sm text-center">
-        © {new Date().getFullYear()} Magic Deck Builder created by Group 5 -
-        Bytes4Future
+        {/* Menu com botões em linha */}
+        <div className="flex flex-wrap justify-center gap-4 w-full px-2 mb-8">
+          {menuItems.map((item) => (
+            <button
+              key={item.text}
+              onClick={item.onClick ? item.onClick : () => navigate(item.link)}
+              className="py-2 px-5 rounded-lg bg-white/10 text-white font-semibold text-base shadow hover:bg-white/20 border border-white/20 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-400"
+              style={{letterSpacing: '0.02em'}}>
+              {item.text}
+            </button>
+          ))}
+        </div>
+        {/* Decks do usuário */}
+        <div className="w-full max-w-4xl mx-auto mt-2">
+          <h3 className="text-xl font-bold text-white mb-4">My Decks</h3>
+          {loadingDecks ? (
+            <p className="text-white/70">Loading decks...</p>
+          ) : decks.length === 0 ? (
+            <p className="text-white/70">You better create a deck, now!</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {decks.map((deck) => (
+                <div key={deck._id} className="bg-white/10 rounded-xl p-5 shadow border border-white/10 flex flex-col gap-2">
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-white mb-1 truncate">{deck.name}</h4>
+                    <p className="text-sm text-gray-300 mb-2">Cards: {deck.cards?.length ?? 0}</p>
+                    {/* Prévia das 3 primeiras cartas */}
+                    {Array.isArray(deck.cards) && deck.cards.length > 0 && (
+                      <div className="flex gap-2 mb-2">
+                        {deck.cards.slice(0, 3).map((card, idx) => (
+                          <img
+                            key={card.id || idx}
+                            src={card.image_uris?.small || card.image_uris?.normal || card.image_uris?.large}
+                            alt={card.name}
+                            className="w-20 h-28 object-cover rounded border border-white/10 shadow"
+                            title={card.name}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-2 mt-2">
+                    <button
+                      onClick={() => handleEditDeck(deck._id)}
+                      className="flex-1 py-1 px-3 rounded bg-blue-700 hover:bg-blue-900 text-white text-sm font-semibold transition"
+                    >Edit</button>
+                    <button
+                      onClick={() => handleDeleteDeck(deck._id)}
+                      className="flex-1 py-1 px-3 rounded bg-red-700 hover:bg-red-900 text-white text-sm font-semibold transition"
+                    >Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+      <footer className="mt-8 text-gray-500 text-sm text-center">
+        © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
       </footer>
     </>
   );

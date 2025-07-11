@@ -35,31 +35,60 @@ function CardResult({ card, onAdd, onRemove }) {
   );
 }
 
-function DeckSidebar({ deckCards, onRemove }) {
+function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckName }) {
   return (
     <aside className="bg-white/10 border-l border-red-800 p-6 overflow-y-auto shadow-md sticky top-24 h-[calc(100vh-6rem)] hidden lg:block min-w-[300px] rounded-l-xl border-t border-b border-white/10">
       <h2 className="text-xl font-bold mb-4 border-b border-red-700 pb-2 text-white">
         Current Deck
       </h2>
+      <input
+        type="text"
+        value={deckName}
+        onChange={e => setDeckName(e.target.value)}
+        className="w-full mb-4 px-4 py-2 rounded bg-black/60 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-red-400 placeholder-gray-400"
+        placeholder="Enter deck name"
+        // Permite manter o nome ao editar, não obriga alteração
+      />
       {deckCards.length === 0 ? (
         <p className="text-white/70 italic">No cards added yet.</p>
       ) : (
-        <ul className="space-y-3">
-          {deckCards.map((card, index) => (
-            <li
-              key={`${card.id}-${index}`}
-              className="flex justify-between items-center bg-white/10 px-4 py-2 rounded-lg hover:bg-white/20 transition border border-white/5"
+        <>
+          <div className="grid grid-cols-2 gap-2 mb-6">
+            {deckCards.map((card, index) => (
+              <div key={`${card.id}-${index}`} className="relative group border border-white/10 rounded-lg overflow-hidden bg-black/40 flex flex-col items-center">
+                <img
+                  src={card.image_uris?.large || card.image_uris?.normal}
+                  alt={card.name}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="w-full text-center text-xs font-semibold text-white mt-1 truncate px-1">
+                  {card.name}
+                </div>
+                <button
+                  onClick={() => onRemove(card.id)}
+                  className="absolute top-1 right-1 bg-red-700 text-xs px-2 py-0.5 rounded opacity-80 group-hover:opacity-100 transition border border-white/20"
+                  title="Remove card"
+                >
+                  ×
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col gap-3">
+            <button
+              onClick={onSave}
+              className="w-full py-2 rounded-lg bg-green-800 hover:bg-green-900 text-white font-bold shadow-sm transition-all duration-200 border border-white/10 focus:outline-none focus:ring-2 focus:ring-green-900"
             >
-              <span className="text-sm font-medium text-white truncate max-w-[150px]">{card.name}</span>
-              <button
-                onClick={() => onRemove(card.id)}
-                className="bg-red-600 px-2 py-1 text-xs rounded hover:bg-red-800 transition border border-white/10"
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
+              Save Deck
+            </button>
+            <button
+              onClick={onClear}
+              className="w-full py-2 rounded-lg bg-red-700 hover:bg-red-900 text-white font-bold shadow-sm transition-all duration-200 border border-white/10 focus:outline-none focus:ring-2 focus:ring-red-900"
+            >
+              Delete All
+            </button>
+          </div>
+        </>
       )}
     </aside>
   );
@@ -69,10 +98,44 @@ function CreateDeck() {
   const [searchParams] = useSearchParams();
   const username = searchParams.get("user");
   const cardParam = searchParams.get("card");
+  const editId = searchParams.get("edit");
   const [deckName, setDeckName] = useState("");
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [deckCards, setDeckCards] = useState([]);
+
+  useEffect(() => {
+    async function fetchFullCards(cards) {
+      // Busca dados completos para cartas que não têm image_uris
+      return Promise.all(
+        cards.map(async (card) => {
+          if (card.image_uris) return card;
+          // Buscar na Scryfall pelo ID
+          try {
+            const res = await fetch(`https://api.scryfall.com/cards/${card.id}`);
+            if (!res.ok) return card;
+            const data = await res.json();
+            return data;
+          } catch {
+            return card;
+          }
+        })
+      );
+    }
+    if (editId) {
+      fetch(`http://localhost:3030/api/decks/${editId}`)
+        .then(res => res.json())
+        .then(async data => {
+          setDeckName(data.name || "");
+          if (Array.isArray(data.cards) && data.cards.length > 0) {
+            const fullCards = await fetchFullCards(data.cards);
+            setDeckCards(fullCards);
+          } else {
+            setDeckCards([]);
+          }
+        });
+    }
+  }, [editId]);
 
   useEffect(() => {
     if (cardParam) {
@@ -130,8 +193,12 @@ function CreateDeck() {
       createdAt: new Date().toISOString(),
     };
     try {
-      const res = await fetch("http://localhost:3030/api/decks", {
-        method: "POST",
+      const url = editId
+        ? `http://localhost:3030/api/decks/${editId}`
+        : "http://localhost:3030/api/decks";
+      const method = editId ? "PUT" : "POST";
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(deck),
       });
@@ -146,6 +213,20 @@ function CreateDeck() {
     }
   };
 
+  // Adicionar handlers para salvar e limpar deck
+  const handleSaveDeck = async () => {
+    if (!deckName) {
+      alert("Please enter a deck name before saving.");
+      return;
+    }
+    await handleSubmit({ preventDefault: () => {} });
+  };
+  const handleClearDeck = () => {
+    if (window.confirm("Are you sure you want to remove all cards from this deck?")) {
+      setDeckCards([]);
+    }
+  };
+
   return (
     <>
       <NavBarAndSearch />
@@ -156,25 +237,7 @@ function CreateDeck() {
           <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-center text-white">
             Welcome to your Deck Builder, <br />{username}
           </h1>
-          {/* Nome do deck */}
-          <form onSubmit={handleSubmit} className="mb-6">
-            <label className="block mb-2 font-semibold text-white/80">Deck Name:</label>
-            <input
-              type="text"
-              value={deckName}
-              onChange={(e) => setDeckName(e.target.value)}
-              className="text-black px-4 py-2 rounded w-full mb-2 border border-white/10 focus:outline-none focus:ring-2 focus:ring-red-400"
-              placeholder="Enter deck name"
-            />
-            <div className="flex justify-center">
-              <button
-                type="submit"
-                className="bg-red-700 px-6 py-2 rounded hover:bg-red-900 transition mt-2 border border-white/10 font-semibold"
-              >
-                Create Deck
-              </button>
-            </div>
-          </form>
+          {/* (input de nome de deck movido para a sidebar) */}
           {/* Buscar carta */}
           <div className="mb-8">
             <label className="block mb-2 font-semibold text-white/80">
@@ -210,12 +273,12 @@ function CreateDeck() {
         </div>
         {/* SIDEBAR - Deck atual, responsiva */}
         <div className="lg:static lg:block w-full">
-          <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} />
+          <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} onSave={handleSaveDeck} onClear={handleClearDeck} deckName={deckName} setDeckName={setDeckName} />
         </div>
       </div>
       {/* Sidebar mobile: aparece abaixo do conteúdo principal */}
       <div className="block lg:hidden p-4">
-        <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} />
+        <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} onSave={handleSaveDeck} onClear={handleClearDeck} deckName={deckName} setDeckName={setDeckName} />
       </div>
     </>
   );

@@ -27,7 +27,7 @@ export default function NavBarAndSearch() {
   };
 
   const MtgLogo = () => (
-    <div className="flex items-center gap-2 cursor-pointer select-none" onClick={() => navigate("/")}> 
+    <div className="flex items-center gap-2 cursor-pointer select-none m-2" onClick={() => navigate("/")}> 
       <img
         src={mtg_logo_monocolor}
         alt="MtG Deck Builder Logo"
@@ -39,9 +39,9 @@ export default function NavBarAndSearch() {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 border-b-2 border-gray-700 shadow-lg shadow-red-900/30 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between h-14">
+      <div className="w-full flex items-center h-14">
         {/* Left: Hamburger + Logo */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 flex-1 min-w-0 justify-start">
           <button
             className="md:hidden text-3xl text-red-400 hover:text-red-500 transition-all duration-200 focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -63,8 +63,8 @@ export default function NavBarAndSearch() {
         </div>
 
         {/* Right: Auth/User */}
-        <div className="flex items-center gap-2 relative">
-        {!isLoggedIn && (
+        <div className="flex items-center gap-2 relative flex-1 justify-end m-2">
+          {!isLoggedIn && (
             <>
               <button
                 onClick={() => navigate("/login")}
@@ -79,8 +79,8 @@ export default function NavBarAndSearch() {
                 Sign Up
               </button>
             </>
-        )}
-        {isLoggedIn && (
+          )}
+          {isLoggedIn && (
             <div className="relative">
               <button
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 hover:bg-white hover:text-black text-red-200 font-semibold shadow transition-all duration-200 focus:outline-none border border-red-900 focus:bg-white focus:text-black"
@@ -127,7 +127,7 @@ export default function NavBarAndSearch() {
             </div>
           )}
         </div>
-          </div>
+      </div>
 
       {/* Sidebar Menu (mobile) */}
       <div

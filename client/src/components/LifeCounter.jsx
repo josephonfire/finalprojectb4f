@@ -69,18 +69,18 @@ export default function LifeCounter() {
           </button>
           {menuOpen && (
             <div className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-black/95 border-2 border-grey-700 rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-6 animate-fade-in min-w-[220px]">
-              <button
+          <button
                 onClick={() => { handleReset(); setMenuOpen(false); }}
                 className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg border border-gray-600 text-lg mb-2"
-              >
+          >
                 Reset
-              </button>
-              <button
+          </button>
+          <button
                 onClick={() => { setStep(0); setMenuOpen(false); }}
                 className="w-full bg-red-700 hover:bg-red-900 text-white font-semibold px-6 py-3 rounded-lg border border-red-900 text-lg"
-              >
+          >
                 Back
-              </button>
+          </button>
             </div>
           )}
         </>
@@ -90,13 +90,13 @@ export default function LifeCounter() {
           <h2 className="text-xl font-semibold mb-2">Choose number of players</h2>
           <div className="flex gap-6">
             {[2, 4, 5].map((n) => (
-              <button
+          <button
                 key={n}
                 onClick={() => handleNumPlayers(n)}
                 className="bg-red-700 hover:bg-red-900 text-white font-bold px-8 py-4 rounded-xl text-2xl shadow-lg border-2 border-red-900 transition-all duration-200"
-              >
+          >
                 {n} Players
-              </button>
+          </button>
             ))}
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function LifeCounter() {
               </div>
             </div>
           ))}
-        </div>
+      </div>
       )}
       {step === 1 && numPlayers === 4 && (
         <div className="w-screen h-screen min-h-screen flex flex-wrap p-0">

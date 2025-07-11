@@ -5,7 +5,7 @@ const cors = require('cors');
 const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
 const { newUser, findUsers, findOneUser } = require("./data/user.js");
-const { createDeck, getUserDecks, getDeckById, updateDeck } = require("./data/decks.js");
+const { createDeck, getUserDecks, getDeckById, updateDeck, deleteDeck } = require("./data/decks.js");
 
 const corsOptions ={
    origin:'*', 
@@ -194,6 +194,15 @@ app.post('/api/decks', async (req, res) => {
       res.status(500).json({ error: "Erro ao atualizar deck" });
     }
   });
+
+  app.delete('/api/decks/:id', async (req, res) => {
+    try {
+      await deleteDeck(req.params.id);
+      res.json({ message: "Deck deletado com sucesso!" });
+    } catch (err) {
+      res.status(500).json({ error: "Erro ao deletar deck" });
+    }
+  });
   
 // Endpoint Top 3 cartas mais utilizadas (mock)
 app.get('/api/cards/top3', (req, res) => {
@@ -215,6 +224,17 @@ app.get('/api/cards/top3', (req, res) => {
     }
   ];
   res.json(topCards);
+});
+
+// Adicionar endpoint para buscar um deck por ID
+app.get('/api/decks/:id', async (req, res) => {
+  try {
+    const deck = await getDeckById(req.params.id);
+    if (!deck) return res.status(404).json({ error: 'Deck não encontrado' });
+    res.json(deck);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar deck' });
+  }
 });
 
 app.listen(3030, () => {

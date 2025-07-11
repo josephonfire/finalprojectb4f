@@ -27,4 +27,10 @@ async function updateDeck(id, update) {
   return await collection.updateOne({ _id: new ObjectId(id) }, { $set: update });
 }
 
-module.exports = { createDeck, getUserDecks, getDeckById, updateDeck };
+async function deleteDeck(id) {
+  const collection = await getCollection("decks");
+  const { ObjectId } = require("mongodb");
+  return await collection.deleteOne({ _id: new ObjectId(id) });
+}
+
+module.exports = { createDeck, getUserDecks, getDeckById, updateDeck, deleteDeck };

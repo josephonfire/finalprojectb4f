@@ -9,7 +9,6 @@ import Profile from "../pages/Profile";
 import Graphs from "../pages/Graficos";
 import MagicFireBackground from "../components/MagicFireBG/MagicFireBg";
 import CreateDeck from "../pages/CreateDeck";
-import ProfileTest from "../pages/ProfileTest";
 import CardDetails from "../components/CardDetails";
 import StatsPage from "../pages/statsPage";
 import OwnedCards from "../pages/userCards";
@@ -42,7 +41,6 @@ function App() {
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/graficos" element={<Graphs />} />
             <Route path="/create-deck" element={<CreateDeck />} />
-            <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
             <Route path="/ownedcards" element={<OwnedCards />} />
