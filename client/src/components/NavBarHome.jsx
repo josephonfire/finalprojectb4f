@@ -73,13 +73,13 @@ export default function NavBarHome() {
             <>
               <button
                 onClick={() => navigate("/login")}
-                className="bg-red-700 text-white font-semibold px-6 py-2 rounded-lg hover:bg-black hover:text-white hover:scale-105 focus:bg-black focus:text-white focus:scale-105 transition duration-200 shadow border border-red-800"
+                className="bg-red-700 text-white text-center font-semibold px-3 py-1 rounded-lg hover:bg-black hover:text-white hover:scale-105 focus:bg-black focus:text-white focus:scale-105 transition duration-200 shadow border border-red-800"
               >
                 Login
               </button>
               <button
                 onClick={() => navigate("/signup")}
-                className="bg-white text-red-700 font-semibold px-5 py-2 rounded-lg hover:bg-red-700 hover:text-white hover:scale-105 focus:bg-red-700 focus:text-white focus:scale-105 transition duration-200 shadow border border-red-800"
+                className="bg-white text-red-700 text-center font-semibold px-3 py-1 rounded-lg hover:bg-red-700 hover:text-white hover:scale-105 focus:bg-red-700 focus:text-white focus:scale-105 transition duration-200 shadow border border-red-800"
               >
                 Sign Up
               </button>
