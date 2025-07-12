@@ -6,7 +6,6 @@ import profilePhoto from '../images/profile_photo.jpg';
 import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import "../index.css";
 import NavBarAndSearch from "../components/NavBarAndSearch";
 import axios from "axios";
 import { motion } from "framer-motion";
