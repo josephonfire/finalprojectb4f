@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CardSearch from '../components/Search Bar/CardSearch.jsx';
 import profilePhoto from '../images/profile_photo.jpg';
-import ListButton from '../components/list_btn.jsx';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import NavBarAndSearch from "../components/NavBarAndSearch";
@@ -129,6 +128,8 @@ function Profile() {
             </button>
           ))}
         </div>
+
+
         {/* Decks do usuário */}
         <div className="w-full max-w-4xl mx-auto mt-2">
           <h3 className="text-xl font-bold text-white m-4 flex justify-center">My Decks</h3>
@@ -139,13 +140,14 @@ function Profile() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 ">
               {decks.map((deck) => (
-                <div key={deck._id} className="bg-white/10 rounded-xl m-4 p-5 shadow border border-white/10 flex flex-col gap-2">
+                <div key={deck._id} className="bg-white/10 rounded-xl m-2 p-4 shadow border border-white/10 flex flex-col gap-2">
                   <div className="flex-1">
                     <h4 className="text-lg font-bold text-white mb-1 truncate">{deck.name}</h4>
                     <p className="text-sm text-gray-300 mb-2">Cards: {deck.cards?.length ?? 0}</p>
+
                     {/* Prévia das 3 primeiras cartas */}
                     {Array.isArray(deck.cards) && deck.cards.length > 0 && (
-                      <div className="flex justify-center gap-3 mb-2">
+                      <div className="flex justify-center gap-2 my-3">
                         {deck.cards.slice(0, 3).map((card, idx) => (
                           <motion.img
                             key={card.id || idx}
@@ -182,7 +184,7 @@ function Profile() {
           )}
         </div>
       </main>
-      <footer className="mt-8 text-gray-500 text-sm text-center">
+      <footer className="mt-8 text-gray-500 text-sm text-center p-1">
         © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
       </footer>
     </>
