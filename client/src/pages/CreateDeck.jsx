@@ -13,9 +13,9 @@ function CardResult({ card, onAdd, onRemove }) {
         {card.name}
       </h2>
       <img
-        src={card.image_uris?.normal || card.image_uris?.large}
+        src={card.image_uris?.normal || card.image_uris?.large || "/default-card.png"}
         alt={card.name}
-        className="relative rounded-lg shadow max-w-full mx-auto"
+        className="mx-auto rounded shadow-lg"
       />
       <div className="mt-2 flex justify-center gap-2">
         <button
@@ -47,7 +47,7 @@ function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckNa
         onChange={e => setDeckName(e.target.value)}
         className="w-full mb-4 px-4 py-2 rounded bg-black/60 text-white border border-white/20 focus:outline-none focus:ring-2 focus:ring-red-400 placeholder-gray-400"
         placeholder="Enter deck name"
-        // Permite manter o nome ao editar, não obriga alteração
+      // Permite manter o nome ao editar, não obriga alteração
       />
       {deckCards.length === 0 ? (
         <p className="text-white/70 italic">No cards added yet.</p>
@@ -55,11 +55,19 @@ function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckNa
         <>
           <div className="grid grid-cols-2 gap-2 mb-6">
             {deckCards.map((card, index) => (
-              <div key={`${card.id}-${index}`} className="relative group border border-white/10 rounded-lg overflow-hidden bg-black/40 flex flex-col items-center">
-                <img
-                  src={card.image_uris?.large || card.image_uris?.normal}
+              <div key={`${card.id}-${index}`} className="relative group border border-white/10 rounded-lg overflow-hidden bg-black/40 flex flex-col items-center p-2">
+                <motion.img
+                  src={card.image_uris?.normal || card.image_uris?.large || "/default-card.png"}
                   alt={card.name}
-                  className="w-full h-40 object-cover"
+                  className="mx-auto rounded shadow-lg"
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{
+                    duration: 3 + Math.random(), // entre 3 e 4 segundos
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
+                  }}
                 />
                 <div className="w-full text-center text-xs font-semibold text-white mt-1 truncate px-1">
                   {card.name}
@@ -224,8 +232,8 @@ function CreateDeck() {
       alert("Please enter a deck name before saving.");
       return;
     }
-    await handleSubmit({ preventDefault: () => {} });
-    
+    await handleSubmit({ preventDefault: () => { } });
+
   };
   const handleClearDeck = () => {
     if (window.confirm("Are you sure you want to remove all cards from this deck?")) {
@@ -255,7 +263,7 @@ function CreateDeck() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 className="text-black px-4 py-2 rounded flex-1 border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-900"
-                placeholder="Ex: Lightning Bolt"
+                placeholder="Type card name..."
               />
               <button
                 onClick={searchCards}
@@ -265,18 +273,90 @@ function CreateDeck() {
               </button>
             </div>
           </div>
+
+          {/* NOVO: Texto de resultados */}
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl font-bold text-white mb-2">
+              Results for: <span className="text-red-400">{query}</span>
+            </h1>
+            <p className="text-gray-300">
+              {searchResults.length} Card{searchResults.length !== 1 ? "s" : ""} found
+            </p>
+          </div>
+
           {/* Resultados da busca */}
           <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
-            {searchResults.map((card) => (
-              <CardResult
+            {searchResults.map((card, index) => (
+              <motion.div
                 key={card.id}
-                card={card}
-                onAdd={handleAddCard}
-                onRemove={handleRemoveCard}
-              />
+                className="group"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: index * 0.05,
+                }}
+                whileHover={{
+                  y: -4,
+                  transition: { duration: 0.2 },
+                }}
+              >
+                <div
+                  className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200"
+                >
+                  <h3 className="font-bold mb-4 text-white text-center text-sm">
+                    {card.name}
+                  </h3>
+                  <motion.div
+                    className="relative rounded-lg"
+                    animate={{ y: [0, -8, 0] }}
+                    transition={{
+                      duration: 3 + Math.random(),
+                      repeat: Infinity,
+                      repeatType: "loop",
+                      ease: "easeInOut",
+                    }}
+                    whileHover={{
+                      scale: 1.02,
+                      transition: { duration: 0.2 },
+                    }}
+                  >
+                    <img
+                      src={card.image_uris?.normal || card.image_uris?.large || "/default-card.png"}
+                      alt={card.name}
+                      className="mx-auto rounded shadow-lg"
+                    />
+                    {/* Overlay que acompanha a imagem */}
+                    <div className="absolute inset-[-1px] bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-lg pointer-events-none">
+                      <div className="absolute bottom-2 left-2 right-2 text-center">
+                        <span className="text-white text-xs font-medium bg-black/70 px-2 py-1 rounded">
+                          Click to see details
+                        </span>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Botões de adicionar/remover por baixo da imagem */}
+                  <div className="mt-2 flex justify-center gap-2">
+                    <button
+                      onClick={() => handleAddCard(card)}
+                      className="bg-green-600 px-4 py-1 rounded hover:bg-green-800 transition border border-white/10"
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={() => handleRemoveCard(card.id)}
+                      className="bg-red-600 px-4 py-1 rounded hover:bg-red-800 transition border border-white/10"
+                    >
+                      -
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
+
         {/* SIDEBAR - Deck atual, responsiva */}
         <div className="lg:static lg:block w-full">
           <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} onSave={handleSaveDeck} onClear={handleClearDeck} deckName={deckName} setDeckName={setDeckName} />

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
-import NavBarHome from "../components/NavBarHome";
 import NavBarSearch from "../components/NavBarAndSearch";
 
 function SearchResult() {
@@ -78,7 +77,7 @@ function SearchResult() {
       <div className="w-full max-w-6xl mx-auto p-6 pt-24">
         <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-white mb-2">
-            Resultados para: <span className="text-red-400">{name}</span>
+            Results for: <span className="text-red-400">{name}</span>
           </h1>
           <p className="text-gray-300">
             {cards.length} Card{cards.length !== 1 ? "s" : ""} found{cards.length !== 1 ? "s" : ""}
