@@ -32,7 +32,7 @@ export default function NavBarHome() {
         alt="MtG Deck Builder Logo"
         className="h-12 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
       />
-      <span className="text-2xl font-extrabold tracking-tight font-magic drop-shadow  select-text bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }}>Magic Deck Builder</span>
+      <span className="text-xl font-extrabold tracking-tight font-magic drop-shadow  select-text bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }}>Magic Deck Builder</span>
     </div>
   );
 
@@ -51,7 +51,7 @@ export default function NavBarHome() {
           <div className="hidden md:flex">
             <MtgLogo />
           </div>
-          <span className="md:hidden font-bold text-lgfont-extrabold tracking-tight font-magic drop-shadow  select-text bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }} >Magic Deck Builder</span>
+          <span className="md:hidden text-lg leading-none font-extrabold font-magic bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }} >Magic Deck Builder</span>
         </div>
 
         {/* Center: Menu (desktop) */}
@@ -136,7 +136,7 @@ export default function NavBarHome() {
 
       {/* Sidebar Menu (mobile) */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 z-[60] bg-black/95 text-red-200 p-6 shadow-2xl border-r-2 border-red-800 rounded-r-2xl transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 h-fit w-64 z-[60] bg-black/95 text-red-200  shadow-2xl border-r-2 border-red-800 rounded-r-2xl transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex items-center gap-2 mb-8">
           <MtgLogo />
