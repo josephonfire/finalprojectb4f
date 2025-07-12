@@ -33,7 +33,7 @@ export default function NavBarAndSearch() {
         alt="MtG Deck Builder Logo"
         className="h-12 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
       />
-      <span className="text-2xl font-extrabold tracking-tight font-magic bg-gradient-to-r from-red-500 to-yellow-300 bg-clip-text text-transparent drop-shadow" style={{letterSpacing: '0.04em', textShadow: '0 1px 4px #000'}}>Magic Deck Builder</span>
+      <span className="text-xl font-extrabold tracking-tight font-magic bg-gradient-to-r from-red-500 to-yellow-300 bg-clip-text text-transparent drop-shadow" style={{letterSpacing: '0.04em', textShadow: '0 1px 4px #000'}}>Magic Deck Builder</span>
     </div>
   );
 

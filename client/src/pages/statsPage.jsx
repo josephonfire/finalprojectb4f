@@ -8,7 +8,7 @@
 //os gráficos serão feitos com informação da conta do usuário
 import '../index.css';
 import { useState } from 'react';
-import NavBarHome from "../components/NavBarHome";
+import NavBarAndSearch from "../components/NavBarAndSearch";
 import {
     BarChart,
     Bar,
@@ -90,7 +90,7 @@ function StatsPage() {
 
     return (
         <>
-            <header><NavBarHome /></header>
+            <header><NavBarAndSearch /></header>
             <div className="p-8 text-center mt-16 min-h-screen text-white">
                 <h1 className="font-bold text-3xl mb-6 text-white">Statistics</h1>
                 <p className="text-gray-300 mb-4">View statistics for your decks: colors, types, and most used cards.</p>
