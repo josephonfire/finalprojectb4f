@@ -26,13 +26,13 @@ export default function NavBarHome() {
   };
 
   const MtgLogo = () => (
-    <div className="flex items-center gap-2 m-2 cursor-pointer select-none" onClick={() => navigate("/")}> 
+    <div className="flex items-center gap-2 m-2 cursor-pointer select-none" onClick={() => navigate("/")}>
       <img
         src={mtg_logo_monocolor}
         alt="MtG Deck Builder Logo"
         className="h-12 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
       />
-      <span className="text-2xl font-extrabold tracking-tight font-magic bg-gradient-to-r from-red-500 to-yellow-300 bg-clip-text text-transparent drop-shadow" style={{letterSpacing: '0.04em', textShadow: '0 1px 4px #000'}}>Magic Deck Builder</span>
+      <span className="text-2xl font-extrabold tracking-tight font-magic drop-shadow  select-text bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }}>Magic Deck Builder</span>
     </div>
   );
 
@@ -51,7 +51,7 @@ export default function NavBarHome() {
           <div className="hidden md:flex">
             <MtgLogo />
           </div>
-          <span className="md:hidden font-bold text-lg text-red-200 ml-2">Magic Deck Builder</span>
+          <span className="md:hidden font-bold text-lgfont-extrabold tracking-tight font-magic drop-shadow  select-text bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }} >Magic Deck Builder</span>
         </div>
 
         {/* Center: Menu (desktop) */}
