@@ -83,75 +83,113 @@ code {
 }
 
 
-  @keyframes gradientGlowImage {
-    0% {
-      box-shadow: 0 0 12px #f43f5e, 0 0 24px #f59e0b;
-    }
-
-    10% {
-      box-shadow: 0 0 14px #f87171, 0 0 26px #fbbf24;
-    }
-
-    20% {
-      box-shadow: 0 0 16px #fb7185, 0 0 28px #facc15;
-    }
-
-    30% {
-      box-shadow: 0 0 18px #f43f5e, 0 0 30px #fde047;
-    }
-
-    40% {
-      box-shadow: 0 0 16px #e02424, 0 0 28px #fbbf24;
-    }
-
-    50% {
-      box-shadow: 0 0 14px #c70000, 0 0 26px #f59e0b;
-    }
-
-    60% {
-      box-shadow: 0 0 12px #f43f5e, 0 0 24px #f5e50b;
-    }
-
-    70% {
-      box-shadow: 0 0 14px #fb7185, 0 0 26px #facc15;
-    }
-
-    80% {
-      box-shadow: 0 0 16px #f87171, 0 0 28px #fbbf24;
-    }
-
-    90% {
-      box-shadow: 0 0 14px #f43f5e, 0 0 26px #f59e0b;
-    }
-
-    100% {
-      box-shadow: 0 0 12px #f43f5e, 0 0 24px #f59e0b;
-    }
+@keyframes gradientGlowImage {
+  0% {
+    box-shadow: 0 0 12px #f43f5e, 0 0 24px #f59e0b;
   }
 
-
-
-  .glow-gradient-image {
-    animation: gradientGlowImage 5s ease-in-out infinite;
-  }
-@layer utilities {
-  @layer utilities {
-  .glow-stroke path {
-    stroke: #f43f5e;
-    stroke-width: 2;
-    filter: url(#glowFilter);
-    animation: glowStrokePulse 4s ease-in-out infinite;
+  10% {
+    box-shadow: 0 0 14px #f87171, 0 0 26px #fbbf24;
   }
 
-  @keyframes glowStrokePulse {
-    0%, 100% {
-      stroke: #f43f5e;
-      filter: drop-shadow(0 0 8px #f59e0b);
-    }
-    50% {
-      stroke: #facc15;
-      filter: drop-shadow(0 0 12px #f43f5e);
-    }
+  20% {
+    box-shadow: 0 0 16px #fb7185, 0 0 28px #facc15;
+  }
+
+  30% {
+    box-shadow: 0 0 18px #f43f5e, 0 0 30px #fde047;
+  }
+
+  40% {
+    box-shadow: 0 0 16px #e02424, 0 0 28px #fbbf24;
+  }
+
+  50% {
+    box-shadow: 0 0 14px #c70000, 0 0 26px #f59e0b;
+  }
+
+  60% {
+    box-shadow: 0 0 12px #f43f5e, 0 0 24px #f5e50b;
+  }
+
+  70% {
+    box-shadow: 0 0 14px #fb7185, 0 0 26px #facc15;
+  }
+
+  80% {
+    box-shadow: 0 0 16px #f87171, 0 0 28px #fbbf24;
+  }
+
+  90% {
+    box-shadow: 0 0 14px #f43f5e, 0 0 26px #f59e0b;
+  }
+
+  100% {
+    box-shadow: 0 0 12px #f43f5e, 0 0 24px #f59e0b;
   }
 }
+
+
+
+.glow-gradient-image {
+  animation: gradientGlowImage 5s ease-in-out infinite;
+}
+
+
+/*codigo com animacao do logotipo*/
+@layer utilities {
+  @layer utilities {
+    .glow-stroke path {
+      stroke:black;
+      stroke-width: 0.25;
+      filter: url(#glowFilter);
+      animation: glowStrokePulse 5s ease-in-out infinite;
+    }
+
+    @keyframes glowStrokePulse {
+      0% {
+        filter: drop-shadow(0 0 12px #f43f5e) drop-shadow(0 0 24px #f59e0b);
+      }
+
+      10% {
+        filter: drop-shadow(0 0 14px #f87171) drop-shadow(0 0 26px #fbbf24);
+      }
+
+      20% {
+        filter: drop-shadow(0 0 16px #fb7185) drop-shadow(0 0 28px #facc15);
+      }
+
+      30% {
+        filter: drop-shadow(0 0 18px #f43f5e) drop-shadow(0 0 30px #fde047);
+      }
+
+      40% {
+        filter: drop-shadow(0 0 16px #e02424) drop-shadow(0 0 28px #fbbf24);
+      }
+
+      50% {
+        filter: drop-shadow(0 0 14px #c70000) drop-shadow(0 0 26px #f59e0b);
+      }
+
+      60% {
+        filter: drop-shadow(0 0 12px #f43f5e) drop-shadow(0 0 24px #f5e50b);
+      }
+
+      70% {
+        filter: drop-shadow(0 0 14px #fb7185) drop-shadow(0 0 26px #facc15);
+      }
+
+      80% {
+        filter: drop-shadow(0 0 16px #f87171) drop-shadow(0 0 28px #fbbf24);
+      }
+
+      90% {
+        filter: drop-shadow(0 0 14px #f43f5e) drop-shadow(0 0 26px #f59e0b);
+      }
+
+      100% {
+        filter: drop-shadow(0 0 12px #f43f5e) drop-shadow(0 0 24px #f59e0b);
+      }
+    }
+  }
 }
