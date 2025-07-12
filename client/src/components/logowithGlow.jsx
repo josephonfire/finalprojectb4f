@@ -1,26 +1,24 @@
 import React from "react";
-import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import "../index.css";
-
+import { ReactComponent as LogoSVG } from "../images/mtg_logo_duocolor.svg";
 
 export default function LogoWithGlow() {
   return (
     <div className="relative inline-block w-56 sm:w-64 md:w-72">
-      {/* Glow atrás do SVG */}
-      <img
-        src={mtg_logo_duocolor}
-        aria-hidden="true"
-        alt="MtG Deck Builder Logo Glow"
-        className="absolute inset-0 w-full h-full filter blur-lg opacity-50 animate-svg-glow"
-      />
-      {/* Logo real por cima */}
-      <img
-        src={mtg_logo_duocolor}
-        alt="MtG Deck Builder Logo"
-        className="relative block w-full h-auto"
-      />
+      {/* Define o filtro SVG invisível para o glow */}
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <filter id="glowFilter">
+            <feGaussianBlur stdDeviation="3.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      {/* SVG com classe para aplicar glow */}
+      <LogoSVG className="w-full h-auto glow-stroke" />
     </div>
   );
 }

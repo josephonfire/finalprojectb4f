@@ -52,8 +52,8 @@ function Home() {
         {/* escurecimento do fundo excluindo o footer */}
         <div className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16 py-12 pt-0 bg-black/45">
 
-          <div className="w-full max-w-4xl mx-auto text-center">
-            <div className="mb-12 text-center">
+          <div className="w-full max-w-4xl mx-auto my-12 text-center">
+            <div className=" text-center">
               {/* LOGOTIPO*/}
               <LogoWithGlow /></div>
 
