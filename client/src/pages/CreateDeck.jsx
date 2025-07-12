@@ -245,9 +245,9 @@ function CreateDeck() {
     <>
       <NavBarAndSearch />
       {/* Remover overlay pesado, manter background padrão do body */}
-      <div className="relative z-10 pt-24 grid grid-cols-1 lg:grid-cols-[1fr_350px] min-h-screen text-white">
+      <div className="relative z-10 pt-24 grid grid-cols-1 lg:grid-cols-[1fr_350px] min-h-screen text-white mx-3">
         {/* Conteúdo principal */}
-        <div className="p-8 bg-white/10 rounded-xl shadow-md max-w-5xl mx-auto w-full mb-8 lg:mb-0 border border-white/10">
+        <div className=" p-8 bg-white/10 rounded-xl shadow-md max-w-5xl w-full  border border-white/10">
           <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-center text-white">
             Welcome to your Deck Builder, <br />{username}
           </h1>
@@ -302,7 +302,7 @@ function CreateDeck() {
                 }}
               >
                 <div
-                  className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200"
+                  className="h-72 bg-white/10 backdrop-blur-sm p-2 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200 flex flex-col justify-between"
                 >
                   <h3 className="font-bold mb-4 text-white text-center text-sm">
                     {card.name}

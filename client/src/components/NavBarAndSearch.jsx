@@ -52,7 +52,7 @@ export default function NavBarAndSearch() {
           <div className="hidden md:flex">
             <MtgLogo />
           </div>
-          <span className="md:hidden font-bold text-lg text-red-200 ml-2">Magic Deck Builder</span>
+          <span className="md:hidden text-lg leading-none font-extrabold font-magic bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }} >Magic Deck Builder</span>
         </div>
 
         {/* Center: Search bar (desktop) */}
