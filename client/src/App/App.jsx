@@ -14,7 +14,7 @@ import OwnedCards from "../pages/userCards";
 import LifeCounter from "../components/LifeCounter";
 import CardSearch from "../components/Search Bar/CardSearch";
 import NavBarHome from "../components/NavBarHome";
-import UserDecks from "../pages/userDecks";
+
 
 function App() {
   return (
@@ -41,7 +41,6 @@ function App() {
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
             <Route path="/ownedcards" element={<OwnedCards />} />
-            <Route path="/userdecks" element={<UserDecks />} />
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>
         </div>
