@@ -41,13 +41,14 @@ export default function NavBarAndSearch() {
     <nav className="fixed top-0 left-0 w-full z-50 bg-black/80 border-b-2 border-gray-700 shadow-lg shadow-red-900/30 backdrop-blur-md">
       <div className="w-full flex items-center h-14">
         {/* Left: Hamburger + Logo */}
-        <div className="flex items-center gap-4 flex-1 min-w-0 justify-start">
+        <div className="flex items-center mx-2 gap-4 flex-1 min-w-0 justify-start">
           <button
             className="md:hidden text-3xl text-red-400 hover:text-red-500 transition-all duration-200 focus:outline-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Open menu"
           >
             <FaBars />
+            {/* com o sidemenu fechado */}
           </button>
           <div className="hidden md:flex">
             <MtgLogo />
@@ -98,24 +99,28 @@ export default function NavBarAndSearch() {
                   >
                     <FaUserCircle /> Profile
                   </button>
+
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
                     onClick={() => navigate("/usercards")}
                   >
                     <FaRegClone /> Cards
                   </button>
+
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
                     onClick={() => navigate("/userdecks")}
                   >
                     <FaLayerGroup /> Decks
                   </button>
+
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
                     onClick={() => navigate("#")}
                   >
                     <FaQuestionCircle /> Help
                   </button>
+
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-400 hover:bg-white hover:text-black transition-colors duration-200 font-semibold rounded-b-xl"
                     onClick={handleLogout}
@@ -131,7 +136,7 @@ export default function NavBarAndSearch() {
 
       {/* Sidebar Menu (mobile) */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 z-[60] bg-black/95 text-red-200 p-6 shadow-2xl border-r-2 border-red-800 rounded-r-2xl transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 h-fit w-64 z-[60] bg-black/95 text-red-200 p-6 shadow-2xl border-r-2 border-red-800 rounded-r-2xl transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <div className="flex items-center gap-2 mb-8">
           <MtgLogo />

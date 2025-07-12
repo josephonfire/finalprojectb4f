@@ -103,24 +103,28 @@ export default function NavBarHome() {
                   >
                     <FaUserCircle /> Profile
                   </button>
-                  <button
-                    className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
-                    onClick={() => navigate("/userdecks")}
-                  >
-                    <FaLayerGroup /> Decks
-                  </button>
+
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
                     onClick={() => navigate("/usercards")}
                   >
                     <FaRegClone /> Cards
                   </button>
+
+                  <button
+                    className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
+                    onClick={() => navigate("/userdecks")}
+                  >
+                    <FaLayerGroup /> Decks
+                  </button>
+
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
                     onClick={() => navigate("#")}
                   >
                     <FaQuestionCircle /> Help
                   </button>
+                  
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-400 hover:bg-white hover:text-black transition-colors duration-200 font-semibold rounded-b-xl"
                     onClick={handleLogout}
