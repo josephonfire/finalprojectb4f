@@ -10,7 +10,7 @@ import MagicFireBackground from "../components/MagicFireBG/MagicFireBg";
 import CreateDeck from "../pages/CreateDeck";
 import CardDetails from "../components/CardDetails";
 import StatsPage from "../pages/statsPage";
-import OwnedCards from "../pages/userCards";
+import UserCards from "../pages/userCards";
 import LifeCounter from "../components/LifeCounter";
 import CardSearch from "../components/Search Bar/CardSearch";
 import NavBarHome from "../components/NavBarHome";
@@ -40,7 +40,7 @@ function App() {
             <Route path="/create-deck" element={<CreateDeck />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
-            <Route path="/ownedcards" element={<OwnedCards />} />
+            <Route path="/userCards/:username" element={<UserCards />} />
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>
         </div>

@@ -73,7 +73,7 @@ export default function NavBarHome() {
             <>
               <button
                 onClick={() => navigate("/login")}
-                className="bg-red-700 text-white text-center font-semibold px-3 py-1 rounded-lg hover:bg-black hover:text-white hover:scale-105 focus:bg-black focus:text-white focus:scale-105 transition duration-200 shadow border border-red-800"
+                className="bg-red-700 text-white text-center font-semibold px-3.5 py-1 rounded-lg hover:bg-black hover:text-white hover:scale-105 focus:bg-black focus:text-white focus:scale-105 transition duration-200 shadow border border-red-800"
               >
                 Login
               </button>

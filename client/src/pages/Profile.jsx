@@ -20,6 +20,8 @@ function Profile() {
   const navigate = useNavigate(); // hook para navegar entre paginas
   const [decks, setDecks] = useState([]);
   const [loadingDecks, setLoadingDecks] = useState(true);
+  const allCards = decks.flatMap(deck => deck.cards || []);
+const totalCards = allCards.length;
 
   const handleCreateDeck = () => {
     navigate(`/create-deck?user=${username}`); // Navega para a página de criação de deck com o username como parâmetro
@@ -29,12 +31,12 @@ function Profile() {
   const quickStats = [
     { label: "Decks", value: decks.length },
     { label: "Shared Decks", value: 0 }, // Adicionar depois essa funcionalidade
-    { label: "Cards", value: 0 },
+    { label: "Cards", value: totalCards },
   ];
 
   const menuItems = [
     { text: "Statistics", link: "/statsPage/" },
-    { text: "My Cards", link: "/userCards/" },
+    { text: "My Cards", link: `/userCards/${username}` },
     { text: "Create New Deck", link: "#", onClick: () => handleCreateDeck() },
     { text: "Tutorials", link: "/Tutorials/" },
   ];
