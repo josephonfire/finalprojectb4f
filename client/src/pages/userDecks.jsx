@@ -30,7 +30,7 @@ function UserDecks() {
             </header>
 
             <div className="p-8 text-center min-h-screen text-white">
-                <h1 className="font-bold text-3xl mb-6 text-white">Your owned Decks</h1>
+                <h1 className="font-bold text-3xl mt-16 mb-6 text-white">Your owned Decks</h1>
                 {loading ? (
                   <p className="text-white/70">Loading...</p>
                 ) : decks.length === 0 ? (
