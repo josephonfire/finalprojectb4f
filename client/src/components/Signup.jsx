@@ -61,9 +61,9 @@ function Signup() {
 
   return (
     <>
-    <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="min-h-fit flex justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
-        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 sm:p-8 shadow-xl">
+        <div className="my-4 bg-white/10 backdrop-blur-sm rounded-lg p-6 sm:p-8 shadow-xl">
           <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-6">
             Sign Up
           </h2>
