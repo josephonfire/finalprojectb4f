@@ -21,7 +21,7 @@ function Profile() {
   const [decks, setDecks] = useState([]);
   const [loadingDecks, setLoadingDecks] = useState(true);
   const allCards = decks.flatMap(deck => deck.cards || []);
-const totalCards = allCards.length;
+  const totalCards = allCards.length;
 
   const handleCreateDeck = () => {
     navigate(`/create-deck?user=${username}`); // Navega para a página de criação de deck com o username como parâmetro
@@ -60,6 +60,14 @@ const totalCards = allCards.length;
       }
     };
     if (username) fetchDecks();
+
+    const anchor = window.location.hash;
+    if (anchor === "#my-decks") {
+      const target = document.getElementById("my-decks");
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   }, [username]);
 
   // Excluir deck
@@ -133,7 +141,7 @@ const totalCards = allCards.length;
 
 
         {/* Decks do usuário */}
-        <div className="w-full max-w-4xl mx-auto mt-2">
+        <div id="my-decks" className="w-full max-w-4xl mx-auto mt-2">
           <h3 className="text-xl font-bold text-white m-4 flex justify-center">My Decks</h3>
           {loadingDecks ? (
             <p className="text-white/70">Loading decks...</p>

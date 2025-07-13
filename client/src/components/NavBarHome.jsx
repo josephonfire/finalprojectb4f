@@ -12,8 +12,8 @@ export default function NavBarHome() {
   const hasValidUser = isLoggedIn && username && username !== "null" && username !== "undefined";
 
   const menuItems = [
-    { label: "Cards", icon: <FaRegClone />, path: "/usercards" },
-    { label: "Decks", icon: <FaLayerGroup />, path: "/userdecks" },
+    { label: "Cards", icon: <FaRegClone />, path: `/userCards/${username}`},
+    { label: "Decks", icon: <FaLayerGroup />, path: `/profile/${username}#my-decks` },
     { label: "Help", icon: <FaQuestionCircle />, path: "#" },
   ];
 
@@ -106,14 +106,14 @@ export default function NavBarHome() {
 
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
-                    onClick={() => navigate("/usercards")}
+                    onClick={() => navigate(`/userCards/${username}`)}
                   >
                     <FaRegClone /> Cards
                   </button>
 
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
-                    onClick={() => navigate("/userdecks")}
+                    onClick={() => navigate(`/profile/${username}#my-decks`)}
                   >
                     <FaLayerGroup /> Decks
                   </button>

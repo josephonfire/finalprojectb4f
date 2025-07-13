@@ -13,8 +13,8 @@ export default function NavBarAndSearch() {
   const hasValidUser = isLoggedIn && username && username !== "null" && username !== "undefined";
 
   const menuItems = [
-    { label: "Cards", icon: <FaRegClone />, path: "/usercards" },
-    { label: "Decks", icon: <FaLayerGroup />, path: "/userdecks" },
+    { label: "Cards", icon: <FaRegClone />, path: `/userCards/${username}` },
+    { label: "Decks", icon: <FaLayerGroup />, path: `/profile/${username}#my-decks` },
     { label: "Help", icon: <FaQuestionCircle />, path: "#" },
   ];
 
@@ -27,13 +27,13 @@ export default function NavBarAndSearch() {
   };
 
   const MtgLogo = () => (
-    <div className="flex items-center gap-2 cursor-pointer select-none m-2" onClick={() => navigate("/")}> 
+    <div className="flex items-center gap-2 cursor-pointer select-none m-2" onClick={() => navigate("/")}>
       <img
         src={mtg_logo_monocolor}
         alt="MtG Deck Builder Logo"
         className="h-12 w-auto drop-shadow-[0_0px_4px_rgba(255,0,0,0.60)]"
       />
-      <span className="text-xl font-extrabold tracking-tight font-magic bg-gradient-to-r from-red-500 to-yellow-300 bg-clip-text text-transparent drop-shadow" style={{letterSpacing: '0.04em', textShadow: '0 1px 4px #000'}}>Magic Deck Builder</span>
+      <span className="text-xl font-extrabold tracking-tight font-magic bg-gradient-to-r from-red-500 to-yellow-300 bg-clip-text text-transparent drop-shadow" style={{ letterSpacing: '0.04em', textShadow: '0 1px 4px #000' }}>Magic Deck Builder</span>
     </div>
   );
 
@@ -102,14 +102,14 @@ export default function NavBarAndSearch() {
 
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
-                    onClick={() => navigate("/usercards")}
+                    onClick={() => navigate(`/userCards/${username}`)}
                   >
                     <FaRegClone /> Cards
                   </button>
 
                   <button
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
-                    onClick={() => navigate("/userdecks")}
+                    onClick={() => navigate(`/profile/${username}#my-decks`)}
                   >
                     <FaLayerGroup /> Decks
                   </button>
@@ -151,14 +151,14 @@ export default function NavBarAndSearch() {
           </button>
         ))}
         {isLoggedIn && (
-              <button
-                onClick={handleLogout}
+          <button
+            onClick={handleLogout}
             className="flex items-center gap-3 w-full text-lg font-semibold px-4 py-3 rounded-lg hover:bg-white hover:text-black transition-colors duration-200 mt-8 text-red-400"
-              >
+          >
             <FaSignOutAlt /> Logout
-              </button>
+          </button>
         )}
-          </div>
+      </div>
       {/* Overlay for sidebar */}
       {isMenuOpen && (
         <div
