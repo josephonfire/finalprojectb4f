@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as LogoSVG } from "../images/mtg_logo_duocolor.svg";
+import { ReactComponent as LogoSVG } from "../images/mtg_logo_monocolor.svg";
 
 export default function LogoWithGlow() {
   return (
