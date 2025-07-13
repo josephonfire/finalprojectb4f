@@ -1,19 +1,18 @@
 import CardSearch from "../components/Search Bar/CardSearch";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import mtg_logo_duocolor from "../images/mtg_logo_duocolor.svg"
 import NavBarHome from "../components/NavBarHome";
-import '../index.css';
+import { FaDiceD20 } from "react-icons/fa";
+import LogoWithGlow from "../components/logowithGlow";
 
 
 // Pagina inicial do site, onde o usuario pode pesquisar cartas, ver as 3 cartas mais pesquisadas do dia e acessar o login e cadastro
 // Importante: o servidor deve estar rodando na porta 3030 para que a API funcione corretamente
 
-
-
 function Home() {
   const navigate = useNavigate();
   const [topCards, setTopCards] = useState([]); // Adicionado mas lembrar de adicionar depois
+  const [toolsOpen, setToolsOpen] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:3030/api/cards/top3") // Endpoint para buscar as 3 cartas mais pesquisadas do dia
@@ -22,7 +21,7 @@ function Home() {
       .catch(err => console.error(err));
   }, []);
 
-  
+
   // Header fixo no topo
   // const Header = () => (
   //   <header className="w-full flex justify-end items-center px-6 py-4 bg-transparent top-0 left-0 z-20">
@@ -44,21 +43,22 @@ function Home() {
   // );
 
   return (
-  <>
-    <NavBarHome />
-    <div className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16 py-12 pt-0">
-      {/* Banner */}
-      {/* Adicionar algum banner aqui depois */}
+    <><div className="relative min-h-screen flex flex-col items-center justify-center px-6 sm:px-10 lg:px-16 py-12 pt-0 bg-black/45">
+      <header>
+        <NavBarHome />
+      </header>
 
-      <div className="w-full max-w-4xl mx-auto text-center">
-        {/* Header */}
-        <div className="mb-12">
-          <img
-            src={mtg_logo_duocolor}
-            alt="MtG Deck Builder Logo"
-            className="mx-auto w-56 sm:w-64 md:w-72 drop-shadow-[0_0_8px_rgba(255,0,0,0.75)]"
-          />
+      <main>
+        {/* escurecimento do fundo excluindo o footer */}
 
+
+        <div className="w-full max-w-4xl mx-auto my-12 text-center">
+          <div className=" text-center">
+            {/* LOGOTIPO*/}
+            <LogoWithGlow /></div>
+
+
+          {/* Pseudo-main starts here */}
           <p className="mt-6 text-2xl sm:text-3xl font-semibold text-gray-200">
             Search for your favorite cards
           </p>
@@ -73,7 +73,7 @@ function Home() {
         </div>
 
         {/* New to Magic / Get started / Tools buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-6 relative">
           <span className="text-lg sm:text-xl font-medium text-white select-none">
             New to Magic?
           </span>
@@ -83,16 +83,37 @@ function Home() {
           >
             Get Started
           </button>
-          <button
-            onClick={() => navigate("/lifecounter")}
-            className="px-8 py-3 bg-white text-black rounded-lg shadow-lg hover:scale-105 hover:text-gray-900 transition-transform duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400"
+          <div
+            className="relative"
+            onMouseEnter={() => setToolsOpen(true)}
+            onMouseLeave={() => setToolsOpen(false)}
           >
-            Tools
-          </button>
+            <button
+              ref={el => (window._toolsBtn = el)}
+              className="px-8 py-3 bg-white text-black rounded-lg shadow-lg hover:scale-105 hover:text-gray-900 transition-transform duration-300 font-semibold focus:outline-none focus:ring-2 focus:ring-gray-400"
+              style={{ zIndex: 2, position: 'relative', minWidth: 160 }}
+            >
+              Tools
+            </button>
+            {/* Dropdown */}
+            <div
+              className={`absolute left-0 top-full mt-0 bg-white/95 border border-red-700 rounded-b-xl shadow-md transition-all duration-300 z-20 overflow-hidden ${toolsOpen ? 'opacity-100 visible translate-y-0 max-h-40' : 'opacity-0 invisible -translate-y-2 max-h-0'}`}
+              style={{ width: '100%', minWidth: 160, transitionProperty: 'opacity,transform,max-height', transitionDuration: '300ms' }}
+            >
+              <button
+                className="w-full flex items-center gap-3 text-left px-6 py-2 text-black hover:bg-red-600 hover:text-white transition-all duration-200 font-semibold text-base focus:outline-none active:scale-95"
+                onClick={() => navigate("/lifecounter")}
+                style={{ borderTopLeftRadius: 0, borderTopRightRadius: 0 }}
+              >
+                <FaDiceD20 className="text-red-700 text-lg" />
+                Life Counter
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Top 3 Cartas
+
+        {/* Top 3 Cartas
       <div className="mt-12 w-full max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold text-white mb-6 text-center">Top 3 Today's Searches</h2>
         <div className="flex flex-col sm:flex-row justify-center gap-6">
@@ -106,12 +127,13 @@ function Home() {
         </div>
       </div> */}
 
+      </main>
       {/* Rodapé */}
       <footer className="mt-16 text-gray-500 text-sm text-center">
         © {new Date().getFullYear()} Magic Deck Builder created by Group 5 - Bytes4Future
       </footer>
-      </div>
-  </>);
+    </div>
+    </>);
 }
 
 export default Home;

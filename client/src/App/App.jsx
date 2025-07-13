@@ -6,19 +6,19 @@ import SignUpPage from "../pages/Signup";
 import SearchPage from "../pages/Search";
 import Tutorials from "../pages/Tutorials";
 import Profile from "../pages/Profile";
-import Graphs from "../pages/Graficos";
 import MagicFireBackground from "../components/MagicFireBG/MagicFireBg";
 import CreateDeck from "../pages/CreateDeck";
-import ProfileTest from "../pages/ProfileTest";
 import CardDetails from "../components/CardDetails";
 import StatsPage from "../pages/statsPage";
-import OwnedCards from "../pages/userCards";
-import OwnedDecks from "../pages/userDecks";
+import UserCards from "../pages/userCards";
 import LifeCounter from "../components/LifeCounter";
-// import StatsPage from "../pages/StatsPage";
+import CardSearch from "../components/Search Bar/CardSearch";
+import NavBarHome from "../components/NavBarHome";
+
 
 function App() {
   return (
+  
     <Router>
       <div
         className="relative w-full h-screen bg-cover bg-center"
@@ -34,16 +34,13 @@ function App() {
             <Route path="/search/:name" element={<SearchPage />} />
             <Route path="/tutorials" element={<Tutorials />} />
             <Route path="/profile" element={<Profile />} />
-            <Route path="/graphs" element={<Graphs />} />
+            {/* <Route path="/graphs" element={<Graphs />} /> */}
             <Route path="/profile/:username" element={<Profile />} />
-            <Route path="/graficos" element={<Graphs />} />
+            {/* <Route path="/graficos" element={<Graphs />} /> */}
             <Route path="/create-deck" element={<CreateDeck />} />
-            <Route path="/profile-test" element={<ProfileTest />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
             <Route path="statsPage" element={<StatsPage />} />
-            <Route path="/ownedCards" element={<OwnedCards />} />
-            <Route path="/ownedDecks" element={<OwnedDecks />} />
-            {/* <Route path="statsPage" element={<StatsPage />} /> */}
+            <Route path="/userCards/:username" element={<UserCards />} />
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>
         </div>

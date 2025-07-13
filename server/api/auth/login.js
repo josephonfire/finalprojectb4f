@@ -3,34 +3,41 @@ const { body, validationResult } = require('express-validator');
 const { findOneUser } = require("../data/user.js");
 const jwt = require("jsonwebtoken");
 
-const SECRET = 'pedro'; // Defina sua chave secreta
+const SECRET = 'mtg'; // Defina sua chave secreta
 
 const router_login = express.Router();
 
 router_login.post(
   "/",
-  body("email").isEmail(),
-  body("password").isLength({ min: 6 }),
+  body("username").isLength({ min: 3 }).withMessage('Username is required'),
+  body("password").isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
   async (req, res, next) => {
     const errors = validationResult(req);
-    const { email, password } = req.body;
+    const { username, password } = req.body;
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     try {
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      // Encontra o utilizador só pelo username
+      const user = await findOneUser({ username });
+
+      if (!user) {
+        return res.status(401).json({ message: "User not found!" });
       }
 
-      const user = await findOneUser({email, password});
-      if (!user) {
-        return res.status(401).json({ message: "O utilizador não foi encontrado!" });
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return res.status(401).json({ message: "Incorrect password!" });
       }
-      if (user) {
-        const token = jwt.sign({ id: user._id, email: user.email }, SECRET);
-        return res.status(200).json({
-          token,
-          message: "Login realizado com sucesso!",
-          Id: user._id
-        });
-      }
+
+      const token = jwt.sign({ id: user._id, username: user.username }, SECRET);
+
+      return res.status(200).json({
+        token,
+        message: "Login successful!",
+        id: user._id
+      });
     } catch (err) {
       next(err);
     }
@@ -38,3 +45,4 @@ router_login.post(
 );
 
 module.exports = router_login;
+

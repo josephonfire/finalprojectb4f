@@ -2,10 +2,10 @@
 const { MongoClient } =  require('mongodb')
 
 // Conexão URL
-const url = "mongodb://localhost:27017";
+const url = "mongodb+srv://josephpedro:446235@dbcluster.6yqkucb.mongodb.net/Deckbuilder?retryWrites=true&w=majority&appName=DBCluster";
 
 // DB name
-const defaultNameDb = "deckbuilder"
+const defaultNameDb = "Deckbuilder"
 
 // Conexão
 let client = undefined;

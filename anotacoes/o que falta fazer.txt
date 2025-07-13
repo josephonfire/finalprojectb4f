@@ -1,0 +1,99 @@
+<<analisa o projeto
+e indica, por tópicos o que é ainda necessário fazer.
+sendo que os requisitos funcionais do projeto incluenm: Criação do Perfil de Utilizador
+Registo dos dados do utilizador
+Adicionar Foto de Perfil
+Lista dos Decks Feitos
+Abrir e Ver os itens(cartas) da lista
+Percentagem de cada tipo de cartas existentes no deck
+Mudar o nome do deck
+Adicionar e/ou remover cartas ao deck
+Estatísticas do jogador
+Cor mais usada
+Tipo de cartas mais usadas
+Carta mais usada
+Pesquisa de carta pelo nome, cor, tipo
+Tutorial para Novatos (Get Started)
+Botão “Feeling Lucky”, a IA gera um Deck (seguindo regras básicas da formação de decks)
+
+os requisitos não funcionais incluem: Mobile-First, responsividade
+User-Friendly
+Beginner-Friendly (instruções claras)
+Resposta à pesquisa de cartas até 2 segundos.>>
+
+
+
+
+
+Aqui está uma análise do projeto com base nos requisitos funcionais e não funcionais, indicando o que já existe (pelo nome dos arquivos/componentes) e o que ainda falta implementar ou melhorar:
+
+Funcionais
+Criação do Perfil de Utilizador / Registo dos dados do utilizador
+
+Já existem componentes: Signup.jsx, Login.jsx, Profile.jsx, ProfileTest.jsx.
+Verificar se o registo está completo (campos, validação, backend).
+Falta: Garantir edição do perfil e atualização dos dados.
+Adicionar Foto de Perfil
+
+Existe profile_photo.jpg (imagem de exemplo).
+Falta: Upload de foto pelo utilizador, armazenamento e exibição dinâmica.
+Lista dos Decks Feitos
+
+Existe userDecks.jsx.
+Verificar se lista decks do utilizador autenticado.
+Abrir e Ver os itens (cartas) da lista
+
+Falta: Visualização detalhada das cartas de cada deck.
+Percentagem de cada tipo de cartas existentes no deck
+
+Existe Graficos.jsx (provavelmente para gráficos).
+Falta: Implementar cálculo e exibição das percentagens por tipo.
+Mudar o nome do deck
+
+Falta: Função de edição do nome do deck (UI e backend).
+Adicionar e/ou remover cartas ao deck
+
+Falta: UI e lógica para adicionar/remover cartas em userDecks.jsx ou similar.
+Estatísticas do jogador
+
+Existe statsPage.jsx.
+Falta: Implementar estatísticas detalhadas (cor, tipo, carta mais usada).
+Cor mais usada / Tipo de cartas mais usadas / Carta mais usada
+
+Falta: Lógica de análise e exibição dessas estatísticas.
+Pesquisa de carta pelo nome, cor, tipo
+
+Existe CardSearch.jsx.
+Verificar se cobre todos os filtros (nome, cor, tipo) e se responde em até 2 segundos.
+Tutorial para Novatos (Get Started)
+
+Existe Tutorials.jsx.
+Verificar se é claro, interativo e fácil de encontrar.
+Botão “Feeling Lucky” (IA gera um Deck)
+
+Existe lucky_btn.jsx.
+Falta: Implementar lógica de geração automática de deck seguindo regras básicas.
+Não Funcionais
+Mobile-First, responsividade
+
+Projeto usa Tailwind CSS (bom para responsividade).
+Falta: Testar e ajustar todos os componentes para mobile.
+User-Friendly / Beginner-Friendly
+
+Falta: Garantir clareza nas instruções, tooltips, mensagens de erro amigáveis.
+Resposta à pesquisa de cartas até 2 segundos
+
+Falta: Testar performance da pesquisa e otimizar backend/front caso necessário.
+Resumo do que falta implementar/melhorar
+Upload e exibição dinâmica da foto de perfil.
+Edição de perfil e atualização de dados.
+Visualização detalhada de cartas em decks.
+Cálculo e exibição de percentagens de tipos de cartas no deck.
+Edição do nome do deck.
+Adição/remoção de cartas ao deck.
+Estatísticas detalhadas do jogador (cor, tipo, carta mais usada).
+Garantir filtros completos e performance na pesquisa de cartas.
+Lógica de geração automática de deck (“Feeling Lucky”).
+Testar e ajustar responsividade/mobile-first.
+Melhorar instruções e usabilidade para iniciantes.
+Se quiser, posso detalhar um plano de ação para cada ponto ou priorizar tarefas.

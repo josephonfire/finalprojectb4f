@@ -1,7 +1,8 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import NavBarHome from "./NavBarHome";
+import { replaceManaSymbols } from "../utils/replaceManaSymbols";
+import NavBarAndSearch from "./NavBarAndSearch";
 
 // Componente que exibe os detalhes de uma carta específica
 // Obtém o ID da carta da URL, faz uma requisição à API para buscar os detalhes da carta
@@ -14,11 +15,13 @@ function CardDetails() {
   const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const cleanManaSymbols = (text) => {
-    if (!text) return "N/A";
-    return text.replace(/[{}]/g, "");
-  };
+  // const cleanManaSymbols = (text) => {
+  //   if (!text) return "N/A";
+  //   return text.replace(/[{}]/g, "");
+  // };
 
   useEffect(() => {
     fetch(`http://localhost:3030/api/cards/${cardId}`)
@@ -31,7 +34,7 @@ function CardDetails() {
   if (loading) {
     return (
       <>
-        <NavBarHome />
+        <NavBarAndSearch />
         <div className="flex items-center justify-center min-h-screen pt-24">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-500 mx-auto mb-4"></div>
@@ -45,7 +48,7 @@ function CardDetails() {
   if (error) {
     return (
       <>
-        <NavBarHome />
+        <NavBarAndSearch />
         <div className="flex items-center justify-center min-h-screen pt-24">
           <div className="text-center">
             <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-4 max-w-md">
@@ -60,7 +63,7 @@ function CardDetails() {
   if (!card) {
     return (
       <>
-        <NavBarHome />
+        <NavBarAndSearch />
         <div className="flex items-center justify-center min-h-screen pt-24">
           <div className="text-center">
             <div className="bg-white/5 rounded-lg p-6">
@@ -74,7 +77,8 @@ function CardDetails() {
 
   return (
     <>
-      <NavBarHome />
+      
+      <NavBarAndSearch />
       <div className="min-h-screen pt-24 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -96,9 +100,18 @@ function CardDetails() {
                   src={card.image_uris?.normal || card.image_uris?.large}
                   alt={card.name}
                   className="relative rounded-2xl shadow-2xl max-w-sm w-full h-auto"
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.02,
                     transition: { duration: 0.2 }
+
+                  }}
+                  initial={{ y: 0 }}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{
+                    duration: 3 + Math.random(), // entre 3 e 4 segundos
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    ease: "easeInOut",
                   }}
                 />
               </div>
@@ -141,7 +154,7 @@ function CardDetails() {
                   <h3 className="text-red-400 font-semibold text-sm uppercase tracking-wide mb-2">
                     Mana Cost
                   </h3>
-                  <p className="text-white text-lg font-mono">{cleanManaSymbols(card.mana_cost)}</p>
+                  <p className="text-white text-lg font-mono">{replaceManaSymbols(card.mana_cost)}</p>
                 </motion.div>
 
                 <motion.div
@@ -167,10 +180,18 @@ function CardDetails() {
                       Oracle Text
                     </h3>
                     <p className="text-white text-base leading-relaxed whitespace-pre-wrap">
-                      {card.oracle_text}
+                      {replaceManaSymbols(card.oracle_text)}
                     </p>
                   </motion.div>
                 )}
+              </div>
+              <div className="flex justify-center mt-8">
+                <button
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-200 text-lg"
+                  onClick={() => navigate(`/create-deck?card=${encodeURIComponent(card.name)}`)}
+                >
+                  Create a Deck with this card!
+                </button>
               </div>
             </motion.div>
           </motion.div>
@@ -179,5 +200,4 @@ function CardDetails() {
     </>
   );
 }
-
 export default CardDetails;
