@@ -16,9 +16,8 @@ const corsOptions = {
   optionSuccessStatus: 200,
 }
 
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
 app.use(cors(corsOptions));
-
 
 const signupRouter = require('./auth/signup.js');
 app.use("/api/signup", signupRouter);

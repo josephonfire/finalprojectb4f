@@ -222,7 +222,7 @@ function CreateDeck() {
         alert("Erro ao salvar deck!");
       }
     } catch (err) {
-      alert("Erro de rede ao salvar deck!");
+      alert("Erro de rede ao salvar deck!", err);
     }
   };
 
@@ -303,7 +303,6 @@ function CreateDeck() {
               >
                 <div
                   className="h-auto bg-white/10 backdrop-blur-sm p-2 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200 flex flex-col justify-between"
-                  onClick={() => navigate(`/card/${card.id}`)}
                 >
                   <h3 className="font-bold mb-4 text-white text-center text-sm">
                     {card.name}
@@ -326,9 +325,11 @@ function CreateDeck() {
                       src={card.image_uris?.normal || card.image_uris?.large || "/default-card.png"}
                       alt={card.name}
                       className="mx-auto rounded shadow-lg"
+                      onClick={() => navigate(`/card/${card.id}`)}
                     />
                     {/* Overlay que acompanha a imagem */}
-                    <div className="absolute inset-[-1px] bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-lg pointer-events-none">
+                    <div className="absolute inset-[-1px] bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-lg pointer-events-none"
+                    >
                       <div className="absolute bottom-2 left-2 right-2 text-center">
                         <span className="text-white text-xs font-medium bg-black/70 px-2 py-1 rounded">
                           Click to see details

@@ -37,7 +37,7 @@ function StatsPage() {
         try {
             const response = await fetch(`http://localhost:3030/api/user-stats?user=${username}`);
             const data = await response.json();
-
+            console.log("Dados recebidos:", data);
             // Corrige se algum campo vier como undefined
             setColorData(Array.isArray(data.colorData) ? data.colorData : []);
             setTypeData(Array.isArray(data.typeData) ? data.typeData : []);
@@ -79,6 +79,7 @@ function StatsPage() {
     ];
 
     // Lista de botões e componentes associados
+
     const conteudo = [
         ['Cards by Color', (
             colorData.length === 0 ? (

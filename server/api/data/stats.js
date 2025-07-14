@@ -1,17 +1,17 @@
 const { getUserDecks } = require("./decks.js");
 
 function getColorFromCard(card) {
-  if (card.color) return card.color;
-  if (!card.manaCost) return 'Colorless';
-  const mana = card.manaCost.toUpperCase();
   const colors = [];
-  if (mana.includes('W')) colors.push('White');
-  if (mana.includes('U')) colors.push('Blue');
-  if (mana.includes('B')) colors.push('Black');
-  if (mana.includes('R')) colors.push('Red');
-  if (mana.includes('G')) colors.push('Green');
-  if (colors.length === 0) return 'Colorless';
-  if (colors.length > 1) return 'Multicolor';
+  console.log("card:", card);
+  if (card.colors.length === 0) return 'Colorless';
+  if (card.colors.length > 1) return 'Multicolor';
+  // const mana = card.manaCost.toUpperCase();
+  console.log("colors:", colors)
+  if (card.colors.includes('W')) colors.push('White');
+  if (card.colors.includes('U')) colors.push('Blue');
+  if (card.colors.includes('B')) colors.push('Black');
+  if (card.colors.includes('R')) colors.push('Red');
+  if (card.colors.includes('G')) colors.push('Green');
   return colors[0];
 }
 
@@ -28,7 +28,7 @@ async function getStatsForUser(user) {
       const color = getColorFromCard(card);
       if (color) colorMap[color] = (colorMap[color] || 0) + 1;
       // Tipo
-      if (card.type) typeMap[card.type] = (typeMap[card.type] || 0) + 1;
+      if (card.type_line) typeMap[card.type_line] = (typeMap[card.type_line] || 0) + 1;
       // Nome
       if (card.name) cardCount[card.name] = (cardCount[card.name] || 0) + 1;
     });
