@@ -22,14 +22,17 @@ import {
 
 
 function StatsPage() {
+    const { username: paramUsername } = useParams();
+    const username = paramUsername || localStorage.getItem('username');
     const [activeIndex, setActiveIndex] = useState(null);
     const [colorData, setColorData] = useState([]);
     const [typeData, setTypeData] = useState([]);
     const [topCards, setTopCards] = useState([]);
-    const { username } = useParams();
-    console.log("Username recebido da URL:", username);
+    
+    console.log("Username usado para buscar stats:", username);
 
     useEffect(() => {
+    if (!username) return;
     async function fetchUserStats() {
         try {
             const response = await fetch(`http://localhost:3030/api/user-stats?user=${username}`);
@@ -47,7 +50,33 @@ function StatsPage() {
 }, [username]);
 
 
-    const barColors = ['#1f1f1f', '#ffffe6', '#cf1919', '#16a816', '#4573ff'];
+    // Cores oficiais de Magic: Branco, Azul, Preto, Vermelho, Verde, Incolor
+    const colorMap = {
+        'White': '#FFF9C4', // Branco
+        'Blue': '#2196F3', // Azul
+        'Black': '#212121', // Preto
+        'Red': '#F44336', // Vermelho
+        'Green': '#4CAF50', // Verde
+        'Colorless': '#BDBDBD', // Incolor
+        'Multicolor': '#FFD700', // Dourado
+        // Adicione outros nomes se necessário
+    };
+    // Ordem para exibir as cores
+    const colorOrder = ['White', 'Blue', 'Black', 'Red', 'Green', 'Colorless', 'Multicolor'];
+
+    // Paleta para tipos de carta
+    const typePalette = [
+        '#FFD700', // Amarelo
+        '#90CAF9', // Azul claro
+        '#A1887F', // Marrom
+        '#E57373', // Vermelho claro
+        '#81C784', // Verde claro
+        '#CE93D8', // Roxo
+        '#FFB300', // Laranja
+        '#B0BEC5', // Cinza
+        '#F06292', // Rosa
+        '#64B5F6', // Azul médio
+    ];
 
     // Lista de botões e componentes associados
     const conteudo = [
@@ -55,33 +84,59 @@ function StatsPage() {
             colorData.length === 0 ? (
                 <p className="text-sm text-gray-400 italic">There is no data available yet.</p>
             ) : (
-                <ResponsiveContainer width="100%" height={200}>
-                    <BarChart data={colorData}>
+                <>
+                <ResponsiveContainer width="100%" height={220}>
+                    <BarChart data={colorOrder.map(name => colorData.find(c => c.name === name) || { name, value: 0 })}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
-                        <Bar dataKey="value" fill>
-                            {colorData.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={barColors[index]} />
+                        <Bar dataKey="value">
+                            {colorOrder.map((name, index) => (
+                                <Cell key={name} fill={colorMap[name] || '#888888'} />
                             ))}
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>
+                {/* Legenda das cores */}
+                <div className="flex flex-wrap justify-center gap-3 mt-2">
+                    {colorOrder.map(name => (
+                        <span key={name} className="flex items-center gap-1 text-sm">
+                            <span style={{ background: colorMap[name] || '#888', width: 16, height: 16, display: 'inline-block', borderRadius: 4, border: '1px solid #222' }}></span>
+                            {name}
+                        </span>
+                    ))}
+                </div>
+                </>
             ))],
         ['Cards by Type', (
             typeData.length === 0 ? (
                 <p className="text-sm text-gray-400 italic">There is no data available yet.</p>
             ) : (
-                <ResponsiveContainer width="100%" height={200}>
+                <>
+                <ResponsiveContainer width="100%" height={220}>
                     <BarChart data={typeData}>
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
-                        <Bar dataKey="value" fill="#990000" />
+                        <Bar dataKey="value">
+                            {typeData.map((entry, index) => (
+                                <Cell key={entry.name} fill={typePalette[index % typePalette.length]} />
+                            ))}
+                        </Bar>
                     </BarChart>
                 </ResponsiveContainer>
+                {/* Legenda dos tipos */}
+                <div className="flex flex-wrap justify-center gap-3 mt-2">
+                    {typeData.map((entry, index) => (
+                        <span key={entry.name} className="flex items-center gap-1 text-sm">
+                            <span style={{ background: typePalette[index % typePalette.length], width: 16, height: 16, display: 'inline-block', borderRadius: 4, border: '1px solid #222' }}></span>
+                            {entry.name}
+                        </span>
+                    ))}
+                </div>
+                </>
             ))],
         ['Top 5 Cards', (
             topCards.length === 0 ? (
@@ -94,6 +149,15 @@ function StatsPage() {
                 </ul>
             ))],
     ];
+
+    if (!username) {
+        return (
+            <div className="p-8 text-center mt-12 min-h-screen text-white flex flex-col justify-center items-center">
+                <h1 className="font-bold text-3xl mb-6 text-white">Statistics</h1>
+                <p className="text-red-400">Usuário não encontrado. Faça login novamente.</p>
+            </div>
+        );
+    }
 
     return (
         <>

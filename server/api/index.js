@@ -8,6 +8,7 @@ const { newUser, findUsers, findOneUser } = require("./data/user.js");
 const { createDeck, getUserDecks, getDeckById, updateDeck, deleteDeck } = require("./data/decks.js");
 const { getCollection } = require("./data/db.js");
 const { ObjectId } = require('mongodb');
+const { getStatsForUser } = require('./data/stats.js');
 
 const corsOptions = {
   origin: '*',
@@ -306,6 +307,20 @@ app.post('/api/migrate-usercards', async (req, res) => {
     res.json({ message: `Migração concluída! ${count} cartas migradas para usercards.` });
   } catch (err) {
     res.status(500).json({ error: 'Erro ao migrar cartas' });
+  }
+});
+
+app.get('/api/user-stats', async (req, res) => {
+  const { user } = req.query;
+  console.log("user recebido:", user);
+  if (!user) return res.status(400).json({ error: "Usuário não informado" });
+  try {
+    const stats = await getStatsForUser(user);
+    console.log("stats retornado:", stats);
+    res.json(stats);
+  } catch (err) {
+    console.error("Erro ao buscar estatísticas:", err);
+    res.status(500).json({ error: "Erro ao buscar estatísticas" });
   }
 });
 

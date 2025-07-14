@@ -1,5 +1,20 @@
 const { getUserDecks } = require("./decks.js");
 
+function getColorFromCard(card) {
+  if (card.color) return card.color;
+  if (!card.manaCost) return 'Colorless';
+  const mana = card.manaCost.toUpperCase();
+  const colors = [];
+  if (mana.includes('W')) colors.push('White');
+  if (mana.includes('U')) colors.push('Blue');
+  if (mana.includes('B')) colors.push('Black');
+  if (mana.includes('R')) colors.push('Red');
+  if (mana.includes('G')) colors.push('Green');
+  if (colors.length === 0) return 'Colorless';
+  if (colors.length > 1) return 'Multicolor';
+  return colors[0];
+}
+
 async function getStatsForUser(user) {
   const decks = await getUserDecks(user);
 
@@ -8,9 +23,13 @@ async function getStatsForUser(user) {
   const cardCount = {};
 
   decks.forEach(deck => {
-    deck.cards.forEach(card => {
-      if (card.color) colorMap[card.color] = (colorMap[card.color] || 0) + 1;
+    (deck.cards || []).forEach(card => {
+      // Determinar cor
+      const color = getColorFromCard(card);
+      if (color) colorMap[color] = (colorMap[color] || 0) + 1;
+      // Tipo
       if (card.type) typeMap[card.type] = (typeMap[card.type] || 0) + 1;
+      // Nome
       if (card.name) cardCount[card.name] = (cardCount[card.name] || 0) + 1;
     });
   });
@@ -25,15 +44,15 @@ async function getStatsForUser(user) {
   return { colorData, typeData, topCards };
 }
 
-export async function getUserStats(token) {
-  const res = await fetch('http://localhost:3030/api/user-stats', {
-    headers: {
-      'Authorization': `Bearer ${token}`
-    }
-  });
-  if (!res.ok) throw new Error('Erro ao buscar estatísticas');
-  return res.json();
-}
+// export async function getUserStats(token) {
+//   const res = await fetch(`http://localhost:3030/api/user-stats?user=${username}`, {
+//     headers: {
+//       'Authorization': `Bearer ${token}`
+//     }
+//   });
+//   if (!res.ok) throw new Error('Erro ao buscar estatísticas');
+//   return res.json();
+// }
 
 
 module.exports = { getStatsForUser };
