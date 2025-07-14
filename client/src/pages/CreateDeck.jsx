@@ -1,9 +1,11 @@
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NavBarAndSearch from "../components/NavBarAndSearch";
-import "../index.css";
 import { motion } from "framer-motion";
+import { FaFolderOpen } from "react-icons/fa";
 
+
+// Componente para exibir cada resultado de carta
 function CardResult({ card, onAdd, onRemove }) {
   return (
     <div
@@ -12,6 +14,7 @@ function CardResult({ card, onAdd, onRemove }) {
       <h2 className="text-sm font-bold mb-2 text-center text-white">
         {card.name}
       </h2>
+
       <img
         src={card.image_uris?.normal || card.image_uris?.large || "/default-card.png"}
         alt={card.name}
@@ -35,12 +38,13 @@ function CardResult({ card, onAdd, onRemove }) {
   );
 }
 
-function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckName }) {
+// Componente lateral (sidebar)
+function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckName, isMobile, onClose }) {
+  
   return (
-    <aside className="bg-white/10 border-l border-red-800 p-6 overflow-y-auto shadow-md sticky top-24 h-[calc(100vh-6rem)] hidden lg:block min-w-[300px] rounded-l-xl border-t border-b border-white/10">
-      <h2 className="text-xl font-bold mb-4 border-b border-red-700 pb-2 text-white">
-        Current Deck
-      </h2>
+
+    <aside className={`${isMobile ? "fixed top-0 right-0 h-full w-80 z-50" : "sticky top-24 hidden lg:block"} bg-black/80  border-l border-red-800 p-6 overflow-y-auto shadow-md min-w-[300px] rounded-l-xl border-t border-b border-white/10`}>
+      <h2 className="text-xl font-bold mb-4 border-b border-red-700 pb-2 text-white">Current Deck</h2>
       <input
         type="text"
         value={deckName}
@@ -98,6 +102,15 @@ function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckNa
           </div>
         </>
       )}
+
+      {isMobile && (
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 bg-red-700 text-white px-3 py-1 rounded shadow-md"
+        >
+          Fechar
+        </button>
+      )}
     </aside>
   );
 }
@@ -112,6 +125,8 @@ function CreateDeck() {
   const [query, setQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [deckCards, setDeckCards] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+ 
 
   useEffect(() => {
     async function fetchFullCards(cards) {
@@ -243,133 +258,97 @@ function CreateDeck() {
 
   return (
     <>
-      <NavBarAndSearch />
-      {/* Remover overlay pesado, manter background padrão do body */}
-      <div className="relative z-10 pt-24 grid grid-cols-1 lg:grid-cols-[1fr_350px] min-h-screen text-white mx-3">
-        {/* Conteúdo principal */}
-        <div className=" p-8 bg-white/10 rounded-xl shadow-md max-w-5xl w-full  border border-white/10">
-          <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-center text-white">
-            Welcome to your Deck Builder, <br />{username}
+    
+    <NavBarAndSearch />
+
+    {/* Floating button for mobile */}
+    <button
+      onClick={() => setIsSidebarOpen(true)}
+      className="fixed bottom-6 right-6 z-50 bg-red-800 text-white p-4 rounded-full shadow-lg lg:hidden"
+      title="Open Deck"
+    >
+      <FaFolderOpen /> Open Deck
+    </button>
+
+    {/* Main layout */}
+    <div className="relative z-10 pt-24 grid grid-cols-1 lg:grid-cols-[1fr_350px] min-h-screen text-white mx-3">
+      {/* Deck builder area */}
+      <div className="p-8 bg-white/10 rounded-xl shadow-md max-w-5xl w-full border border-white/10">
+        <h1 className="text-3xl lg:text-4xl font-bold mb-6 text-center text-white">
+          Welcome to your Deck Builder,<br />{username}
+        </h1>
+
+        {/* Search input */}
+        <div className="mb-8">
+          <label className="block mb-2 font-semibold text-white/80">Search for cards:</label>
+          <div className="flex gap-2 flex-col sm:flex-row">
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="text-black px-4 py-2 rounded flex-1 border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-900"
+              placeholder="Type card name..."
+            />
+            <button
+              onClick={searchCards}
+              className="bg-blue-900 px-4 py-2 rounded hover:bg-blue-700 transition border border-white/10 font-semibold"
+            >
+              Search
+            </button>
+          </div>
+        </div>
+
+        {/* Search results */}
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold text-white mb-2">
+            Results for: <span className="text-red-400">{query}</span>
           </h1>
-          {/* (input de nome de deck movido para a sidebar) */}
-          {/* Buscar carta */}
-          <div className="mb-8">
-            <label className="block mb-2 font-semibold text-white/80">
-              Search for cards:
-            </label>
-            <div className="flex gap-2 flex-col sm:flex-row">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                className="text-black px-4 py-2 rounded flex-1 border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-900"
-                placeholder="Type card name..."
-              />
-              <button
-                onClick={searchCards}
-                className="bg-blue-900 px-4 py-2 rounded hover:bg-blue-700 transition border border-white/10 font-semibold"
-              >
-                Search
-              </button>
-            </div>
-          </div>
-
-          {/* NOVO: Texto de resultados */}
-          <div className="mb-6 text-center">
-            <h1 className="text-2xl font-bold text-white mb-2">
-              Results for: <span className="text-red-400">{query}</span>
-            </h1>
-            <p className="text-gray-300">
-              {searchResults.length} Card{searchResults.length !== 1 ? "s" : ""} found
-            </p>
-          </div>
-
-          {/* Resultados da busca */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
-            {searchResults.map((card, index) => (
-              <motion.div
-                key={card.id}
-                className="group"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.3,
-                  delay: index * 0.05,
-                }}
-                whileHover={{
-                  y: -4,
-                  transition: { duration: 0.2 },
-                }}
-              >
-                <div
-                  className="h-auto bg-white/10 backdrop-blur-sm p-2 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200 flex flex-col justify-between"
-                >
-                  <h3 className="font-bold mb-4 text-white text-center text-sm">
-                    {card.name}
-                  </h3>
-                  <motion.div
-                    className="relative rounded-lg"
-                    animate={{ y: [0, -8, 0] }}
-                    transition={{
-                      duration: 3 + Math.random(),
-                      repeat: Infinity,
-                      repeatType: "loop",
-                      ease: "easeInOut",
-                    }}
-                    whileHover={{
-                      scale: 1.02,
-                      transition: { duration: 0.2 },
-                    }}
-                  >
-                    <img
-                      src={card.image_uris?.normal || card.image_uris?.large || "/default-card.png"}
-                      alt={card.name}
-                      className="mx-auto rounded shadow-lg"
-                      onClick={() => navigate(`/card/${card.id}`)}
-                    />
-                    {/* Overlay que acompanha a imagem */}
-                    <div className="absolute inset-[-1px] bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 rounded-lg pointer-events-none"
-                    >
-                      <div className="absolute bottom-2 left-2 right-2 text-center">
-                        <span className="text-white text-xs font-medium bg-black/70 px-2 py-1 rounded">
-                          Click to see details
-                        </span>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Botões de adicionar/remover por baixo da imagem */}
-                  <div className="mt-2 flex justify-center gap-2">
-                    <button
-                      onClick={() => handleAddCard(card)}
-                      className="bg-green-600 px-4 py-1 rounded hover:bg-green-800 transition border border-white/10"
-                    >
-                      +
-                    </button>
-                    <button
-                      onClick={() => handleRemoveCard(card.id)}
-                      className="bg-red-600 px-4 py-1 rounded hover:bg-red-800 transition border border-white/10"
-                    >
-                      -
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <p className="text-gray-300">
+            {searchResults.length} card{searchResults.length !== 1 ? "s" : ""} found
+          </p>
         </div>
 
-        {/* SIDEBAR - Deck atual, responsiva */}
-        <div className="lg:static lg:block w-full">
-          <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} onSave={handleSaveDeck} onClear={handleClearDeck} deckName={deckName} setDeckName={setDeckName} />
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+          {searchResults.map((card) => (
+            <CardResult
+              key={card.id}
+              card={card}
+              onAdd={handleAddCard}
+              onRemove={handleRemoveCard}
+            />
+          ))}
         </div>
       </div>
-      {/* Sidebar mobile: aparece abaixo do conteúdo principal */}
-      <div className="block lg:hidden p-4">
-        <DeckSidebar deckCards={deckCards} onRemove={handleRemoveCard} onSave={handleSaveDeck} onClear={handleClearDeck} deckName={deckName} setDeckName={setDeckName} />
+
+      {/* Sidebar for desktop */}
+      <DeckSidebar
+        deckCards={deckCards}
+        onRemove={handleRemoveCard}
+        onSave={handleSaveDeck}
+        onClear={handleClearDeck}
+        deckName={deckName}
+        setDeckName={setDeckName}
+        isMobile={false}
+      />
+    </div>
+
+    {/* Sidebar for mobile */}
+    {isSidebarOpen && (
+      <div className="fixed inset-0 bg-black/50 z-50 flex justify-end lg:hidden">
+        <DeckSidebar
+          deckCards={deckCards}
+          onRemove={handleRemoveCard}
+          onSave={handleSaveDeck}
+          onClear={handleClearDeck}
+          deckName={deckName}
+          setDeckName={setDeckName}
+          isMobile={true}
+          onClose={() => setIsSidebarOpen(false)}
+        />
       </div>
-    </>
-  );
+    )}
+  </>
+);
 }
 
 export default CreateDeck;
