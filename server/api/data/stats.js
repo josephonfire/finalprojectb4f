@@ -1,22 +1,36 @@
 const { getUserDecks } = require("./decks.js");
 
 function getColorFromCard(card) {
-  const colors = [];
-  console.log("card:", card);
-  if (card.colors.length === 0) return 'Colorless';
-  if (card.colors.length > 1) return 'Multicolor';
-  // const mana = card.manaCost.toUpperCase();
-  console.log("colors:", colors)
-  if (card.colors.includes('W')) colors.push('White');
-  if (card.colors.includes('U')) colors.push('Blue');
-  if (card.colors.includes('B')) colors.push('Black');
-  if (card.colors.includes('R')) colors.push('Red');
-  if (card.colors.includes('G')) colors.push('Green');
-  return colors[0];
+  // Verifica se a carta é válida e se possui o campo 'colors' como array
+  if (!card || typeof card !== "object" || !Array.isArray(card.colors)) {
+    console.warn("Carta inválida ou sem propriedade 'colors':", card);
+    return "Unknown";
+  }
+
+  const colors = card.colors;
+
+  if (colors.length === 0) return "Colorless";
+  if (colors.length > 1) return "Multicolor";
+
+  // Cor única
+  const colorCode = colors[0];
+  switch (colorCode) {
+    case "W": return "White";
+    case "U": return "Blue";
+    case "B": return "Black";
+    case "R": return "Red";
+    case "G": return "Green";
+    default: return "Unknown";
+  }
 }
 
 async function getStatsForUser(user) {
   const decks = await getUserDecks(user);
+
+  if (!Array.isArray(decks)) {
+    console.warn("Nenhum deck encontrado para o utilizador:", user);
+    return { colorData: [], typeData: [], topCards: [] };
+  }
 
   const colorMap = {};
   const typeMap = {};
@@ -24,13 +38,22 @@ async function getStatsForUser(user) {
 
   decks.forEach(deck => {
     (deck.cards || []).forEach(card => {
-      // Determinar cor
+      // Proteção contra estruturas malformadas
+      if (!card || typeof card !== "object") {
+        console.warn("Carta inválida detectada:", card);
+        return;
+      }
+
       const color = getColorFromCard(card);
       if (color) colorMap[color] = (colorMap[color] || 0) + 1;
-      // Tipo
-      if (card.type_line) typeMap[card.type_line] = (typeMap[card.type_line] || 0) + 1;
-      // Nome
-      if (card.name) cardCount[card.name] = (cardCount[card.name] || 0) + 1;
+
+      if (typeof card.type_line === "string") {
+        typeMap[card.type_line] = (typeMap[card.type_line] || 0) + 1;
+      }
+
+      if (typeof card.name === "string") {
+        cardCount[card.name] = (cardCount[card.name] || 0) + 1;
+      }
     });
   });
 
@@ -44,15 +67,13 @@ async function getStatsForUser(user) {
   return { colorData, typeData, topCards };
 }
 
+// Se precisares disto no frontend, podes usar algo assim:
 // export async function getUserStats(token) {
 //   const res = await fetch(`http://localhost:3030/api/user-stats?user=${username}`, {
-//     headers: {
-//       'Authorization': `Bearer ${token}`
-//     }
+//     headers: { 'Authorization': `Bearer ${token}` }
 //   });
 //   if (!res.ok) throw new Error('Erro ao buscar estatísticas');
 //   return res.json();
 // }
-
 
 module.exports = { getStatsForUser };
