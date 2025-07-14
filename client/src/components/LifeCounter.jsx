@@ -2,21 +2,17 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 const PLAYER_COLORS = [
-  "bg-red-600",
-  "bg-blue-600",
-  "bg-green-600",
-  "bg-yellow-500",
-  "bg-purple-700",
-  "bg-pink-600",
-  "bg-gray-700",
+  "#faf8f7", // white
+  "#bfddf3", // babyblue
+  "#d0f0c0", // green forest
+  "#fa7f72", // red salmon
+  "#a9a9a9", // black gray
 ];
 const COLOR_NAMES = [
-  "Red",
+  "White",
   "Blue",
   "Green",
-  "Yellow",
-  "Purple",
-  "Pink",
+  "Red",
   "Gray",
 ];
 
@@ -86,13 +82,21 @@ export default function LifeCounter() {
             <FaBars className="text-3xl text-white" />
           </button>
           {menuOpen && (
-            <div className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-black/95 border-2 border-grey-700 rounded-2xl shadow-2xl p-8 flex flex-col items-center gap-6 animate-fade-in min-w-[220px]">
+            <div className="fixed left-1/2 top-1/2 z-50 -translate-x-1/2 -translate-y-1/2 bg-black/95 border-2 border-grey-700 rounded-2xl shadow-2xl p-12 flex flex-col items-center gap-6 animate-fade-in min-w-[280px]">
+              {/* Botão de fechar (X) no canto superior direito */}
+              <button
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+                className="absolute right-1 top-1 w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-2xl text-white hover:text-red-500 focus:outline-none z-10"
+              >
+                ×
+              </button>
               <button
                 onClick={() => {
                   handleReset();
                   setMenuOpen(false);
                 }}
-                className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-lg border border-gray-600 text-lg mb-2"
+                className="w-full bg-gray-800 hover:bg-gray-700 text-white font-semibold px-4 py-2 rounded-lg border border-gray-600 text-base mb-2"
               >
                 Reset
               </button>
@@ -101,7 +105,7 @@ export default function LifeCounter() {
                   setStep(0);
                   setMenuOpen(false);
                 }}
-                className="w-full bg-red-700 hover:bg-red-900 text-white font-semibold px-6 py-3 rounded-lg border border-red-900 text-lg"
+                className="w-full bg-red-700 hover:bg-red-900 text-white font-semibold px-4 py-2 rounded-lg border border-red-900 text-base"
               >
                 Back
               </button>
@@ -110,7 +114,7 @@ export default function LifeCounter() {
                   navigate("/");
                   setMenuOpen(false);
                 }}
-                className="w-full bg-white hover:bg-red-600 hover:text-white text-black font-semibold px-6 py-3 rounded-lg text-lg mb-2"
+                className="w-full bg-white hover:bg-red-600 hover:text-white text-black font-semibold px-4 py-2 rounded-lg text-base mb-2"
               >
                 Main Page
               </button>
@@ -138,37 +142,39 @@ export default function LifeCounter() {
       )}
       {step === 1 && numPlayers === 2 && (
         <div className="flex w-screen h-screen min-h-screen gap-0">
-          {[0, 1].map((idx) => (
-            <div
-              key={idx}
-              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                PLAYER_COLORS[playerColors[idx]]
-              } border-4 border-white/30`}
-              onClick={() => handleColorCycle(idx)}
-              style={{ minWidth: 0, minHeight: 0, height: "100vh" }}
-            >
-              <span className="text-lg font-bold mb-2 select-none">
-                Player {idx + 1}
-              </span>
-              <div className="text-6xl font-extrabold mb-4 select-none">
-                {lifes[idx]}
+          {[0, 1].map((idx) => {
+            const color = PLAYER_COLORS[playerColors[idx]];
+            const isHex = color.startsWith('#');
+            return (
+              <div
+                key={idx}
+                className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!isHex ? color : ''}`}
+                style={isHex ? { backgroundColor: color } : undefined}
+                onClick={() => handleColorCycle(idx)}
+              >
+                <span className="text-lg text-gray-600 font-bold mb-2 select-none">
+                  Player {idx + 1}
+                </span>
+                <div className="text-6xl text-gray-700 font-extrabold mb-4 select-none">
+                  {lifes[idx]}
+                </div>
+                <div className="flex gap-6">
+                  <button
+                    onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
+                    className="bg-white/20 hover:bg-white/40 text-gray-600 px-5 py-2 rounded text-3xl font-bold"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
+                    className="bg-white/20 hover:bg-white/40 text-gray-600 px-5 py-2 rounded text-3xl font-bold"
+                  >
+                    −
+                  </button>
+                </div>
               </div>
-              <div className="flex gap-6">
-                <button
-                  onClick={() => handleLife(idx, 1)}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => handleLife(idx, -1)}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
-                >
-                  −
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
       {step === 1 && numPlayers === 3 && (
@@ -195,13 +201,13 @@ export default function LifeCounter() {
             </div>
             <div className="flex gap-6">
               <button
-                onClick={() => handleLife(0, 1)}
+                onClick={e => { e.stopPropagation(); handleLife(0, 1); }}
                 className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
               >
                 +
               </button>
               <button
-                onClick={() => handleLife(0, -1)}
+                onClick={e => { e.stopPropagation(); handleLife(0, -1); }}
                 className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
               >
                 −
@@ -234,13 +240,13 @@ export default function LifeCounter() {
               </div>
               <div className="flex gap-6">
                 <button
-                  onClick={() => handleLife(1, 1)}
+                  onClick={e => { e.stopPropagation(); handleLife(1, 1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
                 >
                   +
                 </button>
                 <button
-                  onClick={() => handleLife(1, -1)}
+                  onClick={e => { e.stopPropagation(); handleLife(1, -1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
                 >
                   −
@@ -271,13 +277,13 @@ export default function LifeCounter() {
               </div>
               <div className="flex gap-6">
                 <button
-                  onClick={() => handleLife(2, 1)}
+                  onClick={e => { e.stopPropagation(); handleLife(2, 1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
                 >
                   +
                 </button>
                 <button
-                  onClick={() => handleLife(2, -1)}
+                  onClick={e => { e.stopPropagation(); handleLife(2, -1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
                 >
                   −
@@ -289,138 +295,133 @@ export default function LifeCounter() {
       )}
       {step === 1 && numPlayers === 4 && (
         <div className="w-screen h-screen min-h-screen flex flex-wrap p-0">
-          {Array.from({ length: 4 }).map((_, idx) => (
-            <div
-              key={idx}
-              className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                PLAYER_COLORS[playerColors[idx]]
-              } border-4 border-white/30`}
-              onClick={() => handleColorCycle(idx)}
-              style={{
-                flex: "1 0 50%",
-                minWidth: 0,
-                minHeight: 0,
-                width: "50%",
-                height: "50%",
-                boxSizing: "border-box",
-                margin: 0,
-                padding: 0,
-              }}
-            >
-              <span className="text-lg font-bold mb-2 select-none">
-                Player {idx + 1}
-              </span>
-              <div className="text-6xl font-extrabold mb-4 select-none">
-                {lifes[idx]}
+          {Array.from({ length: 4 }).map((_, idx) => {
+            const color = PLAYER_COLORS[playerColors[idx]];
+            const isHex = color.startsWith('#');
+            return (
+              <div
+                key={idx}
+                className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!isHex ? color : ''}`}
+                style={{
+                  flex: "1 0 50%",
+                  minWidth: 0,
+                  minHeight: 0,
+                  width: "50%",
+                  height: "50%",
+                  boxSizing: "border-box",
+                  margin: 0,
+                  padding: 0,
+                  ...(isHex ? { backgroundColor: color } : {})
+                }}
+                onClick={() => handleColorCycle(idx)}
+              >
+                <span className="text-lg font-bold mb-2 select-none">
+                  Player {idx + 1}
+                </span>
+                <div className="text-6xl font-extrabold mb-4 select-none">
+                  {lifes[idx]}
+                </div>
+                <div className="flex gap-6">
+                  <button
+                    onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
+                    className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
+                    className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                  >
+                    −
+                  </button>
+                </div>
               </div>
-              <div className="flex gap-6">
-                <button
-                  onClick={() => handleLife(idx, 1)}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
-                >
-                  +
-                </button>
-                <button
-                  onClick={() => handleLife(idx, -1)}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
-                >
-                  −
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
       {step === 1 && numPlayers === 5 && (
         <div className="w-screen h-screen min-h-screen flex flex-col bg-black overflow-hidden">
           {/* Linha 1: J1 e J2 */}
           <div className="flex flex-row flex-1">
-            {[0, 1].map((idx) => (
-              <div
-                key={idx}
-                className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                  PLAYER_COLORS[playerColors[idx]]
-                } border-4 border-white/30`}
-                onClick={() => handleColorCycle(idx)}
-                style={{ minWidth: 0, minHeight: 0 }}
-              >
-                <span className="text-lg font-bold mb-2 select-none">
-                  Player {idx + 1}
-                </span>
-                <div className="text-5xl font-extrabold mb-2 select-none">
-                  {lifes[idx]}
+            {[0, 1].map((idx) => {
+              const color = PLAYER_COLORS[playerColors[idx]];
+              const isHex = color.startsWith('#');
+              return (
+                <div
+                  key={idx}
+                  className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!isHex ? color : ''}`}
+                  style={{ minWidth: 0, minHeight: 0, ...(isHex ? { backgroundColor: color } : {}) }}
+                  onClick={() => handleColorCycle(idx)}
+                >
+                  <span className="text-lg font-bold mb-2 select-none">
+                    Player {idx + 1}
+                  </span>
+                  <div className="text-5xl font-extrabold mb-2 select-none">
+                    {lifes[idx]}
+                  </div>
+                  <div className="flex gap-4">
+                    <button
+                      onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
+                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
+                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                    >
+                      −
+                    </button>
+                  </div>
                 </div>
-                <div className="flex gap-4">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleLife(idx, 1);
-                    }}
-                    className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleLife(idx, -1);
-                    }}
-                    className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
-                  >
-                    −
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           {/* Linha 2: J3 e J4 */}
           <div className="flex flex-row flex-1">
-            {[2, 3].map((idx) => (
-              <div
-                key={idx}
-                className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                  PLAYER_COLORS[playerColors[idx]]
-                } border-4 border-white/30`}
-                onClick={() => handleColorCycle(idx)}
-                style={{ minWidth: 0, minHeight: 0 }}
-              >
-                <span className="text-lg font-bold mb-2 select-none">
-                  Player {idx + 1}
-                </span>
-                <div className="text-5xl font-extrabold mb-2 select-none">
-                  {lifes[idx]}
+            {[2, 3].map((idx) => {
+              const color = PLAYER_COLORS[playerColors[idx]];
+              const isHex = color.startsWith('#');
+              return (
+                <div
+                  key={idx}
+                  className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!isHex ? color : ''}`}
+                  style={{ minWidth: 0, minHeight: 0, ...(isHex ? { backgroundColor: color } : {}) }}
+                  onClick={() => handleColorCycle(idx)}
+                >
+                  <span className="text-lg font-bold mb-2 select-none">
+                    Player {idx + 1}
+                  </span>
+                  <div className="text-5xl font-extrabold mb-2 select-none">
+                    {lifes[idx]}
+                  </div>
+                  <div className="flex gap-4">
+                    <button
+                      onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
+                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                    >
+                      +
+                    </button>
+                    <button
+                      onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
+                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                    >
+                      −
+                    </button>
+                  </div>
                 </div>
-                <div className="flex gap-4">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleLife(idx, 1);
-                    }}
-                    className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
-                  >
-                    +
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleLife(idx, -1);
-                    }}
-                    className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
-                  >
-                    −
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           {/* Linha 3: J5 ocupa toda a largura */}
           <div className="flex flex-row flex-1">
             <div
-              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
+              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${
                 PLAYER_COLORS[playerColors[4]]
-              } border-4 border-white/30`}
+              }`}
+              style={{ minWidth: 0, minHeight: 0, backgroundColor: PLAYER_COLORS[playerColors[4]] }}
               onClick={() => handleColorCycle(4)}
-              style={{ minWidth: 0, minHeight: 0 }}
             >
               <span className="text-lg font-bold mb-2 select-none">
                 Player 5
@@ -430,19 +431,13 @@ export default function LifeCounter() {
               </div>
               <div className="flex gap-4">
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleLife(4, 1);
-                  }}
+                  onClick={e => { e.stopPropagation(); handleLife(4, 1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
                 >
                   +
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleLife(4, -1);
-                  }}
+                  onClick={e => { e.stopPropagation(); handleLife(4, -1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
                 >
                   −
@@ -521,16 +516,20 @@ function PentagonLifeCounterSVG({
           zIndex: 1,
         }}
       >
-        {Array.from({ length: 5 }).map((_, idx) => (
-          <path
-            key={idx}
-            d={sectorPath(idx)}
-            fill={getTailwindColor(playerColors[idx])}
-            style={{ cursor: "pointer" }}
-            onClick={() => handleColorCycle(idx)}
-            pointerEvents="auto"
-          />
-        ))}
+        {Array.from({ length: 5 }).map((_, idx) => {
+          const color = PLAYER_COLORS[playerColors[idx]];
+          const isHex = color.startsWith('#');
+          return (
+            <path
+              key={idx}
+              d={sectorPath(idx)}
+              fill={getTailwindColor(playerColors[idx])}
+              style={{ cursor: "pointer" }}
+              onClick={() => handleColorCycle(idx)}
+              pointerEvents="auto"
+            />
+          );
+        })}
       </svg>
       {Array.from({ length: 5 }).map((_, idx) => {
         const [x, y] = contentPos(idx);
@@ -555,19 +554,13 @@ function PentagonLifeCounterSVG({
               </div>
               <div className="flex gap-4">
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleLife(idx, 1);
-                  }}
+                  onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
                 >
                   +
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleLife(idx, -1);
-                  }}
+                  onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
                   className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
                 >
                   −
@@ -585,13 +578,11 @@ function PentagonLifeCounterSVG({
 function getTailwindColor(idx) {
   // Cores aproximadas do Tailwind para SVG
   const colors = [
-    "#dc2626", // bg-red-600
-    "#2563eb", // bg-blue-600
-    "#16a34a", // bg-green-600
-    "#eab308", // bg-yellow-500
-    "#7c3aed", // bg-purple-700
-    "#db2777", // bg-pink-600
-    "#374151", // bg-gray-700
+    "#faf8f7", // white
+    "#bfddf3", // babyblue
+    "#d0f0c0", // green forest
+    "#fa7f72", // red salmon
+    "#a9a9a9", // black gray
   ];
   return colors[idx % colors.length];
 }
