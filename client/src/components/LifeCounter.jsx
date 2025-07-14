@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 const PLAYER_COLORS = [
-  "#faf8f7", // white
+  "#fefbd6", // white mana
   "#bfddf3", // babyblue
   "#d0f0c0", // green forest
   "#fa7f72", // red salmon
@@ -152,22 +152,22 @@ export default function LifeCounter() {
                 style={isHex ? { backgroundColor: color } : undefined}
                 onClick={() => handleColorCycle(idx)}
               >
-                <span className="text-lg text-gray-600 font-bold mb-2 select-none">
+                <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                   Player {idx + 1}
                 </span>
-                <div className="text-6xl text-gray-700 font-extrabold mb-4 select-none">
+                <div className="text-6xl text-gray-800 font-extrabold mb-4 select-none">
                   {lifes[idx]}
                 </div>
                 <div className="flex gap-6">
                   <button
                     onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
-                    className="bg-white/20 hover:bg-white/40 text-gray-600 px-5 py-2 rounded text-3xl font-bold"
+                    className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                   >
                     +
                   </button>
                   <button
                     onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
-                    className="bg-white/20 hover:bg-white/40 text-gray-600 px-5 py-2 rounded text-3xl font-bold"
+                    className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                   >
                     −
                   </button>
@@ -181,9 +181,7 @@ export default function LifeCounter() {
         <div className="w-screen h-screen min-h-screen flex flex-row p-0">
           {/* Jogador 1: metade esquerda */}
           <div
-            className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-              PLAYER_COLORS[playerColors[0]]
-            } border-4 border-white/30`}
+            className={`flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!PLAYER_COLORS[playerColors[0]].startsWith('#') ? PLAYER_COLORS[playerColors[0]] : ''}`}
             onClick={() => handleColorCycle(0)}
             style={{
               width: "50%",
@@ -193,22 +191,23 @@ export default function LifeCounter() {
               boxSizing: "border-box",
               margin: 0,
               padding: 0,
+              ...(PLAYER_COLORS[playerColors[0]].startsWith('#') ? { backgroundColor: PLAYER_COLORS[playerColors[0]] } : {})
             }}
           >
-            <span className="text-lg font-bold mb-2 select-none">Player 1</span>
-            <div className="text-6xl font-extrabold mb-4 select-none">
+            <span className="text-lg text-gray-800 font-bold mb-2 select-none">Player 1</span>
+            <div className="text-6xl text-gray-800 font-extrabold mb-4 select-none">
               {lifes[0]}
             </div>
             <div className="flex gap-6">
               <button
                 onClick={e => { e.stopPropagation(); handleLife(0, 1); }}
-                className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
               >
                 +
               </button>
               <button
                 onClick={e => { e.stopPropagation(); handleLife(0, -1); }}
-                className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
               >
                 −
               </button>
@@ -218,9 +217,7 @@ export default function LifeCounter() {
           <div className="flex flex-col flex-1 h-full">
             {/* Jogador 2 */}
             <div
-              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                PLAYER_COLORS[playerColors[1]]
-              } border-4 border-white/30`}
+              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!PLAYER_COLORS[playerColors[1]].startsWith('#') ? PLAYER_COLORS[playerColors[1]] : ''}`}
               onClick={() => handleColorCycle(1)}
               style={{
                 minWidth: 0,
@@ -230,24 +227,25 @@ export default function LifeCounter() {
                 boxSizing: "border-box",
                 margin: 0,
                 padding: 0,
+                ...(PLAYER_COLORS[playerColors[1]].startsWith('#') ? { backgroundColor: PLAYER_COLORS[playerColors[1]] } : {})
               }}
             >
-              <span className="text-lg font-bold mb-2 select-none">
+              <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                 Player 2
               </span>
-              <div className="text-6xl font-extrabold mb-4 select-none">
+              <div className="text-6xl text-gray-800 font-extrabold mb-4 select-none">
                 {lifes[1]}
               </div>
               <div className="flex gap-6">
                 <button
                   onClick={e => { e.stopPropagation(); handleLife(1, 1); }}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                  className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                 >
                   +
                 </button>
                 <button
                   onClick={e => { e.stopPropagation(); handleLife(1, -1); }}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                  className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                 >
                   −
                 </button>
@@ -255,9 +253,7 @@ export default function LifeCounter() {
             </div>
             {/* Jogador 3 */}
             <div
-              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
-                PLAYER_COLORS[playerColors[2]]
-              } border-4 border-white/30`}
+              className={`flex-1 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 border-4 border-white/30 ${!PLAYER_COLORS[playerColors[2]].startsWith('#') ? PLAYER_COLORS[playerColors[2]] : ''}`}
               onClick={() => handleColorCycle(2)}
               style={{
                 minWidth: 0,
@@ -267,24 +263,25 @@ export default function LifeCounter() {
                 boxSizing: "border-box",
                 margin: 0,
                 padding: 0,
+                ...(PLAYER_COLORS[playerColors[2]].startsWith('#') ? { backgroundColor: PLAYER_COLORS[playerColors[2]] } : {})
               }}
             >
-              <span className="text-lg font-bold mb-2 select-none">
+              <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                 Player 3
               </span>
-              <div className="text-6xl font-extrabold mb-4 select-none">
+              <div className="text-6xl text-gray-800 font-extrabold mb-4 select-none">
                 {lifes[2]}
               </div>
               <div className="flex gap-6">
                 <button
                   onClick={e => { e.stopPropagation(); handleLife(2, 1); }}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                  className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                 >
                   +
                 </button>
                 <button
                   onClick={e => { e.stopPropagation(); handleLife(2, -1); }}
-                  className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                  className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                 >
                   −
                 </button>
@@ -315,22 +312,22 @@ export default function LifeCounter() {
                 }}
                 onClick={() => handleColorCycle(idx)}
               >
-                <span className="text-lg font-bold mb-2 select-none">
+                <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                   Player {idx + 1}
                 </span>
-                <div className="text-6xl font-extrabold mb-4 select-none">
+                <div className="text-6xl text-gray-800 font-extrabold mb-4 select-none">
                   {lifes[idx]}
                 </div>
                 <div className="flex gap-6">
                   <button
                     onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
-                    className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                    className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                   >
                     +
                   </button>
                   <button
                     onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
-                    className="bg-white/20 hover:bg-white/40 text-white px-5 py-2 rounded text-3xl font-bold"
+                    className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-5 py-2 rounded text-3xl font-bold"
                   >
                     −
                   </button>
@@ -354,22 +351,22 @@ export default function LifeCounter() {
                   style={{ minWidth: 0, minHeight: 0, ...(isHex ? { backgroundColor: color } : {}) }}
                   onClick={() => handleColorCycle(idx)}
                 >
-                  <span className="text-lg font-bold mb-2 select-none">
+                  <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                     Player {idx + 1}
                   </span>
-                  <div className="text-5xl font-extrabold mb-2 select-none">
+                  <div className="text-5xl text-gray-800 font-extrabold mb-2 select-none">
                     {lifes[idx]}
                   </div>
                   <div className="flex gap-4">
                     <button
                       onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
-                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                      className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-3 py-1 rounded text-2xl font-bold"
                     >
                       +
                     </button>
                     <button
                       onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
-                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                      className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-3 py-1 rounded text-2xl font-bold"
                     >
                       −
                     </button>
@@ -390,22 +387,22 @@ export default function LifeCounter() {
                   style={{ minWidth: 0, minHeight: 0, ...(isHex ? { backgroundColor: color } : {}) }}
                   onClick={() => handleColorCycle(idx)}
                 >
-                  <span className="text-lg font-bold mb-2 select-none">
+                  <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                     Player {idx + 1}
                   </span>
-                  <div className="text-5xl font-extrabold mb-2 select-none">
+                  <div className="text-5xl text-gray-800 font-extrabold mb-2 select-none">
                     {lifes[idx]}
                   </div>
                   <div className="flex gap-4">
                     <button
                       onClick={e => { e.stopPropagation(); handleLife(idx, 1); }}
-                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                      className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-3 py-1 rounded text-2xl font-bold"
                     >
                       +
                     </button>
                     <button
                       onClick={e => { e.stopPropagation(); handleLife(idx, -1); }}
-                      className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                      className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-3 py-1 rounded text-2xl font-bold"
                     >
                       −
                     </button>
@@ -423,22 +420,22 @@ export default function LifeCounter() {
               style={{ minWidth: 0, minHeight: 0, backgroundColor: PLAYER_COLORS[playerColors[4]] }}
               onClick={() => handleColorCycle(4)}
             >
-              <span className="text-lg font-bold mb-2 select-none">
+              <span className="text-lg text-gray-800 font-bold mb-2 select-none">
                 Player 5
               </span>
-              <div className="text-5xl font-extrabold mb-2 select-none">
+              <div className="text-5xl text-gray-800 font-extrabold mb-2 select-none">
                 {lifes[4]}
               </div>
               <div className="flex gap-4">
                 <button
                   onClick={e => { e.stopPropagation(); handleLife(4, 1); }}
-                  className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                  className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-3 py-1 rounded text-2xl font-bold"
                 >
                   +
                 </button>
                 <button
                   onClick={e => { e.stopPropagation(); handleLife(4, -1); }}
-                  className="bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-2xl font-bold"
+                  className="bg-gray-700/70 hover:bg-gray-700/90 text-gray-800 px-3 py-1 rounded text-2xl font-bold"
                 >
                   −
                 </button>
