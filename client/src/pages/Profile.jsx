@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import NavBarAndSearch from "../components/NavBarAndSearch";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { useRef } from 'react';
 
 
 // Componente de perfil do usuário, que exibe informações do usuário e permite navegar para outras páginas
@@ -22,6 +23,10 @@ function Profile() {
   const [loadingDecks, setLoadingDecks] = useState(true);
   const allCards = decks.flatMap(deck => deck.cards || []);
   const totalCards = allCards.length;
+  const fileInputRef = useRef();
+  const [profileImg, setProfileImg] = useState(() => {
+    return localStorage.getItem('profilePhoto') || profilePhoto;
+  });
 
   const handleCreateDeck = () => {
     navigate(`/create-deck?user=${username}`); // Navega para a página de criação de deck com o username como parâmetro
@@ -30,7 +35,7 @@ function Profile() {
   // Exemplo de dados rápidos (mock)
   const quickStats = [
     { label: "Decks", value: decks.length },
-    { label: "Shared Decks", value: 0 }, // Adicionar depois essa funcionalidade
+    { label: "Shared Decks, coming soon", value: 0,}, // Adicionar depois essa funcionalidade
     { label: "Cards", value: totalCards },
   ];
 
@@ -41,9 +46,21 @@ function Profile() {
     { text: "Tutorials", link: "/Tutorials/" },
   ];
 
-  // Handler para alterar imagem (mock)
   const handleChangePhoto = () => {
-    alert("Funcionalidade de alterar foto em breve!");
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setProfileImg(ev.target.result);
+        localStorage.setItem('profilePhoto', ev.target.result);
+        window.dispatchEvent(new Event('profilePhotoChanged'));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   // Buscar decks do usuário
@@ -97,7 +114,7 @@ function Profile() {
           <div className="relative">
             <div className="w-40 h-40 rounded-full p-[2px] bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500 glow-gradient-image mx-auto">
               <img
-                src={profilePhoto}
+                src={profileImg}
                 alt="user-profile-photo"
                 className="rounded-full w-full h-full object-cover"
               />
@@ -109,6 +126,13 @@ function Profile() {
             >
               Edit Photo
             </button>
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              style={{ display: 'none' }}
+              onChange={handleFileChange}
+            />
           </div>
           <h2
             className="mt-8 text-3xl font-extrabold tracking-tight font-magic text-center select-text bg-clip-text text-transparent animate-gradient-bg bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500"

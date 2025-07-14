@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import mtg_logo_monocolor from "../images/mtg_logo_monocolor.svg";
 import { FaUserCircle, FaSignOutAlt, FaChartBar, FaLayerGroup, FaQuestionCircle, FaBars, FaRegClone } from "react-icons/fa";
+import profilePhoto from "../images/profile_photo.jpg";
 
 export default function NavBarHome() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,6 +11,19 @@ export default function NavBarHome() {
   const isLoggedIn = !!localStorage.getItem('token');
   const username = localStorage.getItem('username');
   const hasValidUser = isLoggedIn && username && username !== "null" && username !== "undefined";
+  const [avatar, setAvatar] = useState(() => localStorage.getItem('profilePhoto') || profilePhoto);
+
+  useEffect(() => {
+    function updateAvatar() {
+      setAvatar(localStorage.getItem('profilePhoto') || profilePhoto);
+    }
+    window.addEventListener('storage', updateAvatar);
+    window.addEventListener('profilePhotoChanged', updateAvatar);
+    return () => {
+      window.removeEventListener('storage', updateAvatar);
+      window.removeEventListener('profilePhotoChanged', updateAvatar);
+    };
+  }, []);
 
   const menuItems = [
     { label: "Cards", icon: <FaRegClone />, path: `/userCards/${username}`},
@@ -91,7 +105,9 @@ export default function NavBarHome() {
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/80 hover:bg-white hover:text-black text-red-200 font-semibold shadow transition-all duration-200 focus:outline-none border border-red-900 focus:bg-white focus:text-black"
                 onClick={() => setUserDropdown((v) => !v)}
               >
-                <FaUserCircle className="text-2xl text-red-400" />
+                <span className="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 via-yellow-400 to-orange-500 p-[2px] flex items-center justify-center">
+                  <img src={avatar} alt="profile" className="rounded-full w-full h-full object-cover" />
+                </span>
                 <span className="hidden sm:inline">{username}</span>
               </button>
               {/* Dropdown */}
@@ -122,7 +138,7 @@ export default function NavBarHome() {
                     className="w-full flex items-center gap-2 px-4 py-3 text-red-200 hover:bg-white hover:text-black transition-colors duration-200 font-semibold"
                     onClick={() => navigate("#")}
                   >
-                    <FaQuestionCircle /> Help
+                    <FaQuestionCircle /> Settings
                   </button>
                   
                   <button
