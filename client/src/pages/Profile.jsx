@@ -40,7 +40,7 @@ function Profile() {
   ];
 
   const menuItems = [
-    { text: "Statistics", link: "/statsPage/" },
+    { text: "Statistics", link: `/statsPage/${username}` },
     { text: "My Cards", link: `/userCards/${username}` },
     { text: "Create New Deck", link: "#", onClick: () => handleCreateDeck() },
     { text: "Tutorials", link: "/Tutorials/" },

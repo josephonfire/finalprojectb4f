@@ -1,14 +1,14 @@
 //tenho que criar uma pagina que mostre 3 graficos: 
 //cor mais usada
 //carta mais usada
-//tipo mais usado
+//top 5 cartas mais usadas
 
 //ao clicar em botoes muda o gráfico
 
 //os gráficos serão feitos com informação da conta do usuário
-import '../index.css';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBarAndSearch from "../components/NavBarAndSearch";
+import { useParams} from "react-router-dom";
 import {
     BarChart,
     Bar,
@@ -20,72 +20,79 @@ import {
     Cell,
 } from 'recharts';
 
+
 function StatsPage() {
-    const [activeIndex, setActiveIndex] = useState(null); // índice do botão ativo
+    const [activeIndex, setActiveIndex] = useState(null);
+    const [colorData, setColorData] = useState([]);
+    const [typeData, setTypeData] = useState([]);
+    const [topCards, setTopCards] = useState([]);
+    const { username } = useParams();
+    console.log("Username recebido da URL:", username);
 
-    // Dados fictícios (devem ser substituídos por dados reais do utilizador via API)
-    const colorData = [
-        { name: 'Black', value: 12 },
-        { name: 'White', value: 8 },
-        { name: 'Red', value: 15 },
-        { name: 'Green', value: 10 },
-        { name: 'Blue', value: 6 },
-    ];
+    useEffect(() => {
+    async function fetchUserStats() {
+        try {
+            const response = await fetch(`http://localhost:3030/api/user-stats?user=${username}`);
+            const data = await response.json();
+
+            // Corrige se algum campo vier como undefined
+            setColorData(Array.isArray(data.colorData) ? data.colorData : []);
+            setTypeData(Array.isArray(data.typeData) ? data.typeData : []);
+            setTopCards(Array.isArray(data.topCards) ? data.topCards : []);
+        } catch (error) {
+            console.error("Erro ao buscar estatísticas do utilizador:", error);
+        }
+    }
+    fetchUserStats();
+}, [username]);
+
+
     const barColors = ['#1f1f1f', '#ffffe6', '#cf1919', '#16a816', '#4573ff'];
-
-
-    const typeData = [
-        { name: 'Creature', value: 20 },
-        { name: 'Sorcery', value: 7 },
-        { name: 'Enchantment', value: 5 },
-        { name: 'Instant', value: 10 },
-        { name: 'Artifact', value: 3 },
-        { name: 'Planeswalker', value: 1 },
-    ];
-
-    const topCards = [
-        { name: 'Lightning Bolt', count: 7 },
-        { name: 'Counterspell', count: 5 },
-        { name: 'Llanowar Elves', count: 4 },
-        { name: 'Serra Angel', count: 4 },
-        { name: 'Doom Blade', count: 3 },
-    ];
 
     // Lista de botões e componentes associados
     const conteudo = [
         ['Cards by Color', (
-            <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={colorData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="value" fill>
-                        {colorData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={barColors[index]} />
-                        ))}
-                    </Bar>
-                </BarChart>
-            </ResponsiveContainer>
-        )],
+            colorData.length === 0 ? (
+                <p className="text-sm text-gray-400 italic">There is no data available yet.</p>
+            ) : (
+                <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={colorData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="value" fill>
+                            {colorData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={barColors[index]} />
+                            ))}
+                        </Bar>
+                    </BarChart>
+                </ResponsiveContainer>
+            ))],
         ['Cards by Type', (
-            <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={typeData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Bar dataKey="value" fill="#990000" />
-                </BarChart>
-            </ResponsiveContainer>
-        )],
+            typeData.length === 0 ? (
+                <p className="text-sm text-gray-400 italic">There is no data available yet.</p>
+            ) : (
+                <ResponsiveContainer width="100%" height={200}>
+                    <BarChart data={typeData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="value" fill="#990000" />
+                    </BarChart>
+                </ResponsiveContainer>
+            ))],
         ['Top 5 Cards', (
-            <ul className="text-left text-white text-lg">
-                {topCards.map((card, index) => (
-                    <li key={index} className="mb-1">{card.name} — {card.count}x</li>
-                ))}
-            </ul>
-        )],
+            topCards.length === 0 ? (
+                <p className="text-sm text-gray-400 italic">There is no data available yet.</p>
+            ) : (
+                <ul className="text-left text-white text-lg">
+                    {topCards.map((card, index) => (
+                        <li key={index} className="mb-1">{card.name} — {card.count}x</li>
+                    ))}
+                </ul>
+            ))],
     ];
 
     return (
