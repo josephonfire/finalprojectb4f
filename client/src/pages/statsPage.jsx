@@ -91,7 +91,7 @@ function StatsPage() {
     return (
         <>
             <header><NavBarAndSearch /></header>
-            <div className="p-8 text-center mt-16 min-h-screen text-white">
+            <div className="p-8 text-center mt-12 min-h-screen text-white flex flex-col justify-self-center max-w-2xl">
                 <h1 className="font-bold text-3xl mb-6 text-white">Statistics</h1>
                 <p className="text-gray-300 mb-4">View statistics for your decks: colors, types, and most used cards.</p>
 
