@@ -303,6 +303,7 @@ function CreateDeck() {
               >
                 <div
                   className="h-auto bg-white/10 backdrop-blur-sm p-2 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200 flex flex-col justify-between"
+                  onClick={() => navigate(`/card/${card.id}`)}
                 >
                   <h3 className="font-bold mb-4 text-white text-center text-sm">
                     {card.name}
