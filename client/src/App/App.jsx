@@ -33,13 +33,12 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/search/:name" element={<SearchPage />} />
             <Route path="/tutorials" element={<Tutorials />} />
-            <Route path="/profile" element={<Profile />} />
-            {/* <Route path="/graphs" element={<Graphs />} /> */}
             <Route path="/profile/:username" element={<Profile />} />
-            {/* <Route path="/graficos" element={<Graphs />} /> */}
             <Route path="/create-deck" element={<CreateDeck />} />
             <Route path="/card/:cardId" element={<CardDetails />} />
-            <Route path="statsPage" element={<StatsPage />} />
+
+            <Route path="statsPage/:username" element={<StatsPage />} />
+            
             <Route path="/userCards/:username" element={<UserCards />} />
             <Route path="/lifecounter" element={<LifeCounter />} />
           </Routes>
