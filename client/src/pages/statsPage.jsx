@@ -129,7 +129,7 @@ function StatsPage() {
                     </BarChart>
                 </ResponsiveContainer>
                 {/* Legenda dos tipos */}
-                <div className="flex flex-wrap justify-center gap-3 mt-2">
+                <div className="flex flex-wrap justify-left text-xs gap-2 mt-2">
                     {typeData.map((entry, index) => (
                         <span key={entry.name} className="flex items-center gap-1 text-sm">
                             <span style={{ background: typePalette[index % typePalette.length], width: 16, height: 16, display: 'inline-block', borderRadius: 4, border: '1px solid #222' }}></span>
@@ -155,7 +155,7 @@ function StatsPage() {
         return (
             <div className="p-8 text-center mt-12 min-h-screen text-white flex flex-col justify-center items-center">
                 <h1 className="font-bold text-3xl mb-6 text-white">Statistics</h1>
-                <p className="text-red-400">Usuário não encontrado. Faça login novamente.</p>
+                <p className="text-red-400">User not found. Login again.</p>
             </div>
         );
     }
@@ -167,7 +167,7 @@ function StatsPage() {
                 <h1 className="font-bold text-3xl mb-6 text-white">Statistics</h1>
                 <p className="text-gray-300 mb-4">View statistics for your decks: colors, types, and most used cards.</p>
 
-                <div className="max-h-screen bg-gradient-to-br from-gray-950/60 to-red-950/60 text-white p-5 mt-5 border-[10px] border-black rounded-lg">
+                <div className="max-h-fit bg-gradient-to-br from-gray-950/60 to-red-950/60 text-white p-5 mt-5 border-[10px] border-black rounded-lg">
                     <div className="grid grid-cols-1 gap-4">
 
                         {/* Título da secção do gráfico */}
