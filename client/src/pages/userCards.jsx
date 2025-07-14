@@ -105,7 +105,7 @@ function UserCards() {
                   <FaTimes size={14} />
                 </button>
                 <div className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/20 cursor-pointer hover:border-red-400/50 hover:bg-white/15 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-200"
-                  onClick={() => navigate(`/card/${card._id}`)}>
+                  onClick={() => navigate(`/card/${card.id}`)}>
                   <h3 className="font-bold mb-4 text-white text-center text-sm">
                     {card.name}
                   </h3>
