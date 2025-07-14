@@ -31,7 +31,7 @@ function Tutorials() {
     return (
         <>
         <header><NavBarHome/></header>
-        <div className="p-8 text-center mt-16 min-h-screen text-white">
+        <div className="p-8 text-center mt-12 min-h-screen text-white flex flex-col justify-self-center max-w-2xl">
             <h1 className="font-bold text-3xl mb-6 text-white">Tutorials</h1>
             <p className="text-gray-300">Learn how to play the game</p>
 
@@ -41,7 +41,7 @@ function Tutorials() {
                     <div className="w-full max-h-64 overflow-y-scroll border-2 border-red-800 p-2 rounded shadow bg-gradient-to-br from-gray-950/70 to-red-950/70">
                         <h2 className="font-bold text-left">Content</h2></div>
 
-                    <div className="w-full max-h-64 overflow-y-scroll border-2 border-red-800 p-4 rounded shadow">
+                    <div className="w-full max-h-60 overflow-y-scroll border-2 border-red-800 p-4 rounded shadow">
                         <ul className="text-left pl-0 list-none">
                             {conteudo.map(([key], index) => (
                                 <li key={index} className="mb-2">
