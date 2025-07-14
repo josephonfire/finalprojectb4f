@@ -27,7 +27,7 @@ export default function NavBarAndSearch() {
   };
 
   const MtgLogo = () => (
-    <div className="flex items-center gap-2 cursor-pointer select-none m-2" onClick={() => navigate("/")}>
+    <div className="flex items-center gap-2 m-2 cursor-pointer select-none" onClick={() => navigate("/")}>
       <img
         src={mtg_logo_monocolor}
         alt="MtG Deck Builder Logo"

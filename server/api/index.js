@@ -6,6 +6,8 @@ const authRoutes = require('./routes.js');
 const dotenv = require('dotenv');
 const { newUser, findUsers, findOneUser } = require("./data/user.js");
 const { createDeck, getUserDecks, getDeckById, updateDeck, deleteDeck } = require("./data/decks.js");
+const { getCollection } = require("./data/db.js");
+const { ObjectId } = require('mongodb');
 
 const corsOptions = {
   origin: '*',
@@ -189,7 +191,13 @@ app.get('/api/decks', async (req, res) => {
 // Editar deck
 app.put('/api/decks/:id', async (req, res) => {
   try {
-    await updateDeck(req.params.id, req.body);
+    const collection = await getCollection("decks");
+    const { id } = req.params;
+    const { cards, ...rest } = req.body;
+    await collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $set: { ...rest, cards } }
+    );
     res.json({ message: "Deck atualizado com sucesso!" });
   } catch (err) {
     res.status(500).json({ error: "Erro ao atualizar deck" });
@@ -203,28 +211,6 @@ app.delete('/api/decks/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Erro ao deletar deck" });
   }
-});
-
-// Endpoint Top 3 cartas mais utilizadas (mock)
-app.get('/api/cards/top3', (req, res) => {
-  const topCards = [
-    {
-      name: 'Black Lotus',
-      image: 'https://cards.scryfall.io/normal/front/b/d/bd8fa327-dd41-4737-8f19-2cf5eb1f7cdd.jpg?1614638838',
-      usage: 120
-    },
-    {
-      name: 'Lightning Bolt',
-      image: 'https://cards.scryfall.io/large/front/7/7/77c6fa74-5543-42ac-9ead-0e890b188e99.jpg?1706239968',
-      usage: 110
-    },
-    {
-      name: 'Counterspell',
-      image: 'https://cards.scryfall.io/normal/front/4/f/4f616706-ec97-4923-bb1e-11a69fbaa1f8.jpg?1751282477',
-      usage: 100
-    }
-  ];
-  res.json(topCards);
 });
 
 // Adicionar endpoint para buscar um deck por ID
@@ -266,9 +252,62 @@ app.get('/api/user-cards', async (req, res) => {
   }
 });
 
+// Remover carta do usuário
+app.delete('/api/user-cards/:username/:cardId', async (req, res) => {
+  const { username, cardId } = req.params;
+  try {
+    const collection = await getCollection("usercards");
+    console.log("Tentando remover:", { user: username, _id: cardId });
+    await collection.deleteOne({ user: username, _id: new ObjectId(cardId) });
+    res.json({ message: "Card removed" });
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao remover carta" });
+  }
+});
 
+// Adicionar carta individual ao usercards
+app.post('/api/user-cards', async (req, res) => {
+  const { user, ...cardData } = req.body;
+  if (!user) {
+    return res.status(400).json({ error: 'Usuário não informado' });
+  }
+  try {
+    const collection = await getCollection("usercards");
+    const result = await collection.insertOne({ user, ...cardData });
+    res.status(201).json({ message: "Carta salva!", _id: result.insertedId });
+  } catch (err) {
+    res.status(500).json({ error: "Erro ao salvar carta" });
+  }
+});
 
-
+// Endpoint temporário para migrar cartas dos decks para usercards
+app.post('/api/migrate-usercards', async (req, res) => {
+  const { user } = req.body;
+  if (!user) {
+    return res.status(400).json({ error: 'Usuário não informado' });
+  }
+  try {
+    const decksCollection = await getCollection("decks");
+    const usercardsCollection = await getCollection("usercards");
+    const decks = await decksCollection.find({ user }).toArray();
+    let count = 0;
+    for (const deck of decks) {
+      if (Array.isArray(deck.cards)) {
+        for (const carta of deck.cards) {
+          // Evita duplicatas: verifica se já existe carta igual para o usuário
+          const exists = await usercardsCollection.findOne({ user, name: carta.name });
+          if (!exists) {
+            await usercardsCollection.insertOne({ user, ...carta });
+            count++;
+          }
+        }
+      }
+    }
+    res.json({ message: `Migração concluída! ${count} cartas migradas para usercards.` });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao migrar cartas' });
+  }
+});
 
 
 app.listen(3030, () => {

@@ -74,7 +74,7 @@ function DeckSidebar({ deckCards, onRemove, onSave, onClear, deckName, setDeckNa
                 </div>
                 <button
                   onClick={() => onRemove(card.id)}
-                  className="absolute top-1 right-1 bg-red-700 text-xs px-2 py-0.5 rounded opacity-80 group-hover:opacity-100 transition border border-white/20"
+                  className="absolute top-1 right-1 bg-red-700 text-xs px-2 py-0.5 rounded-2xl opacity-80 group-hover:opacity-100 transition border border-white/20"
                   title="Remove card"
                 >
                   ×
